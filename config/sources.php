@@ -6,7 +6,6 @@ return [
 		'icon' => 'images/icons/twitter.png',
 		'tracks' => [
 			'keyword' => [ 'required', 'regex:/^[A-z0-9 ]{3,24}$/i' ],
-			'profile' => [ 'required', 'regex:/^https\:\/\/twitter\.com\/[a-zA-Z0-9_]{3,15}\/?$/i', 'active_url' ],
 		],
 		'gains' => 'At the end of this job you store "Public Tweets"',
 	],
@@ -31,7 +30,6 @@ return [
 		'icon' => 'images/icons/youtube.png',
 		'tracks' => [
 			'keyword' => [ 'required', 'regex:/^[a-zA-Z0-9 ]{3,24}$/i' ],
-			'channel' => [ 'required', 'regex:/^https?\:\/\/www\.youtube\.com\/(channel|user|c)\/(.*?)(\/|$)/i' ],
 		],
 		'gains' => 'At the end of this job you store "Public YouTube Video Text Contents and Public Video Comments"'
 	]

@@ -26,8 +26,6 @@ class CheckElasticsearch extends Command
      */
     protected $description = 'Check elasticsearch server health';
 
-    protected $roots;
-
     /**
      * Create a new command instance.
      *
@@ -35,8 +33,6 @@ class CheckElasticsearch extends Command
      */
     public function __construct()
     {
-        $this->roots = User::where('is_root', true)->get();
-
         parent::__construct();
     }
 
@@ -100,7 +96,9 @@ class CheckElasticsearch extends Command
      */
     private function notification(string $message)
     {
-        Notification::send($this->roots, (new ServerAlert($message))->onQueue('notifications'));
+        $roots = User::where('is_root', true)->get();
+
+        Notification::send($roots, (new ServerAlert($message))->onQueue('notifications'));
 
         return $message;
     }

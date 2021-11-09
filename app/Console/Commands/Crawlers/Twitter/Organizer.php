@@ -19,7 +19,7 @@ class Organizer extends Command
      *
      * @var string
      */
-    protected $signature = 'crawler:twitter:organizer';
+    protected $signature = 'twitter:organizer';
 
     /**
      * The console command description.
@@ -28,8 +28,7 @@ class Organizer extends Command
      */
     protected $description = 'Twitter keyword and follow organizer.';
 
-    protected $keyword_chunk;
-    protected $follow_chunk;
+    protected $chunk_count = 50;
 
     /**
      * Create a new command instance.
@@ -38,9 +37,6 @@ class Organizer extends Command
      */
     public function __construct()
     {
-        $this->keyword_chunk = 100;
-        $this->profile_chunk = 2000;
-
         parent::__construct();
     }
 
@@ -51,128 +47,9 @@ class Organizer extends Command
      */
     public function handle()
     {
-        $data = [];
-
-        /**
-         * Keywords
-         */
-        foreach ($this->getTracks('keyword') as $items)
-        {
-            $items = implode(',', $items);
-            $data[] = [
-                'tmp_key' => md5($items),
-                'value' => $items,
-                'type' => 'keyword',
-            ];
-        }
-
-        /**
-         * Profile
-         */
-        foreach ($this->getTracks('profile') as $items)
-        {
-            $items = implode(',', $items);
-            $data[] = [
-                'tmp_key' => md5($items),
-                'value' => $items,
-                'type' => 'follow',
-            ];
-        }
-
-        $tokens = TwitterToken::whereNotIn('status', [ 'error' ])->get();
-
-        $i = 0;
-        $ids = [];
-
-        foreach ($tokens as $token)
-        {
-            $this->line('----------------------');
-
-            if ($__ = @$data[$i])
-            {
-                $ids[] = $token->id;
-
-                $this->line("-- $token->screen_name ($token->device)");
-                $this->line('-- '.$__['value']);
-
-                if ($token->tmp_key == $__['tmp_key'] && $token->status == 'working')
-                {
-                    if ($token->updated_at >= (new DT)->nowAt('-5 minutes'))
-                    {
-                        $token->update(
-                            [
-                                'status' => 'run'
-                            ]
-                        );
-
-                        $this->info('-- The working token has not been transacted for a long time.');
-                    }
-                    else
-                        $this->info('-- Token is working');
-                }
-                else
-                {
-                    $token->update(
-                        [
-                            'status' => 'restart',
-                            'tmp_key' => $__['tmp_key'],
-                            'value' => $__['value'],
-                            'type' => $__['type'],
-                            'error_hit' => 0
-                        ]
-                    );
-
-                    $this->info('-- Token updated');
-                }
-            }
-            else
-            {
-                $this->info('-- All follow-ups have been compiled.');
-                $this->line('----------------------');
-
-                $break = true;
-                break;
-            }
-
-            $i++;
-
-            $this->line('----------------------');
-        }
-
-        if (@$break)
-        {
-            $this->info('Break!');
-        }
-        else
-        {
-            $this->error('Not enough tokens for tracking!');
-
-            Notification::send(
-                User::where('is_root', true)->get(),
-                (new ServerAlert('Twitter tokens are not enough. Please connect a new account to the system.'))->onQueue('notifications')
-            );
-        }
-
-        TwitterToken::where('status', '<>', 'error')
-            ->whereNotIn('id', $ids)->update(
-            [
-                'pid' => null,
-                'status' => 'close',
-                'type' => null,
-                'tmp_key' => null,
-                'value' => null,
-                'error_hit' => 0,
-                'error_reason' => null,
-            ]
-        );
-    }
-
-    private function getTracks(string $type)
-    {
         $query = Track::whereHas('user', function($q) {
                 $q->whereDate('users.subscription_end_date', '>=', (new DT)->nowAt());
             })
-            ->where('type', $type)
             ->whereNull('error_reason')
             ->where(function($query) {
                 $query->orWhere('valid', true);
@@ -183,24 +60,79 @@ class Organizer extends Command
 
         $query->update([ 'valid' => true ]);
 
-        $chunk = $query->pluck('value')
-            ->chunk($this->{$type.'_chunk'})
-            ->toArray();
-        $chunk = array_values($chunk);
-        $chunk = array_map(function($item) {
-            return str_replace(
-                [
-                    'https',
-                    'http',
-                    ':',
-                    '/',
-                    'twitter.com'
-                ],
-                '',
-                $item
-            );
-        }, $chunk);
+        $chunks = array_values($query->pluck('value')->unique()->chunk($this->chunk_count)->toArray());
 
-        return $chunk;
+        $tokens = TwitterToken::orderBy('id', 'desc')->get()->toArray();
+
+        $total_chunk = count($chunks);
+        $total_token = count($tokens);
+
+        $this->info($total_chunk.' chunk detected.');
+        $this->info($total_token.' token detected.');
+
+        $needed_token = $total_chunk - $total_token;
+
+        if ($needed_token > 0)
+        {
+            echo PHP_EOL;
+            $this->error("Need $needed_token Twitter token.");
+            echo PHP_EOL;
+        }
+
+        $ids = [];
+
+        foreach ($chunks as $key => $chunk)
+        {
+            echo PHP_EOL;
+
+            $value = implode(',', $chunk);
+            $tmp_key = md5($value);
+
+            $this->info($tmp_key);
+            $this->info("Values: $value");
+
+            if ($token = @$tokens[$key])
+            {
+                $ids[] = $token['id'];
+
+                $this->line('----');
+                $this->info('Assigned Token: '.$token['screen_name'].' ('.$token['device'].')');
+
+                if ($token['tmp_key'] == $tmp_key)
+                    $this->info('Token stable');
+                else
+                {
+                    $this->line('----');
+
+                    $this->line('Old Value: '.$token['value']);
+                    $this->info('New Value: '.$value);
+
+                    $this->line('----');
+
+                    TwitterToken::find($token['id'])
+                        ->update(
+                            [
+                                'value' => $value,
+                                'tmp_key' => $tmp_key,
+                                'status' => 'restart'
+                            ]
+                        );
+
+                    $this->info('Token updated');
+                }
+            }
+            else
+                $this->error('Token not found');
+
+            echo PHP_EOL;
+        }
+
+        TwitterToken::whereNotIn('status', [ 'error', 'kill', 'close' ])
+            ->whereNotIn('id', $ids)
+            ->update(
+                [
+                    'status' => 'kill',
+                ]
+            );
     }
 }

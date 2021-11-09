@@ -27,8 +27,6 @@ class CreateTwitterTokensTable extends Migration
             $table->string('access_token');
             $table->string('access_token_secret');
 
-            $table->enum('type', [ 'keyword', 'follow' ])->nullable()->default(null);
-
             $table->string('tmp_key')->nullable()->default(null);
             $table->longText('value')->nullable()->default(null);
 

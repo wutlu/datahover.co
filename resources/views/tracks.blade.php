@@ -129,30 +129,20 @@
     </div>
 @endpush
 
+@push('css')
+    .source-selectors > .btn {
+        border-width: 0 0 2px 0;
+    }
+    .source-selectors > .btn:hover {
+        border-color: #6c757d;
+    }
+    .source-selectors > .btn-check:checked + .btn,
+    source-selectors > .btn-check:active + .btn {
+        border-color: #6c757d;
+    }
+@endpush
+
 @section('content')
-    <div class="card rounded-0 mb-4 shadow-sm p-1">
-        <div class="d-flex justify-content-start btn-group"> 
-            @foreach (config('sources') as $key => $item)
-                <input
-                    type="checkbox"
-                    checked
-                    class="btn-check"
-                    name="sources"
-                    data-alias="source"
-                    data-multiple="true"
-                    data-blockui="#masterCard"
-                    data-reset="true"
-                    data-action="true"
-                    data-action-target="#items"
-                    id="{{ $key }}"
-                    value="{{ $key }}">
-                <label class="btn btn-outline-secondary border-0 rounded-0 mx-0 d-flex flex-column flex-md-row align-items-center justify-content-center gap-0 gap-md-2 py-2" for="{{ $key }}">
-                    <img alt="{{ $key }}" src="{{ asset($item['icon']) }}" class="w-24px h-24px" />
-                    <small>{{ $item['name'] }}</small>
-                </label>
-            @endforeach
-        </div>
-    </div>
     <div class="card rounded-0 shadow-sm" id="masterCard">
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
@@ -194,6 +184,27 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-start btn-group source-selectors gap-1"> 
+            @foreach (config('sources') as $key => $item)
+                <input
+                    type="checkbox"
+                    checked
+                    class="btn-check"
+                    name="sources"
+                    data-alias="source"
+                    data-multiple="true"
+                    data-blockui="#masterCard"
+                    data-reset="true"
+                    data-action="true"
+                    data-action-target="#items"
+                    id="{{ $key }}"
+                    value="{{ $key }}">
+                <label class="btn rounded-0 mx-0 d-flex flex-column flex-md-row align-items-center justify-content-center gap-0 gap-md-2 py-2" for="{{ $key }}">
+                    <img alt="{{ $key }}" src="{{ asset($item['icon']) }}" class="w-24px h-24px" />
+                    <small>{{ $item['name'] }}</small>
+                </label>
+            @endforeach
+        </div>
         <div
             id="items"
             class="list-group list-group-flush load border-0"
@@ -221,11 +232,11 @@
                             data-col="id" />
                     </div>
                     <div class="d-flex flex-column">
-                        <span class="d-flex gap-1">
+                        <small class="d-flex gap-1">
                             <span data-col="source" class="fw-bold"></span>
                             <span data-col="type" class="text-muted"></span>
-                        </span>
-                        <small data-col="value"></small>
+                        </small>
+                        <span data-col="value"></span>
                     </div>
                     <div class="ms-auto">
                         <small class="text-end d-block" data-name="valid"></small>

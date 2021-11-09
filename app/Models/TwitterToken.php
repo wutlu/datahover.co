@@ -8,7 +8,6 @@ class TwitterToken extends Model
 {
     protected $table = 'twitter_tokens';
     protected $fillable = [
-        'pid',
         'status',
         'screen_name',
         'password',
@@ -17,7 +16,6 @@ class TwitterToken extends Model
         'consumer_secret',
         'access_token',
         'access_token_secret',
-        'type',
         'tmp_key',
         'value',
         'error_hit',

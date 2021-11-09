@@ -24,29 +24,46 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        # Proxy Check
         $schedule->command('proxy6:check')
                 ->dailyAt('00:00')
                 ->timezone(config('app.timezone'))
                 ->withoutOverlapping()
                 ->runInBackground();
 
+        # Proxy Test
         $schedule->command('proxy:test')
                  ->everyMinute()
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();
 
+        # Elasticsearch Check
         $schedule->command('elasticsearch:check')
                  ->everyTenMinutes()
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();
 
-        $schedule->command('crawler:twitter:organizer')
+        # Twitter Organizer
+        $schedule->command('twitter:organizer')
                  ->everyTenMinutes()
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();
+
+        # Twitter Trigger
+        $schedule->command('twitter:trigger')
+                 ->everyMinutes()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground();
+
+        # Etsetra/Elasticsearch/Console/BulkApi
+        $schedule->command('elasticsearch:bulk:insert')
+                 ->everyMinute()
+                 ->runInBackground()
+                 ->withoutOverlapping();
     }
 
     /**

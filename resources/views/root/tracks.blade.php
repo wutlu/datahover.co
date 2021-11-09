@@ -158,11 +158,11 @@
                             data-col="id" />
                     </div>
                     <div class="d-flex flex-column">
-                        <span class="d-flex gap-1">
+                        <small class="d-flex gap-1">
                             <span data-col="source" class="fw-bold"></span>
                             <span data-col="type" class="text-muted"></span>
-                        </span>
-                        <small data-col="value"></small>
+                        </small>
+                        <span data-col="value"></span>
                         <small data-name="user"></small>
                     </div>
                     <div class="ms-auto">
