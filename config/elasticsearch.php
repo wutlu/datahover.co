@@ -28,7 +28,7 @@ return [
                 ]
             ],
             'analyzer' => [
-                'default' => [
+                'custom' => [
                     'tokenizer' => 'standard',
                     'filter' => [
                         'lowercase',

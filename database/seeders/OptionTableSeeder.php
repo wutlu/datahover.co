@@ -25,6 +25,7 @@ class OptionTableSeeder extends Seeder
             'proxy.current_balance' => 0,
 
             'twitter.status' => 'off',
+            'news.status' => 'off',
         ];
 
         foreach ($options as $key => $value)

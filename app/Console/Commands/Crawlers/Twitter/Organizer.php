@@ -50,12 +50,12 @@ class Organizer extends Command
         $query = Track::whereHas('user', function($q) {
                 $q->whereDate('users.subscription_end_date', '>=', (new DT)->nowAt());
             })
-            ->whereNull('error_reason')
             ->where(function($query) {
                 $query->orWhere('valid', true);
                 $query->orWhereNull('valid');
             })
             ->where('source', 'twitter')
+            ->where('type', 'keyword')
             ->orderBy('id', 'asc');
 
         $query->update([ 'valid' => true ]);
@@ -76,6 +76,11 @@ class Organizer extends Command
         {
             echo PHP_EOL;
             $this->error("Need $needed_token Twitter token.");
+
+            Notification::send(
+                User::where('is_root', true)->get(),
+                (new ServerAlert("Need $needed_token Twitter token."))->onQueue('notifications')
+            );
             echo PHP_EOL;
         }
 

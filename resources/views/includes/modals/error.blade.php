@@ -8,7 +8,7 @@
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-header border-0">
 				<h5 class="modal-title"></h5>
-				<button type="button" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+				<a href="#" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></a>
 			</div>
 			<div class="modal-body"></div>
 		</div>

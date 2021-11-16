@@ -171,16 +171,12 @@ class StreamJob implements ShouldQueue
         while (!$stream->eof())
         {
             if (false === ($byte = $stream->read(1)))
-            {
                 return $buffer;
-            }
 
             $buffer .= $byte;
 
             if (++$size == null || substr($buffer, -strlen(PHP_EOL)) === PHP_EOL)
-            {
                 break;
-            }
         }
 
         return $buffer;

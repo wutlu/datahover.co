@@ -132,6 +132,7 @@
 @push('css')
     .source-selectors > .btn {
         border-width: 0 0 2px 0;
+        box-shadow: none !important;
     }
     .source-selectors > .btn:hover {
         border-color: #6c757d;
@@ -239,9 +240,17 @@
                         <span data-col="value"></span>
                     </div>
                     <div class="ms-auto">
-                        <small class="text-end d-block" data-name="valid"></small>
-                        <span class="text-end d-block text-muted">
+                        <span class="text-end d-flex align-items-center justify-content-end gap-1">
+                            <small data-name="valid"></small>
+                        </span>
+                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted" title="Last 24 hours">
+                            <small>0</small> data
+                        </span>
+                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted">
                             <small data-col="error_hit"></small> error
+                            <a data-bs-toggle="modal" data-bs-target="#trackErrorInfoModal" href="#" class="link-secondary">
+                                <i class="material-icons icon-xs">info</i>
+                            </a>
                         </span>
                     </div>
                 </div>
@@ -310,3 +319,7 @@
         </div>
     </div>
 @endsection
+
+@push('footer')
+    @include('includes.modals.track_error_info')
+@endpush

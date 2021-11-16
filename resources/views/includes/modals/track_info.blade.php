@@ -1,9 +1,9 @@
-<div id="trackInfoModal" class="modal" aria-hidden="true" aria-labelledby="trackInfoModalLabel" tabindex="-1">
+<div id="errorInfoModal" class="modal" aria-hidden="true" aria-labelledby="errorInfoModalLabel" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-header border-0 pb-0">
 				<h5 class="modal-title">What is track?</h5>
-				<button type="button" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></button>
+				<a href="#" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></a>
 			</div>
 			<div class="modal-body">
 				<div class="accordion" id="trackInfoAccordion">

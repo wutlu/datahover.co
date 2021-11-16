@@ -29,7 +29,7 @@
 						<small class="text-muted">Github {{ __('validation.attributes.username') }}</small>
 					</div>
 				</div>
-				<div>
+				<div class="d-flex flex-column">
 					<span class="d-block h6 mb-0" target="_blank">{{ auth()->user()->email }}</span>
 					<small class="text-muted">Github {{ __('validation.attributes.email') }}</small>
 				</div>

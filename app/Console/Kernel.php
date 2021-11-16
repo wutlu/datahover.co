@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Option;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,10 +27,10 @@ class Kernel extends ConsoleKernel
     {
         # Proxy Check
         $schedule->command('proxy6:check')
-                ->dailyAt('00:00')
-                ->timezone(config('app.timezone'))
-                ->withoutOverlapping()
-                ->runInBackground();
+                 ->dailyAt('00:00')
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground();
 
         # Proxy Test
         $schedule->command('proxy:test')
@@ -38,23 +39,29 @@ class Kernel extends ConsoleKernel
                  ->withoutOverlapping()
                  ->runInBackground();
 
-        # Elasticsearch Check
-        $schedule->command('elasticsearch:check')
-                 ->everyTenMinutes()
-                 ->timezone(config('app.timezone'))
-                 ->withoutOverlapping()
-                 ->runInBackground();
+
 
         # Twitter Organizer
         $schedule->command('twitter:organizer')
                  ->everyTenMinutes()
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
-                 ->runInBackground();
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
 
         # Twitter Trigger
         $schedule->command('twitter:trigger')
-                 ->everyMinutes()
+                 ->everyMinute()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
+
+
+
+        # Elasticsearch Check
+        $schedule->command('elasticsearch:check')
+                 ->everyTenMinutes()
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();

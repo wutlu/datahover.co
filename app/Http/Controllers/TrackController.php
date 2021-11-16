@@ -100,6 +100,27 @@ class TrackController extends Controller
             if ($request->type != 'keyword')
                 $request->value = Str::of($match[0])->finish('/');
 
+            $invalid_check = Track::where(
+                [
+                    'source' => $request->source,
+                    'type' => $request->type,
+                    'value' => $request->value,
+                ]
+            )
+            ->where('valid', false)
+            ->exists();
+
+            if ($invalid_check)
+            {
+                return [
+                    'success' => 'failed',
+                    'alert' => [
+                        'type' => 'danger',
+                        'message' => 'This track has been blocked by the admin.'
+                    ]
+                ];
+            }
+
             $q = Track::where(
                 [
                     'user_id' => $request->user->id,

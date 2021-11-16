@@ -37,6 +37,15 @@ class TrackController extends Controller
         $data->valid = $request->reason ? false : null;
         $data->save();
 
+        $similars = Track::where('type', 'keyword')
+            ->where('value', $data->value)
+            ->update(
+                [
+                    'error_reason' => $request->reason,
+                    'valid' => $request->reason ? false : null
+                ]
+            );
+
         return [
             'success' => 'ok',
             'alert' => [
