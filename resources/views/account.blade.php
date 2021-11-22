@@ -18,7 +18,7 @@
 @endpush
 
 @section('content')
-	<div class="card rounded-0 shadow-sm mb-4" id="account_card">
+	<div class="card rounded-0 shadow-sm mb-4" id="accountCard">
 		<div class="card-body">
 			<div class="card-title text-uppercase h6 fw-bold">Account</div>
 			<div class="d-flex align-items-center gap-3">

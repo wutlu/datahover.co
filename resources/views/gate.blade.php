@@ -36,9 +36,9 @@
 @section('content')
 	<div class="d-flex flex-column align-items-center justify-content-center h-100">
 		<a href="{{ route('index') }}">
-			<img class="w-64px mb-4" alt="{{ config('app.name') }}" src="{{ asset('images/icon.svg') }}" />
+			<img class="w-200px mb-4" alt="{{ config('app.name') }}" src="{{ asset('images/logo-white.svg') }}" />
 		</a>
-		<div class="mw-300px card border-0 rounded-0 shadow-sm mb-2">
+		<div class="mw-300px card border-0 rounded-0 shadow-sm mb-3">
 			<div class="card-body">
 				<div class="p-2">
 					<div class="d-flex align-items-center justify-content-center mb-4">
@@ -61,7 +61,7 @@
 							<a href="#" class="text-dark text-decoration-none">Privacy Policy</a>
 						</div>
 					@endif
-					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 fw-bold rounded-0">
+					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 fw-bold rounded-0 border border-1">
 						<img alt="GitHub" src="{{ asset('images/icons/github.png') }}" width="24" height="24" />
 						Continue with GitHub
 					</a>

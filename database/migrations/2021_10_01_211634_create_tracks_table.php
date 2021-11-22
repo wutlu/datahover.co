@@ -16,17 +16,18 @@ class CreateTracksTable extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id()->unsigned();
 
-            $table->unsignedBigInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->json('users')->default('[]');
 
             $table->string('source')->index(); // facebook.com, twitter.com, nytimes.com
             $table->string('type')->index(); // keyword, user, content, location
             $table->string('value')->index(); // profile url, keyword, content url, location
 
-            $table->unique([ 'user_id', 'source', 'type', 'value' ]);
+            $table->unique([ 'source', 'type', 'value' ]);
 
             $table->unsignedSmallInteger('error_hit')->default(0);
             $table->string('error_reason')->nullable()->default(null);
+
+            $table->unsignedInteger('total_data')->default(0);
 
             $table->unsignedBigInteger('request_hit')->default(0);
             $table->unsignedSmallInteger('request_frequency')->default(5);

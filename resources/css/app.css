@@ -1,13 +1,12 @@
 @import 'bootstrap';
-@import 'swiper/css';
 
 html, body, .btn, * {
   font-family: 'Noto Sans Display', sans-serif;
-  font-size: 98%;
 }
 
-body {
+html, body {
   background-color: #eeeded;
+  font-size: 98%;
 }
 
 a {
@@ -98,13 +97,39 @@ a {
 .h-50px { height: 50px; }
 .w-64px { width: 64px; }
 .h-64px { height: 64px; }
+.w-72px { width: 72px; }
+.h-72px { height: 72px; }
+.w-96px { width: 96px; }
+.h-96px { height: 96px; }
 .w-128px { width: 128px; }
 .h-128px { height: 128px; }
 .w-200px { width: 200px; }
 .h-200px { height: 200px; }
+.w-256px { width: 256px; }
+.h-256px { height: 256px; }
+.w-300px { width: 300px; }
+.h-300px { height: 300px; }
 
 .mw-200px { max-width: 200px; }
 .mw-300px { max-width: 300px; }
+.mw-400px { max-width: 400px; }
+.mw-768px { max-width: 768px; }
+.mw-1024px { max-width: 1024px; }
+
+.dotted-title {
+  background-image: url('../images/dotted-bg.svg');
+  background-position: center top;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.pink-bg {
+  background-image: url('../images/pink-bg.svg');
+  background-position: center;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
 
 /**
  * Hide Input Number Arrows

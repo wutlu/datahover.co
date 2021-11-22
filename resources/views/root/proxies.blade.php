@@ -1,12 +1,12 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'Proxy Settings',
+        'title' => 'Proxy Management',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Root' => route('dashboard'),
-            'Proxy Settings' => '#',
+            'Proxy Management' => '#',
         ]
     ]
 )

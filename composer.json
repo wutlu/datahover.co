@@ -19,7 +19,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
-        "olamedia/nokogiri": "^2.0",
+        "patrickschur/language-detection": "^5.1",
         "predis/predis": "^1.1"
     },
     "require-dev": {

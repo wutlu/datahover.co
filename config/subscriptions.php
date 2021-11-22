@@ -8,17 +8,17 @@ return [
 	],
 	'basic' => [
 		'name' => 'Basic',
-		'price' => 29,
-		'track_limit' => 9,
+		'price' => 59,
+		'track_limit' => 10,
 	],
 	'pro' => [
 		'name' => 'Pro',
-		'price' => 249,
-		'track_limit' => 99,
+		'price' => 149,
+		'track_limit' => 100,
 	],
 	'enterprise' => [
 		'name' => 'Enterprise',
-		'price' => 1674,
-		'track_limit' => 999,
+		'price' => 1429,
+		'track_limit' => 1000,
 	],
 ];

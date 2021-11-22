@@ -6,4 +6,7 @@ mix
 .options({ processCssUrls: true });
 
 mix
+.js('resources/js/revolving.js', 'public/js/revolving.min.js')
+
+mix
 .copyDirectory('resources/images', 'public/images');

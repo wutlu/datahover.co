@@ -22,7 +22,7 @@ class Taker extends Command
      *
      * @var string
      */
-    protected $description = 'News track link taker.';
+    protected $description = 'Collects detected news links.';
 
     /**
      * Create a new command instance.
@@ -56,7 +56,7 @@ class Taker extends Command
                 'size' => 1000,
                 'sort' => [
                     [
-                        'called_at' => [
+                        'created_at' => [
                             'order' => 'desc'
                         ]
                     ]
@@ -70,12 +70,21 @@ class Taker extends Command
             {
                 $this->info($item['link']);
 
-                NewsTakerJob::dispatch($item['link'])->onQueue('taker');
+                $buffer = (new DataPool)->update(md5($item['link']), [ 'status' => 'buffer' ]);
+
+                if ($buffer->success == 'ok')
+                {
+                    NewsTakerJob::dispatch($item['link'])->onQueue('newsTaker');
+
+                    $this->info('- ok -');
+                }
+                else
+                    $this->error(json_encode($buffer->log));
             }
+
+            $this->info(count($items->source).' requests have been sent.');
         }
         else
-        {
-            // ES bağlantısı kurulamadı. Log gönder.
-        }
+            $this->error('Failed to establish connection to elasticsearch.');
     }
 }

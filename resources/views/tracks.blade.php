@@ -54,9 +54,10 @@
     {
         $('#createModal').modal('hide')
 
-        __.find('input[name=value]').val('')
+        let items = $('#items');
+            items.find('.tmp').remove();
 
-        app.etsetraAjax($('#items').data('skip', 0))
+        app.etsetraAjax(items.data('skip', 0))
     }
 
     let __delete = function(__, obj)
@@ -243,14 +244,8 @@
                         <span class="text-end d-flex align-items-center justify-content-end gap-1">
                             <small data-name="valid"></small>
                         </span>
-                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted" title="Last 24 hours">
-                            <small>0</small> data
-                        </span>
-                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted">
-                            <small data-col="error_hit"></small> error
-                            <a data-bs-toggle="modal" data-bs-target="#trackErrorInfoModal" href="#" class="link-secondary">
-                                <i class="material-icons icon-xs">info</i>
-                            </a>
+                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted" title="Last 6 hours">
+                            <small data-col="total_data">0</small> <small>data in 6 hour</small>
                         </span>
                     </div>
                 </div>
@@ -279,47 +274,41 @@
                         </button>
                     </div>
                     <div id="{{ $key }}" class="accordion-collapse collapse border-0" data-bs-parent="#apiAccordion">
-                        <div class="accordion-body">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item ps-4 d-flex flex-column border-0">
-                                    <small class="text-muted">{{ $api['method'] }}</small>
-                                    <label>{{ $api['route'] }}</label>
-                                </li>
-                                <li class="list-group-item ps-4 d-flex flex-column border-0">
-                                    <small class="text-muted">Request Limit</small>
-                                    <label>{{ $rate_limit }} request per {{ $rate_minutes }} minutes</label>
-                                </li>
-                                <li class="list-group-item fw-bold border-0 text-uppercase">Headers</li>
-                                <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                    <small class="text-muted">X-Api-Key</small>
-                                    <label>{{ auth()->user()->api_key }}</label>
-                                </li>
-                                <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                    <small class="text-muted">X-Secret-Key</small>
-                                    <label>{{ auth()->user()->api_secret }}</label>
-                                </li>
-                                <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                    <small class="text-muted">Accept</small>
-                                    <label>application/json</label>
-                                </li>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item ps-4 d-flex flex-column border-0">
+                                <small class="text-muted">{{ $api['method'] }}</small>
+                                <label>{{ $api['route'] }}</label>
+                            </li>
+                            <li class="list-group-item ps-4 d-flex flex-column border-0">
+                                <small class="text-muted">Request Limit</small>
+                                <label>{{ $rate_limit }} request per {{ $rate_minutes }} minutes</label>
+                            </li>
+                            <li class="list-group-item fw-bold border-0 text-uppercase">Headers</li>
+                            <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
+                                <small class="text-muted">X-Api-Key</small>
+                                <label>{{ auth()->user()->api_key }}</label>
+                            </li>
+                            <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
+                                <small class="text-muted">X-Secret-Key</small>
+                                <label>{{ auth()->user()->api_secret }}</label>
+                            </li>
+                            <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
+                                <small class="text-muted">Accept</small>
+                                <label>application/json</label>
+                            </li>
 
-                                <li class="list-group-item fw-bold border-0 text-uppercase">Params</li>
+                            <li class="list-group-item fw-bold border-0 text-uppercase">Params</li>
 
-                                @foreach ($api['params'] as $key => $value)
-                                    <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                        <small class="text-muted">{{ $key }}</small>
-                                        <label>{{ $value }}</label>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            @foreach ($api['params'] as $key => $value)
+                                <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
+                                    <small class="text-muted">{{ $key }}</small>
+                                    <label>{{ $value }}</label>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 @endsection
-
-@push('footer')
-    @include('includes.modals.track_error_info')
-@endpush

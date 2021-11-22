@@ -28,7 +28,7 @@ class Organizer extends Command
      */
     protected $description = 'Twitter keyword and follow organizer.';
 
-    protected $chunk_count = 50;
+    protected $chunk_count = 25;
 
     /**
      * Create a new command instance.
@@ -47,20 +47,33 @@ class Organizer extends Command
      */
     public function handle()
     {
-        $query = Track::whereHas('user', function($q) {
-                $q->whereDate('users.subscription_end_date', '>=', (new DT)->nowAt());
-            })
-            ->where(function($query) {
+        $tracks = Track::where(function($query) {
                 $query->orWhere('valid', true);
                 $query->orWhereNull('valid');
             })
-            ->where('source', 'twitter')
-            ->where('type', 'keyword')
-            ->orderBy('id', 'asc');
+            ->where(
+                [
+                    'source' => 'twitter',
+                    'type' => 'keyword'
+                ]
+            )
+            ->orderBy('id', 'asc')
+            ->get();
 
-        $query->update([ 'valid' => true ]);
+        $array = [];
 
-        $chunks = array_values($query->pluck('value')->unique()->chunk($this->chunk_count)->toArray());
+        if (count($tracks))
+        {
+            foreach ($tracks as $track)
+            {
+                if ($track->subscriptionEndDate() >= date('Y-m-d'))
+                    $array[] = $track->value;
+                else
+                    $this->error('This track does not belong to a current account.');
+            }
+        }
+
+        $chunks = array_values(array_chunk($array, $this->chunk_count));
 
         $tokens = TwitterToken::orderBy('id', 'desc')->get()->toArray();
 

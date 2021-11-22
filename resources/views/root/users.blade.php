@@ -1,12 +1,12 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'Users',
+        'title' => 'User Management',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Root' => route('dashboard'),
-            'Users' => '#'
+            'User Management' => '#'
         ]
     ]
 )
@@ -52,6 +52,10 @@
     let __edit = function(__, obj)
     {
         $('#editModal').modal('hide')
+
+        let item = $('#items').find('[data-id=' + obj.data.id + ']');
+            item.find('[data-col=name]').html(obj.data.name)
+            item.find('[data-col=email]').html(obj.data.email)
     }
 @endpush
 
@@ -157,7 +161,7 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
-                    <span class="card-title text-uppercase h6 fw-bold mb-0">Users</span>
+                    <span class="card-title text-uppercase h6 fw-bold mb-0">User Management</span>
                     <span class="text-muted">
                         Total <span data-name="total-count">0</span> / Active <span data-name="active-count">0</span>
                     </span>

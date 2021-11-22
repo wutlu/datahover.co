@@ -81,8 +81,7 @@ class TrackController extends Controller
             'take' => 'required|integer|max:1000',
         ]);
 
-        $data = Track::with('user')
-            ->where(function($query) use($request) {
+        $data = Track::where(function($query) use($request) {
                 if ($request->search)
                 {
                     $query->orWhere('value', 'ilike', '%'.$request->search.'%');

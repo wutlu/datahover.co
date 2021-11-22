@@ -8,23 +8,29 @@ use App\Models\Logs;
 
 class LogController extends Controller
 {
+    public $list_rules;
+    public $rate_minutes = 1;
+    public $rate_limit = 100;
+
     public function __construct()
     {
-        $this->middleware('auth')->only('dashboard');
-    }
+        // $this->middleware('auth');
 
-    /**
-     * Index
-     * 
-     * @return view
-     */
-    public function logs(Request $request)
-    {
-        $request->validate([
+        $this->list_rules = [
             'search' => 'nullable|string|max:1000',
             'skip' => 'required|integer|max:1000000',
             'take' => 'required|integer|max:1000',
-        ]);
+        ];
+    }
+
+    /**
+     * List Api
+     * 
+     * @return view
+     */
+    public function listApi(Request $request)
+    {
+        $request->validate($this->list_rules);
 
         $data = Logs::select('id', 'site', 'message', 'repeat', 'created_at')
             ->where(function($query) use($request) {
@@ -34,7 +40,7 @@ class LogController extends Controller
                     $query->orWhere('site', 'ilike', '%'.$request->search.'%');
                 }
             })
-            ->where('user_id', auth()->user()->id)
+            ->where('user_id', $request->user->id)
             ->skip($request->skip)
             ->take($request->take)
             ->orderBy('updated_at', 'desc')

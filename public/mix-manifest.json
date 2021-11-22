@@ -1,5 +1,6 @@
 {
     "/js/app.min.js": "/js/app.min.js",
+    "/js/revolving.min.js": "/js/revolving.min.js",
     "/css/app.min.css": "/css/app.min.css",
     "/images/datahover.psd": "/images/datahover.psd",
     "/images/diamond.png": "/images/diamond.png",
@@ -8,5 +9,14 @@
     "/images/logo.svg": "/images/logo.svg",
     "/images/pattern.svg": "/images/pattern.svg",
     "/images/rolling-dark.svg": "/images/rolling-dark.svg",
-    "/images/rolling.svg": "/images/rolling.svg"
+    "/images/rolling.svg": "/images/rolling.svg",
+    "/images/wave-dark.svg": "/images/wave-dark.svg",
+    "/images/wave-light.svg": "/images/wave-light.svg",
+    "/images/logo-white.svg": "/images/logo-white.svg",
+    "/images/create-track.png": "/images/create-track.png",
+    "/images/dotted-bg.svg": "/images/dotted-bg.svg",
+    "/images/pink-bg.svg": "/images/pink-bg.svg",
+    "/images/logo-half.svg": "/images/logo-half.svg",
+    "/images/paypal.svg": "/images/paypal.svg",
+    "/images/twitter.svg": "/images/twitter.svg"
 }

@@ -3,18 +3,6 @@
 )
 
 @push('css')
-	header.master {
-		background-image: radial-gradient(circle farthest-corner at 32.7% 82.7%, #1b1f24 8.3%, #111 79.4%);
-		width: 100%;
-		position: relative;
-		padding: 10vw 0 0;
-	}
-
-	header.master img[alt=Logo] {
-		width: 30%;
-		max-width: 164px;
-	}
-
 	.console {
 		width: 100%;
 		height: 400px;
@@ -43,51 +31,19 @@
 	.console > .wrapper {
 		max-height: 100%;
 		overflow: hidden;
+		scroll-behavior: smooth;
 	}
 	.console > .wrapper > p {
 		font-size: 13px;
-		font-family: Arial;
+		font-family: 'Courier', sans-serif;
 		letter-spacing: 1px;
 	}
 	.console > .wrapper > p > time {
 		display: inline-block;
-		width: 54px;
-	}
-
-	h1 {
-		font-size: 72px;
-	}
-
-	@media (max-width: 720px)
-	{
-		h1 {
-			font-size: 48px;
-		}
-	}
-
-	.card.card-mini {
-		max-width: 1024px;
-		margin: 100px auto;
-	}
-
-	.card.card-mini > .card-body {
-		z-index: 1;
-	}
-	.card.card-mini > img[alt=Logo] {
-		z-index: 0;
-		opacity: .1;
-		width: 1600px;
+		width: 190px;
 	}
 
 	.pool {
-		width: 300px;
-		height: 300px;
-		border-radius: 50%;
-		background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-		margin: 0 auto;
-		animation-name: example;
-		animation-duration: 10s;
-		animation-iteration-count: infinite;
 		font-size: 24px;
 		letter-spacing: -1px;
 	}
@@ -95,123 +51,132 @@
 	@media (max-width: 720px)
 	{
 		.pool {
-			width: 100px;
-			height: 240px;
-			border-radius: 50%;
 			font-size: 16px;
 		}
 	}
 
-	@keyframes example {
-		0% { transform: scale(1); }
-		30% { transform: scale(1.1) skew(10deg); }
-		60% { transform: scale(1.2) skew(-10deg); }
-		100% { transform: scale(1); }
-	}
-
 	.bg-info {
-		background-color: #0ba360 !important;
+		background-color: #6159F6 !important;
+	}
+	.bg-dark {
+		background-color: #1c1c28 !important;
 	}
 	.text-info {
-		color: #0ba360 !important;
+		color: #6159F6 !important;
 	}
 @endpush
 
 @push('js')
-	setInterval(function() {
-		let currentdate = new Date();
-		let fullTime = currentdate.getHours() + ':' + currentdate.getMinutes() + ':' + currentdate.getSeconds();
+	let items = [];
+	let consoleTimer;
 
-		$('.console > .wrapper').append(
-			$(
-				'<p />',
-				{
-					'html': '<time>' + fullTime + '</time>: {"text": "lorem textsum...", "key": "' + Math.random() + '"}',
-					'class': 'text-success px-4 py-1 mb-0'
-				}
+	function __results(__, obj)
+	{
+		window.clearTimeout(consoleTimer);
+
+		$.each(obj.data, function(k, item) {
+			items.push(item)
+		})
+	}
+
+	let consoleWrapper = $('.console').children('.wrapper');
+
+	window.consoleTimer = setInterval(function() {
+		if (items.length)
+		{
+			consoleWrapper.append(
+				$(
+					'<p />',
+					{
+						'html': '<time>' + $(items).get(-1).created_at + '</time>: ' + $(items).get(-1).title,
+						'class': 'text-success px-4 mb-0'
+					}
+				)
+				.hide()
+				.fadeIn()
 			)
-		)
-		.scrollTop($(".console > .wrapper")[0].scrollHeight);
-	}, 100)
+			.scrollTop(consoleWrapper[0].scrollHeight);
+
+			items.pop();
+		}
+	}, 400)
 @endpush
 
 @push('footer')
 	@include('includes.modals.track_info')
+
+	<script src="{{ asset('js/revolving.min.js') }}"></script>
 @endpush
 
 @section('content')
-	<header class="master">
-		<div class="container">
-			<div class="d-flex align-items-center mb-5">
-				<img alt="Logo" src="{{ asset('images/logo.svg') }}" width="auto" height="auto" />
-
-				<div class="dropdown ms-auto">
-					<a href="#" class="dropdown-toggle link-light d-flex align-items-center gap-2" type="button" id="user-menu" data-bs-toggle="dropdown" aria-expanded="false">
-						@auth
-							<img alt="Avatar" src="{{ auth()->user()->avatar }}" class="w-32px h-32px rounded-circle" />
-							{{ auth()->user()->name }}
-						@else
-							<i class="material-icons">account_circle</i> My Account
-						@endauth
-					</a>
-					<ul class="dropdown-menu rounded-0 shadow dropdown-menu-dark dropdown-menu-end" aria-labelledby="user-menu">
-						@auth
-							<li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-							<li><a class="dropdown-item" href="{{ route('user.account') }}">Account</a></li>
-							<li class="divider bg-dark"></li>
-							<li><a class="dropdown-item" href="{{ route('user.gate.exit') }}">Logout</a></li>
-						@else
-							<li><a class="dropdown-item" href="{{ route('user.gate') }}">Login</a></li>
-						@endauth
-					</ul>
-				</div>
-			</div>
-			<div class="text-center mb-5">
-				<h1 class="text-white fw-bold mb-2">Voluminous and quite simple</h1>
-				<p class="lead text-muted mb-5">Access open source internet data in a simple way with DATAHOVER</p>
-				@auth
-					<a href="{{ route('dashboard') }}" class="btn btn-lg btn-outline-primary rounded-pill rounded-0">Dashboard</a>
-				@else
-					<a href="{{ route('user.gate') }}" class="btn btn-lg btn-outline-primary rounded-pill rounded-0">Start a free trial</a>
-				@endif
-			</div>
-			<div class="console">
-				<ul class="nav">
-					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Console</a>
-					</li>
-				</ul>
-				<div class="wrapper"></div>
-			</div>
+	@component('includes.header')
+		@slot('title', 'Voluminous and quite simple')
+		<p class="lead text-muted mb-5 text-center">Access open source internet data in a simple way with {{ Str::upper(config('app.name')) }}</p>
+		<div class="d-flex justify-content-center mb-5">
+			@auth
+				<a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-lg rounded-pill rounded-0">Dashboard</a>
+			@else
+				<a href="{{ route('user.gate') }}" class="btn btn-outline-primary btn-lg rounded-pill rounded-0">Start a free trial</a>
+			@endif
 		</div>
-		<svg xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="none" viewBox="0 0 1680 40" class="position-absolute width-full z-1" style="bottom: -1px;"><path d="M0 40h1680V30S1340 0 840 0 0 30 0 30z" fill="#f0f0f0"></path></svg>
-	</header>
+		<div class="console">
+			<ul
+				id="items"
+				class="nav load"
+	            data-action="{{ route('index.console') }}"
+	            data-callback="__results"
+	            data-loop="10000">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Console</a>
+				</li>
+			</ul>
+			<div class="wrapper"></div>
+		</div>
+	@endcomponent
 
 	<div class="container">
-		<div class="card card-mini overflow-hidden position-relative shadow-lg border-0 rounded-0">
+		<div class="card border-0 bg-transparent mw-1024px mx-auto">
 			<div class="card-body">
-				<div class="p-4">
-					<div class="mb-4">
-						@foreach (config('sources') as $key => $item)
-							<img data-bs-toggle="tooltip" title="{{ $item['name'] }}" alt="{{ $item['name'] }}" src="{{ asset($item['icon']) }}" width="48" height="48" />
-						@endforeach
+				<h3 class="card-title fw-bold dotted-title py-4">What is {{ config('app.name') }}</h3>
+
+				<div class="row mb-4">
+					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
+						<div class="p-4">
+							<span class="lead">You do not need to specify any details, whether it is Rss or Api or not. You just need to specify the domain. <strong>We provide api output of news and blog sites.</strong></span>
+						</div>
 					</div>
-					<h4 class="fw-bold text-dark mb-0">Access big data at a very low cost</h4>
-					<p class="text-muted d-block mb-2">You can access our entire database for a low fee.</p>
-					<div class="d-flex gap-2">
-						@auth
-							<a href="{{ route('dashboard') }}" class="btn btn-outline-dark shadow-sm rounded-0">Dashboard</a>
-						@else
-							<a href="{{ route('user.gate') }}" class="btn btn-outline-dark shadow-sm rounded-0">Start a free trial</a>
-						@endauth
+					<div class="col-12 col-sm-6 text-center text-sm-end">
+						<img alt="Create Track" src="{{ asset('images/create-track.png') }}" class="img-fluid shadow-sm" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-12 col-sm-6 d-flex justify-content-center">
+						<div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+							@foreach (config('sources') as $key => $item)
+								<div class="bg-dark p-3 rounded-circle">
+									<img
+										data-bs-toggle="tooltip"
+										title="{{ $item['name'] }}"
+										alt="{{ $item['name'] }}"
+										src="{{ asset($item['icon']) }}"
+										width="48"
+										height="48" />
+								</div>
+							@endforeach
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
+						<div class="p-4">
+							<p class="lead mb-0">You specify the word, we will follow the social media platforms for you. You can easily reach the results we found with our Api services.</p>
+						</div>
 					</div>
 				</div>
 			</div>
-			<img alt="Logo" class="position-absolute" src="{{ asset('images/logo.svg') }}" />
 		</div>
 	</div>
 
-	<div class="bg-dark">
+	<div class="bg-dark bg-alternate">
 		<div class="container">
 			<div class="my-5 py-5 text-center">
 				<h3 class="text-light fw-bold mb-5">How does it work?</h3>
@@ -219,7 +184,7 @@
 					<div class="text-white d-flex flex-column gap-4">
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">face</i>
-							Leila criteria
+							Leila's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
 								<small class="badge rounded-pill bg-info text-dark">Netflix</small>
 								<small class="badge rounded-pill bg-info text-dark">Carrefour</small>
@@ -228,16 +193,16 @@
 						</span>
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">sentiment_satisfied_alt</i>
-							Hector criteria
+							Hector's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
 								<small class="badge rounded-pill bg-info text-dark">Election</small>
 								<small class="badge rounded-pill bg-info text-dark">Politics</small>
-								<small class="badge rounded-pill bg-info text-dark">Vote</small>
+								<small class="badge rounded-pill bg-info text-dark">nytimes.com</small>
 							</div>
 						</span>
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">insert_emoticon</i>
-							Paul criteria
+							Paul's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
 								<small class="badge rounded-pill bg-info text-dark">Coffe</small>
 								<small class="badge rounded-pill bg-info text-dark">Arabica</small>
@@ -245,21 +210,22 @@
 							</div>
 						</span>
 					</div>
-					<div class="d-flex align-items-center">
+					<div class="d-flex align-items-center" style="z-index: 2;">
 						<div class="d-flex flex-column align-items-start text-white">
 							<i class="material-icons">south_east</i>
 							<i class="material-icons icon-lg">east</i>
 							<i class="material-icons">north_east</i>
 						</div>
 					</div>
-					<div class="d-flex align-items-center">
-						<div class="pool d-flex flex-column align-items-center justify-content-center">
+					<div class="d-flex justify-content-center align-items-center">
+						<div class="pool position-relative d-flex flex-column align-items-center justify-content-center" style="z-index: 2;">
 							<span class="text-white">Realtime Workers</span>
-							<i class="material-icons">arrow_downward</i>
-							<span>Big Data Pool</span>
+							<i class="material-icons text-white">arrow_downward</i>
+							<span class="text-white">Communal Data Pool</span>
 						</div>
+						<canvas class="rounded-circle position-absolute" id="revolving"></canvas>
 					</div>
-					<div class="d-flex align-items-center">
+					<div class="d-flex align-items-center" style="z-index: 2;">
 						<i class="material-icons icon-lg text-white">east</i>
 					</div>
 					<div class="text-white d-flex flex-column">
@@ -303,112 +269,126 @@
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="my-5 py-5 text-center">
-			<h3 class="text-dark fw-bold mb-5">Pricing</h3>
-			<div class="row row-cols-1 row-cols-md-3 mb-4 align-items-center">
-				<div class="col">
-					<div class="card mb-4 border-0 rounded-0 bg-transparent">
-						<div class="card-header bg-transparent border-0 pt-4">
-							<span class="my-0 fw-bold">{{ config('subscriptions.basic.name') }}</span>
-						</div>
-						<div class="card-body">
-							<h3 class="card-title pricing-card-title display-6">${{ config('subscriptions.basic.price') }}<small class="text-muted fw-light">/mo</small></h3>
-							<ul class="list-unstyled mt-3 mb-4">
-								<li class="d-inline-flex align-items-center gap-2">
-									<span>{{ config('subscriptions.basic.track_limit') }} Track</span>
-									<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
-								</li>
-								<li class="d-block">
-									<span>Limitless query</span>
-								</li>
-							</ul>
-						</div>
+	<div class="card border-0 bg-transparent mw-1024px mx-auto">
+		<div class="card-body">
+			<div class="dotted-title py-4">
+				<h3 class="card-title fw-bold">Pricing</h3>
+				{{-- <div class="d-flex align-items-center justify-content-center gap-2">
+					<label class="text-muted small unselectable" for="yearly">Monthly</label>
+					<div class="form-check form-switch ms-2 mb-0">
+						<input autocomplete="off" class="form-check-input rounded-0 border-2" type="checkbox" role="switch" id="yearly" />
 					</div>
-				</div>
-				<div class="col">
-					<div class="card mb-4 border-0 rounded-0 shadow-sm" style="border-color: var(--bs-blue);">
-						<div class="card-header bg-transparent border-0 pt-4">
-							<span class="my-0 fw-bold">{{ config('subscriptions.pro.name') }}</span>
-						</div>
-						<div class="card-body">
-							<h3 class="card-title pricing-card-title display-2">${{ config('subscriptions.pro.price') }}<small class="text-muted fw-light">/mo</small></h3>
-							<ul class="list-unstyled mt-3 mb-4">
-								<li class="d-inline-flex align-items-center gap-2">
-									<span>{{ config('subscriptions.pro.track_limit') }} Track</span>
-									<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
-								</li>
-								<li class="d-block">
-									<span>Limitless query</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card mb-4 border-0 rounded-0 bg-transparent">
-						<div class="card-header bg-transparent border-0 pt-4">
-							<span class="my-0 fw-bold">{{ config('subscriptions.enterprise.name') }}</span>
-						</div>
-						<div class="card-body">
-							<h3 class="card-title pricing-card-title display-6">${{ config('subscriptions.enterprise.price') }}<small class="text-muted fw-light">/mo</small></h3>
-							<ul class="list-unstyled mt-3 mb-4">
-								<li class="d-inline-flex align-items-center gap-2">
-									<span>{{ config('subscriptions.enterprise.track_limit') }} Track</span>
-									<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
-								</li>
-								<li class="d-block">
-									<span>Limitless query</span>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+					<label class="text-primary small unselectable" for="yearly">Yearly <span class="badge bg-primary bg-opacity-25 text-primary rounded-0 ms-2">10% Off</span></label>
+				</div> --}}
 			</div>
-			@auth
-				<a href="{{ route('dashboard') }}" class="btn btn-lg shadow-sm px-4 btn-outline-primary rounded-0">Dashboard</a>
-			@else
-				<a href="{{ route('user.gate') }}" class="btn btn-lg shadow-sm px-4 btn-outline-primary rounded-0">Start a free trial</a>
-			@endauth
 		</div>
 	</div>
 
-{{-- 	<div class="bg-dark">
-		<div class="container">
-			<div class="d-flex justify-content-center align-items-center flex-wrap gap-4 my-5 py-5">
-				<a href="#">
-					<img alt="Logo" src="{{ asset('images/brands/btk.png') }}" width="100" height="auto" />
-				</a>
-				<a href="#">
-					<img alt="Logo" src="{{ asset('images/brands/medyaizi.png') }}" width="100" height="auto" />
-				</a>
-				<a href="#">
-					<img alt="Logo" src="{{ asset('images/brands/geometry.png') }}" width="100" height="auto" />
-				</a>
+	<div class="container">
+		<div class="row row-cols-1 row-cols-md-3 align-items-center">
+			<div class="col">
+				<div class="card rounded-0 shadow-sm mb-4">
+					<div class="card-body d-flex flex-column gap-3 p-4">
+						<h4 class="card-title mb-0">{{ config('subscriptions.basic.name') }}</h4>
+						<div class="d-flex align-items-end gap-2">
+							<span class="price fw-bold display-4">
+								$<span data-name="price">{{ config('subscriptions.basic.price') }}</span>
+							</span>
+							<small class="text-muted h4">/Month</small>
+						</div>
+						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">{{ config('subscriptions.basic.track_limit') }} Track</span>
+								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">Limitless filterable query</span>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">E-mail support</span>
+							</li>
+						</ul>
+						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div> --}}
-
-	<footer class="bg-dark">
-		<div class="container">
-			<div class="py-5">
-				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between gap-4">
-					<div class="d-flex flex-column text-center text-lg-start">
-						<img alt="Logo" src="{{ asset('images/logo-grey.svg') }}" width="164" height="auto" class="mx-auto mx-lg-0 mb-2" />
-						<small class="mb-4 text-muted mw-300px">{{ config('etsetra.info') }}</small>
-						<p class="mb-0 text-muted">© {{ date('Y') }} {{ config('app.name') }}</p>
+			<div class="col">
+				<div class="card rounded-0 shadow mb-4 border-3 border-primary">
+					<div class="card-body d-flex flex-column gap-3 p-4">
+						<small class="bg-light text-primary text-center py-2">Most Popular Plan</small>
+						<h4 class="card-title mb-0">{{ config('subscriptions.pro.name') }}</h4>
+						<div class="d-flex align-items-end gap-2">
+							<span class="price fw-bold display-4">
+								$<span data-name="price">{{ config('subscriptions.pro.price') }}</span>
+							</span>
+							<small class="text-muted h4">/Month</small>
+						</div>
+						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">{{ config('subscriptions.pro.track_limit') }} Track</span>
+								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">Limitless filterable query</span>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">E-mail support</span>
+							</li>
+						</ul>
+						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
 					</div>
-					<div class="d-flex flex-column align-items-center align-items-lg-start">
-						<a href="#" class="link-light">About Us</a>
-						<a href="#" class="link-light">Public Offer Agreement</a>
-						<a href="#" class="link-light">Privacy Policy</a>
-					</div>
-					<div class="d-flex flex-column text-center text-lg-end">
-						<small class="mb-2 text-muted mw-300px">{{ config('etsetra.address') }}</small>
-						<a href="#" class="text-muted">{{ config('etsetra.email') }}</a>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card rounded-0 shadow-sm mb-4 text-white bg-dark">
+					<div class="card-body d-flex flex-column gap-3 p-4">
+						<h4 class="card-title mb-0 text-warning">{{ config('subscriptions.enterprise.name') }}</h4>
+						<div class="d-flex align-items-end gap-2">
+							<span class="price fw-bold display-4">
+								$<span data-name="price">{{ config('subscriptions.enterprise.price') }}</span>
+							</span>
+							<small class="text-muted h4">/Month</small>
+						</div>
+						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">{{ config('subscriptions.enterprise.track_limit') }} Track</span>
+								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-white"><i class="material-icons">info</i></a>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">Limitless filterable query</span>
+							</li>
+							<li class="d-inline-flex align-items-center gap-2">
+								<i class="material-icons text-success">check</i>
+								<span class="h6 mb-0">E-mail support</span>
+							</li>
+						</ul>
+						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
+
+	<div class="card mw-768px mx-auto bg-transparent border-0 rounded-0 my-5">
+		<div class="card-body">
+			<h3 class="fw-bold text-dark mb-2 text-center">Need more information?</h3>
+			<p class="lead mb-5 text-center">
+				If you would like to get more details or have additional questions, there's probably an answer already on our <a class="link-dark fw-bold text-decoration-underline" href="{{ route('faq.index') }}">Frequently Asked Questions</a> page.
+			</p>
+			<div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
+				<span class="text-success text-center h4 mb-0">If you don't want to waste time</span>
+				<a href="{{ route(auth()->check() ? 'dashboard' : 'user.gate') }}" class="btn btn-outline-success shadow-sm rounded-0">Try it</a>
+			</div>
+		</div>
+	</div>
+
+	@include('includes.footer')
 @endsection

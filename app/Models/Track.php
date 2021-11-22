@@ -14,10 +14,16 @@ class Track extends Model
     ];
 
     /**
-     * Get the track associated with the user.
+     * The attributes that should be cast.
+     *
+     * @var array
      */
-    public function user()
+    protected $casts = [
+        'users' => 'array',
+    ];
+
+    public function subscriptionEndDate()
     {
-        return $this->hasOne(User::class, 'id', 'user_id');
+        return User::whereIn('id', $this->users)->orderBy('subscription_end_date', 'desc')->value('subscription_end_date');
     }
 }

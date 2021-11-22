@@ -20,15 +20,6 @@ class CreateDataPoolTable extends Migration
         $query = (new Model)->createIndex(
             [
                 'properties' => [
-                    'id' => [ 'type' => 'keyword' ],
-
-                    'site' => [ 'type' => 'keyword' ],
-                    'link' => [ 'type' => 'keyword', 'index' => false ],
-                    'title' => [ 'type' => 'text', 'analyzer' => 'custom' ],
-                    'text' => [ 'type' => 'text', 'analyzer' => 'custom' ],
-                    'lang' => [ 'type' => 'keyword' ],
-                    'device' => [ 'type' => 'keyword' ],
-
                     /*
                      * status;
                      * - buffer: bağlantı yeni alındı,
@@ -38,6 +29,16 @@ class CreateDataPoolTable extends Migration
                      */
                     'status' => [ 'type' => 'keyword' ],
 
+                    'id' => [ 'type' => 'keyword' ],
+
+                    'site' => [ 'type' => 'keyword' ],
+                    'link' => [ 'type' => 'keyword', 'index' => false ],
+                    'title' => [ 'type' => 'text', 'analyzer' => 'custom' ],
+                    'text' => [ 'type' => 'text', 'analyzer' => 'custom' ],
+                    'lang' => [ 'type' => 'keyword' ],
+                    'device' => [ 'type' => 'keyword' ],
+                    'image' => [ 'type' => 'keyword', 'index' => false ],
+
                     'user' => [
                         'properties' => [
                             'id' => [ 'type' => 'keyword' ],
@@ -45,12 +46,13 @@ class CreateDataPoolTable extends Migration
                             'title' => [ 'type' => 'keyword', 'normalizer' => 'keyword_normalizer' ],
                             'image' => [ 'type' => 'keyword', 'index' => false ],
                             'description' => [ 'type' => 'text', 'analyzer' => 'custom' ],
-                            'created_at' => [ 'type' => 'date' ],
                         ]
                     ],
 
                     'created_at' => [ 'type' => 'date' ],
                     'called_at' => [ 'type' => 'date' ],
+
+                    'log' => [ 'type' => 'text', 'index' => false ],
                 ]
             ],
             $settings

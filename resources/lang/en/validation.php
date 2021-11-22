@@ -170,6 +170,8 @@ return [
         'username' => 'Username',
         'source' => 'Source',
         'read_only_allow_delete' => 'Read Only Allow Delete',
+        'answer' => 'Answer',
+        'question' => 'Question',
     ],
 
 ];

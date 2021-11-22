@@ -1,6 +1,5 @@
 import 'jquery.cookie';
 import 'block-ui';
-import Swiper from 'swiper';
 
 import Test from './components/test.js';
 
@@ -818,7 +817,6 @@ let app = (function() {
         changeWindowHistory,
         increment,
         decrement,
-        Swiper,
         zIndexer,
     }
 })()

@@ -31,7 +31,6 @@ class Kernel extends ConsoleKernel
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();
-
         # Proxy Test
         $schedule->command('proxy:test')
                  ->everyMinute()
@@ -48,7 +47,6 @@ class Kernel extends ConsoleKernel
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
-
         # Twitter Trigger
         $schedule->command('twitter:trigger')
                  ->everyMinute()
@@ -56,6 +54,44 @@ class Kernel extends ConsoleKernel
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
+        # Twitter Counter
+        $schedule->command('twitter:counter')
+                 ->everyThirtyMinutes()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
+
+
+
+        # News Detector
+        $schedule->command('news:detector')
+                 ->everyMinute()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });
+        # News Taker
+        $schedule->command('news:taker')
+                 ->everyMinute()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });
+        # News Buffer
+        $schedule->command('news:buffer')
+                 ->everyMinute()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });
+        # News Minuter
+        $schedule->command('news:minuter')
+                 ->everyThirtyMinutes()
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });
 
 
 
@@ -65,7 +101,6 @@ class Kernel extends ConsoleKernel
                  ->timezone(config('app.timezone'))
                  ->withoutOverlapping()
                  ->runInBackground();
-
         # Etsetra/Elasticsearch/Console/BulkApi
         $schedule->command('elasticsearch:bulk:insert')
                  ->everyMinute()

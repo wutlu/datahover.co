@@ -1,4 +1,4 @@
-<div id="errorInfoModal" class="modal" aria-hidden="true" aria-labelledby="errorInfoModalLabel" tabindex="-1">
+<div id="trackInfoModal" class="modal" aria-hidden="true" aria-labelledby="trackInfoModalLabel" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-header border-0 pb-0">

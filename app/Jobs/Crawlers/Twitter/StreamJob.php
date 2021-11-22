@@ -153,7 +153,7 @@ class StreamJob implements ShouldQueue
                 (new ServerAlert(implode(' ', $message)))->onQueue('notifications')
             );
 
-            echo $e->getMessage().PHP_EOL;
+            echo $this->line($e->getMessage());
         }
 
     }
@@ -190,43 +190,38 @@ class StreamJob implements ShouldQueue
      */
     private function pattern(object $obj)
     {
-        $stdClass = [];
-
         if ($text = @$obj->extended_tweet->full_text)
-        {
             $obj->text = $text;
-        }
 
-        $stdClass['id'] = $obj->id_str;
-        $stdClass['created_at'] = (new DT)->nowAt($obj->created_at);
-        $stdClass['text'] = $obj->text;
-        $stdClass['device'] = strip_tags($obj->source);
-        $stdClass['lang'] = $obj->lang;
+        $obj->link = 'https://twitter.com/'.$obj->user->screen_name.'/status/'.$obj->id_str;
 
-        $stdClass['user'] = [];
-        $stdClass['user']['id'] = $obj->user->id_str;
-        $stdClass['user']['name'] = $obj->user->name;
-        $stdClass['user']['screen_name'] = $obj->user->screen_name;
-        $stdClass['user']['image'] = str_replace('_normal', '', $obj->user->profile_image_url);
-        $stdClass['user']['url'] = $obj->user->url;
-        $stdClass['user']['description'] = $obj->user->description;
-        $stdClass['user']['location'] = $obj->user->location;
-        $stdClass['user']['lang'] = $obj->user->lang;
-        $stdClass['user']['verified'] = $obj->user->verified ? true : false;
-        $stdClass['user']['created_at'] = (new DT)->nowAt($obj->user->created_at);
-        $stdClass['user']['counts'] = [];
-        $stdClass['user']['counts']['followers'] = $obj->user->followers_count;
-        $stdClass['user']['counts']['friends'] = $obj->user->friends_count;
-        $stdClass['user']['counts']['shares'] = $obj->user->statuses_count;
+        $stdClass = [
+            'status' => 'ok',
+
+            'id' => md5($obj->link),
+
+            'site' => 'twitter.com',
+            'link' => $obj->link,
+            'text' => $obj->text,
+            'lang' => $obj->lang,
+            'device' => strip_tags($obj->source),
+
+            'user' => [
+                'id' => $obj->user->id_str,
+                'name' => $obj->user->screen_name,
+                'title' => $obj->user->name,
+                'image' => str_replace('_normal', '', $obj->user->profile_image_url),
+                'description' => $obj->user->description,
+            ],
+
+            'created_at' => (new DT)->nowAt($obj->created_at),
+            'called_at' => (new DT)->nowAt(),
+        ];
 
         if ($item = @$obj->extended_entities->media)
-        {
-            $stdClass['images'] = array_map(function($o) {
-                return [ 'image' => $o->media_url_https ];
-            }, $item);
-        }
+            $stdClass['image'] = $item[0];
 
-        BulkApi::chunk('data_pool', $stdClass['id'], $stdClass, 'index');
+        BulkApi::chunk('data_pool', $stdClass['id'], $stdClass, 'create');
 
         return $stdClass;
     }

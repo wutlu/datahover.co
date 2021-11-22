@@ -51,7 +51,8 @@ class UserController extends Controller
             'alert' => [
                 'type' => 'success',
                 'message' => 'User information updated'
-            ]
+            ],
+            'data' => $user
         ];
     }
 

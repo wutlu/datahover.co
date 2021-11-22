@@ -77,7 +77,7 @@ class TrackController extends Controller
 
     public function createApi(Request $request)
     {
-        $total_track = Track::where('user_id', $request->user->id)->count();
+        $total_track = Track::whereJsonContains('users', $request->user->id)->count();
 
         if ($total_track < $request->user->subscription()->package['track_limit'])
         {
@@ -100,65 +100,53 @@ class TrackController extends Controller
             if ($request->type != 'keyword')
                 $request->value = Str::of($match[0])->finish('/');
 
-            $invalid_check = Track::where(
+            $track = Track::where(
                 [
                     'source' => $request->source,
                     'type' => $request->type,
                     'value' => $request->value,
                 ]
             )
-            ->where('valid', false)
-            ->exists();
+            ->first();
 
-            if ($invalid_check)
+            if ($track)
             {
-                return [
-                    'success' => 'failed',
-                    'alert' => [
-                        'type' => 'danger',
-                        'message' => 'This track has been blocked by the admin.'
-                    ]
-                ];
-            }
+                if (array_search($request->user->id, $track->users) !== false)
+                    return [
+                        'success' => 'failed',
+                        'alert' => [
+                            'type' => 'warning',
+                            'message' => 'This record already exists.'
+                        ],
+                    ];
+                else
+                {
+                    $array = $track->users;
+                    $array[] = $request->user->id;
 
-            $q = Track::where(
-                [
-                    'user_id' => $request->user->id,
-                    'source' => $request->source,
-                    'type' => $request->type,
-                    'value' => $request->value,
-                ]
-            )->exists();
-
-            if ($q)
-            {
-                return [
-                    'success' => 'failed',
-                    'alert' => [
-                        'type' => 'warning',
-                        'message' => 'This record already exists.'
-                    ],
-                ];
+                    $track->users = $array;
+                    $track->save();
+                }
             }
             else
             {
                 $q = new Track;
-                $q->user_id = $request->user->id;
+                $q->users = [ $request->user->id ];
                 $q->source = $request->source;
                 $q->type = $request->type;
                 $q->value = $request->value;
                 $q->save();
-
-                (new Logs)->enter($request->user->id, $request->ip().': createTrack {"'.$request->source.':'.$request->type.'","'.$request->value.'"}');
-
-                return [
-                    'success' => 'ok',
-                    'alert' => [
-                        'type' => 'success',
-                        'message' => 'Tracking record created!'
-                    ],
-                ];
             }
+
+            (new Logs)->enter($request->user->id, $request->ip().': createTrack {"'.$request->source.':'.$request->type.'","'.$request->value.'"}');
+
+            return [
+                'success' => 'ok',
+                'alert' => [
+                    'type' => 'success',
+                    'message' => 'Tracking record created!'
+                ],
+            ];
         }
         else
         {
@@ -187,13 +175,14 @@ class TrackController extends Controller
                 'request_frequency',
                 'request_at',
                 'valid',
+                'total_data',
             )
             ->where(function($query) use($request) {
                 if ($request->search)
                     $query->orWhere('value', 'ilike', '%'.$request->search.'%');
             })
             ->whereIn('source', $request->source)
-            ->where('user_id', $request->user->id)
+            ->whereJsonContains('users', $request->user->id)
             ->skip($request->skip)
             ->take($request->take)
             ->orderBy('created_at', 'desc')
@@ -204,7 +193,7 @@ class TrackController extends Controller
             'data' => $data,
             'track' => [
                 'limit' => $request->user->subscription()->package['track_limit'],
-                'total' => Track::where('user_id', $request->user->id)->count()
+                'total' => Track::whereJsonContains('users', $request->user->id)->count()
             ]
         ];
     }
@@ -213,13 +202,26 @@ class TrackController extends Controller
     {
         $request->validate($this->delete_rules);
 
-        $tracks = Track::where('user_id', $request->user->id)->whereIn('id', $request->id)->get();
+        $tracks = Track::whereJsonContains('users', $request->user->id)
+            ->whereIn('id', $request->id)
+            ->get();
 
         foreach ($tracks as $track)
         {
             (new Logs)->enter($request->user->id, $request->ip().': deleteTrack {"'.$track->source.':'.$track->type.'","'.$track->value.'"}');
 
-            $track->delete();
+            if (count($track->users) <= 1)
+                $track->delete();
+            else
+            {
+                $array = $track->users;
+
+                if (($key = array_search($request->user->id, $track->users)) !== false)
+                    unset($array[$key]);
+
+                $track->users = array_values($array);
+                $track->save();
+            }
         }
 
         return [

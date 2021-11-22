@@ -13,16 +13,93 @@ use Etsetra\Library\DateTime as DT;
 
 use App\Models\User;
 use App\Models\Logs;
+use App\Models\HideInfo;
 use App\Notifications\ServerAlert;
 
 use Auth;
 
 class UserController extends Controller
 {
+    protected $subscriptions;
+
     public function __construct()
     {
-        $this->middleware('guest')->except([ 'gateExit', 'account', 'apiSecretGenerator' ]);
-        $this->middleware('auth')->only([ 'account', 'apiSecretGenerator' ]);
+        $this->middleware('guest')->except(
+            [
+                'gateExit',
+                'account',
+                'apiSecretGenerator',
+                'subscription',
+                'getSubscription',
+                'hideInfo'
+            ]
+        );
+        $this->middleware('auth')->only(
+            [
+                'account',
+                'apiSecretGenerator',
+                'subscription',
+                'getSubscription',
+                'hideInfo'
+            ]
+        );
+
+        $this->subscriptions = config('subscriptions');
+
+        unset($this->subscriptions['demo']);
+    }
+
+    public function subscription()
+    {
+        $subscription = auth()->user()->subscription();
+        $subscriptions = $this->subscriptions;
+
+        return view('subscription', compact('subscription', 'subscriptions'));
+    }
+
+    /**
+     * @param string $name
+     * @return object
+     */
+    public function getSubscription(Request $request)
+    {
+        $request->validate(
+            [
+                'name' => 'required|string|in:'.implode(',', array_keys($this->subscriptions))
+            ]
+        );
+
+        return [
+            'success' => 'ok',
+            'data' => config("subscriptions.$request->name")
+        ];
+    }
+
+    public function hideInfo(Request $request)
+    {
+        $request->validate(
+            [
+                'info_key' => 'nullable|string|in:greeting.welcome'
+            ]
+        );
+
+        $info = HideInfo::where([ 'user_id' => $request->user()->id, 'key' => $request->info_key ])->first();
+
+        if ($info)
+            $info->delete();
+        else
+        {
+            HideInfo::firstOrCreate(
+                [
+                    'user_id' => $request->user()->id,
+                    'key' => $request->info_key
+                ]
+            );
+        }
+
+        return [
+            'success' => 'ok'
+        ];
     }
 
     /**
@@ -38,7 +115,7 @@ class UserController extends Controller
     /**
      * Api Secret Generator
      * 
-     * @return json
+     * @return object
      */
     public function apiSecretGenerator()
     {

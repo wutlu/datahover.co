@@ -1,12 +1,12 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'All Tracks',
+        'title' => 'Track Management',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Root' => route('dashboard'),
-            'All Tracks' => '#'
+            'Track Management' => '#'
         ]
     ]
 )
@@ -15,7 +15,6 @@
     let __items = function(__, o)
     {
         __.find('[data-name=edit]').data('id', o.id)
-        __.find('[data-name=user]').html('@' + o.user.name + ' <span class="text-muted">' + o.user.email + '</span>')
 
         __.find('[data-name=valid]')
             .removeClass('text-danger text-success text-warning')
@@ -103,7 +102,7 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-2">
-                    <span class="card-title text-uppercase h6 fw-bold mb-0">All Tracks</span>
+                    <span class="card-title text-uppercase h6 fw-bold mb-0">Track Management</span>
                     <span class="text-muted">
                         Total <span data-name="total-count">0</span>
                     </span>
@@ -139,7 +138,7 @@
             data-callback="__results"
             data-skip="0"
             data-take="10"
-            data-include="search,sources"
+            data-include="search"
             data-loading="#items->children(.loading)"
             data-more="#itemsMore"
             data-each="#items">
@@ -163,11 +162,10 @@
                             <span data-col="type" class="text-muted"></span>
                         </small>
                         <span data-col="value"></span>
-                        <small data-name="user"></small>
                     </div>
                     <div class="ms-auto">
                         <small class="text-end d-block" data-name="valid"></small>
-                        <small class="text-end d-block text-muted">Every <span data-col="request_frequency"></span> min / <span data-col="request_hit"></span></small>
+                        <span class="text-end d-block text-muted">Every <span data-col="request_frequency"></span> min / <span data-col="request_hit"></span></span>
                         <a
                             href="#"
                             class="text-end d-block"
@@ -175,7 +173,7 @@
                             data-blockui="#masterCard"
                             data-callback="edit"
                             data-action="{{ route('root.tracks.read') }}">
-                            <span data-col="error_hit"></span> error
+                            <span data-col="error_hit"></span> <span>error</span>
                         </a>
                     </div>
                 </div>

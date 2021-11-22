@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('users')->group(function() {
+Route::prefix('user-management')->group(function() {
 	Route::get('/', 'UserController@view')->name('root.users');
 	Route::post('read', 'UserController@read')->name('root.users.read');
 	Route::post('update', 'UserController@update')->name('root.users.update');
@@ -10,7 +10,7 @@ Route::prefix('users')->group(function() {
 	Route::post('list', 'UserController@list')->name('root.users.list');
 });
 
-Route::prefix('all-tracks')->group(function() {
+Route::prefix('track-management')->group(function() {
 	Route::get('/', 'TrackController@view')->name('root.tracks');
 	Route::post('read', 'TrackController@read')->name('root.tracks.read');
 	Route::post('update', 'TrackController@update')->name('root.tracks.update');
@@ -18,7 +18,7 @@ Route::prefix('all-tracks')->group(function() {
 	Route::post('list', 'TrackController@list')->name('root.tracks.list');
 });
 
-Route::prefix('proxies')->group(function() {
+Route::prefix('proxy-management')->group(function() {
 	Route::get('/', 'ProxyController@view')->name('root.proxies');
 	Route::post('read', 'ProxyController@read')->name('root.proxies.read');
 	Route::post('update', 'ProxyController@update')->name('root.proxies.update');
@@ -26,7 +26,15 @@ Route::prefix('proxies')->group(function() {
 	Route::post('settings', 'ProxyController@settings')->name('root.proxies.settings');
 });
 
-Route::prefix('elasticsearch')->group(function() {
+Route::prefix('faq-management')->group(function() {
+	Route::get('/', 'FaqController@view')->name('root.faq');
+	Route::post('action', 'FaqController@action')->name('root.faq.action');
+	Route::post('read', 'FaqController@read')->name('root.faq.read');
+	Route::post('delete', 'FaqController@delete')->name('root.faq.delete');
+	Route::post('list', 'FaqController@list')->name('root.faq.list');
+});
+
+Route::prefix('elasticsearch-monitor')->group(function() {
 	Route::get('/', 'ElasticsearchController@view')->name('root.elasticsearch');
 	Route::post('status/{status}', 'ElasticsearchController@status')->name('root.elasticsearch.status')->where('status', '(health|nodes|indices)');
 });

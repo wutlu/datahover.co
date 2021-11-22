@@ -9,14 +9,14 @@ return [
 		],
 		'gains' => 'At the end of this job you store "Public Tweets"',
 	],
-	'facebook' => [
-		'name' => 'Facebook',
-		'icon' => 'images/icons/facebook.png',
-		'tracks' => [
-			'page' => [ 'required', 'regex:/^https?\:\/\/www\.facebook\.com\/(.*?)(\/|$)/i', 'active_url' ],
-		],
-		'gains' => 'At the end of this job you store "Public Facebook Posts"',
-	],
+	// 'facebook' => [
+	// 	'name' => 'Facebook',
+	// 	'icon' => 'images/icons/facebook.png',
+	// 	'tracks' => [
+	// 		'page' => [ 'required', 'regex:/^https?\:\/\/www\.facebook\.com\/(.*?)(\/|$)/i', 'active_url' ],
+	// 	],
+	// 	'gains' => 'At the end of this job you store "Public Facebook Posts"',
+	// ],
 	'news' => [
 		'name' => 'News',
 		'icon' => 'images/icons/news.png',
@@ -25,12 +25,12 @@ return [
 		],
 		'gains' => 'At the end of this job you store "Public News"'
 	],
-	'youtube' => [
-		'name' => 'YouTube',
-		'icon' => 'images/icons/youtube.png',
-		'tracks' => [
-			'keyword' => [ 'required', 'regex:/^[a-zA-Z0-9 ]{3,24}$/i' ],
-		],
-		'gains' => 'At the end of this job you store "Public YouTube Video Text Contents and Public Video Comments"'
-	]
+	// 'youtube' => [
+	// 	'name' => 'YouTube',
+	// 	'icon' => 'images/icons/youtube.png',
+	// 	'tracks' => [
+	// 		'keyword' => [ 'required', 'regex:/^[a-zA-Z0-9 ]{3,24}$/i' ],
+	// 	],
+	// 	'gains' => 'At the end of this job you store "Public YouTube Video Text Contents and Public Video Comments"'
+	// ]
 ];

@@ -12,10 +12,11 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Track;
 
 use App\Http\Controllers\Server\CrawlerController as Crawler;
+
 use Etsetra\Elasticsearch\Console\BulkApi;
 use Etsetra\Library\DateTime as DT;
 
-class LinkDetectorJob implements ShouldQueue
+class NewsDetectorJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -62,13 +63,13 @@ class LinkDetectorJob implements ShouldQueue
                             'link' => $link,
                             'device' => 'Web',
                             'status' => 'call',
-                            'created_at' => (new DT)->nowAt()
+                            'called_at' => (new DT)->nowAt()
                         ],
                         'create'
                     );
                 }
 
-                $this->line('The collection has been submitted to Redis.');
+                $this->line('The collection has been submitted to DB.');
             }
             else
             {
@@ -84,7 +85,7 @@ class LinkDetectorJob implements ShouldQueue
             $this->line($this->track->error_reason);
         }
 
-        if ($this->track->error_hit >= 20)
+        if ($this->track->error_hit >= 100)
         {
             $this->track->valid = false;
             $this->line('Track closed');

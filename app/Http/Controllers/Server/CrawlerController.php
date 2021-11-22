@@ -13,7 +13,8 @@ use App\Models\Proxy;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 
-use nokogiri;
+use Etsetra\Library\Nokogiri;
+use Etsetra\Library\DateTime as DT;
 
 class CrawlerController extends Controller
 {
@@ -25,8 +26,10 @@ class CrawlerController extends Controller
 	 */
     public static function getPageSource(string $page)
     {
+        $base_uri = explode('/', $page)[0];
+
         $client = new Client([
-            'base_uri' => "//$page",
+            'base_uri' => $base_uri,
             'handler' => HandlerStack::create()
         ]);
 
@@ -34,7 +37,7 @@ class CrawlerController extends Controller
             'timeout' => 10,
             'connect_timeout' => 10,
             'headers' => [
-                'User-Agent' => config('crawler.user_agents')[array_rand(config('crawler.user_agents'))]
+                'User-Agent' => config('crawler.user_agents')[array_rand(config('crawler.user_agents'))],
             ],
             'curl' => [
                 CURLOPT_REFERER => 'https://www.google.com/search?q=site%3A'.$page.'&source=hp&uact=5',
@@ -53,7 +56,7 @@ class CrawlerController extends Controller
 
         try
         {
-            $request = $client->get('/', $params);
+            $request = $client->get("//$page", $params);
 
             return (object) [
                 'success' => 'ok',
@@ -67,7 +70,18 @@ class CrawlerController extends Controller
             switch ($e->getCode())
             {
                 case 0: $message = 'It takes over 10 seconds to connect to this website.'; break;
-                case 502: $message = 'This resource did not provide a valid response to our connection requests.'; break;
+                case 400: $message = 'Bad Request'; break;
+                case 401: $message = 'Unauthorized'; break;
+                case 403: $message = 'Forbidden'; break;
+                case 404: $message = 'Not Found'; break;
+                case 405: $message = 'Method Not Allowed'; break;
+                case 407: $message = 'Proxy Authentication Required'; break;
+                case 408: $message = '(408) Request Timeout'; break;
+                case 429: $message = 'Too Many Requests'; break;
+                case 500: $message = 'Internal Server Error'; break;
+                case 502: $message = 'Bad Gateway'; break;
+                case 503: $message = 'Service Unavailable'; break;
+                case 504: $message = 'Gateway Timeout'; break;
             }
 
             return (object) [
@@ -92,7 +106,7 @@ class CrawlerController extends Controller
     {
         $chunks = [];
 
-        $saw = new \nokogiri($html);
+        $saw = new Nokogiri($html);
 
         $links = Arr::pluck($saw->get('a[href]')->toArray(), 'href');
         $links = array_unique($links);
@@ -156,5 +170,79 @@ class CrawlerController extends Controller
             'success' => 'ok',
             'links' => $collect
         ];
+    }
+
+    /**
+     * @param string $html
+     * @return object
+     */
+    public static function getSchemaInHtml(string $html)
+    {
+        try
+        {
+            $dom  = new \DOMDocument();
+            libxml_use_internal_errors(1);
+            $dom->loadHTML($html);
+            $xpath = new \DOMXpath($dom);
+            $jsonScripts = $xpath->query('//script[@type="application/ld+json"]');
+            $json = trim($jsonScripts->item(0)->nodeValue);
+
+            return json_decode($json);
+        }
+        catch (\Exception $e)
+        {
+            return null;
+        }
+    }
+
+    /**
+     * @param string $html
+     * @return object
+     */
+    public static function getArticleInHtml(string $html)
+    {
+        $schema = self::getSchemaInHtml($html);
+
+        $data = new \stdClass;
+
+        if (@$schema->headline && @$schema->articleBody)
+        {
+            $data->title = $schema->headline;
+            $data->article = $schema->articleBody;
+
+            $data->image = @$schema->image->url ?? null;
+            $data->created_at = @$schema->datePublished ?? null;
+        }
+        else
+        {
+            $saw = new Nokogiri($html);
+            $metas = $saw->get('meta')->toArray();
+
+            $title = [];
+            $article = [];
+            $image = [];
+
+            if (count($metas))
+            {
+                foreach ($metas as $meta)
+                {
+                    if ((@$meta['property'] == 'og:title' || @$meta['name'] == 'twitter:title' || @$meta['name'] == 'title') && @$meta['content'])
+                        $title[] = $meta['content'];
+                    elseif ((@$meta['property'] == 'og:description' || @$meta['name'] == 'twitter:description' || @$meta['name'] == 'description') && @$meta['content'])
+                        $article[] = $meta['content'];
+                    elseif ((@$meta['property'] == 'og:image' || @$meta['name'] == 'twitter:image') && @$meta['content'])
+                        $image[] = $meta['content'];
+                }
+            }
+
+            preg_match('/\d{4}.\d{1,2}.\d{1,2}.\d{1,2}:\d{1,2}:\d{1,2}/', $html, $created_at);
+
+            $data->title = @$title[0] ?? ($saw->get('h1')->toText() ?? ($saw->get('title')->toText() ?? null));
+            $data->article = @$article[0] ?? null;
+            $data->image = @$image[0] ?? null;
+            $data->created_at = @$created_at[0] ? (new DT)->nowAt($created_at[0]) : null;
+        }
+
+        return $data;
     }
 }
