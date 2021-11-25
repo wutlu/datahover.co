@@ -26,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // Cashier::calculateTaxes();
+
+        if ($this->app->environment('production'))
+            \URL::forceScheme('https');
     }
 }
