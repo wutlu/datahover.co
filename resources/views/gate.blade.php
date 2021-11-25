@@ -61,10 +61,10 @@
 							<a href="#" class="text-dark text-decoration-none">Privacy Policy</a>
 						</div>
 					@endif
-					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 rounded-0 border border-1 fw-bold">
+{{-- 					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 rounded-0 border border-1 fw-bold">
 						<img alt="GitHub" src="{{ asset('images/icons/github.png') }}" width="24" height="24" />
 						Continue with GitHub
-					</a>
+					</a> --}}
 				</div>
 			</div>
 		</div>
