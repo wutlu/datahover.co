@@ -57,8 +57,8 @@ class HomeController extends Controller
         );
 
         return [
-            'success' => $query->success,
-            'data' => $query->source
+            'success' => @$query->success ?? 'failed',
+            'data' => @$query->source
         ];
     }
 

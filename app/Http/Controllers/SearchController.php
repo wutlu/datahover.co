@@ -81,7 +81,7 @@ class SearchController extends Controller
         );
 
         return [
-            'success' => $query->success,
+            'success' => @$query->success ?? 'failed',
             'data' => @$query->source ?? [],
             'stats' => @$query->stats ?? [ 'total' => 0 ]
         ];
