@@ -20,12 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('timezone')->default('UTC');
 
-            $table->string('subscription')->default('demo');
+            $table->string('subscription')->default('trial');
             $table->timestamp('subscription_end_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
+            $table->decimal('balance', 10, 2)->default(0);
+            $table->string('stripe_id')->nullable()->index();
 
-            $table->string('api_key')->unique();
+            $table->string('api_key');
             $table->string('api_secret');
-
             $table->index([ 'api_key', 'api_secret' ]);
 
             $table->boolean('is_root')->default(false);

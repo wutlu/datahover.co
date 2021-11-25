@@ -8,18 +8,19 @@
 		</div>
 	</div>
 </div>
+
 @push('js')
-$(window).on('load', function() {
-	let cookieModal = $('#cookieModal').modal({
-		backdrop: 'static',
-		keyboard: false
-	})
+	$(window).on('load', function() {
+		let cookieModal = $('#cookieModal').modal({
+			backdrop: 'static',
+			keyboard: false
+		})
 
-	if (!$.cookie('cookies'))
-		cookieModal.modal('show')
+		if (!$.cookie('cookies'))
+			cookieModal.modal('show')
 
-	cookieModal.on('hidden.bs.modal', function () {
-		$.cookie('cookies', true, { path: '/' });
+		cookieModal.on('hidden.bs.modal', function () {
+			$.cookie('cookies', true, { path: '/' });
+		})
 	})
-})
 @endpush

@@ -289,17 +289,17 @@
 			<div class="col">
 				<div class="card rounded-0 shadow-sm mb-4">
 					<div class="card-body d-flex flex-column gap-3 p-4">
-						<h4 class="card-title mb-0">{{ config('subscriptions.basic.name') }}</h4>
+						<h4 class="card-title mb-0">{{ config('plans.basic.name') }}</h4>
 						<div class="d-flex align-items-end gap-2">
 							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('subscriptions.basic.price') }}</span>
+								$<span data-name="price">{{ config('plans.basic.price') }}</span>
 							</span>
 							<small class="text-muted h4">/Month</small>
 						</div>
 						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
 							<li class="d-inline-flex align-items-center gap-2">
 								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('subscriptions.basic.track_limit') }} Track</span>
+								<span class="h6 mb-0">{{ config('plans.basic.track_limit') }} Track</span>
 								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
 							</li>
 							<li class="d-inline-flex align-items-center gap-2">
@@ -319,17 +319,17 @@
 				<div class="card rounded-0 shadow mb-4 border-3 border-primary">
 					<div class="card-body d-flex flex-column gap-3 p-4">
 						<small class="bg-light text-primary text-center py-2">Most Popular Plan</small>
-						<h4 class="card-title mb-0">{{ config('subscriptions.pro.name') }}</h4>
+						<h4 class="card-title mb-0">{{ config('plans.pro.name') }}</h4>
 						<div class="d-flex align-items-end gap-2">
 							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('subscriptions.pro.price') }}</span>
+								$<span data-name="price">{{ config('plans.pro.price') }}</span>
 							</span>
 							<small class="text-muted h4">/Month</small>
 						</div>
 						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
 							<li class="d-inline-flex align-items-center gap-2">
 								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('subscriptions.pro.track_limit') }} Track</span>
+								<span class="h6 mb-0">{{ config('plans.pro.track_limit') }} Track</span>
 								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
 							</li>
 							<li class="d-inline-flex align-items-center gap-2">
@@ -348,17 +348,17 @@
 			<div class="col">
 				<div class="card rounded-0 shadow-sm mb-4 text-white bg-dark">
 					<div class="card-body d-flex flex-column gap-3 p-4">
-						<h4 class="card-title mb-0 text-warning">{{ config('subscriptions.enterprise.name') }}</h4>
+						<h4 class="card-title mb-0 text-warning">{{ config('plans.enterprise.name') }}</h4>
 						<div class="d-flex align-items-end gap-2">
 							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('subscriptions.enterprise.price') }}</span>
+								$<span data-name="price">{{ config('plans.enterprise.price') }}</span>
 							</span>
 							<small class="text-muted h4">/Month</small>
 						</div>
 						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
 							<li class="d-inline-flex align-items-center gap-2">
 								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('subscriptions.enterprise.track_limit') }} Track</span>
+								<span class="h6 mb-0">{{ config('plans.enterprise.track_limit') }} Track</span>
 								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-white"><i class="material-icons">info</i></a>
 							</li>
 							<li class="d-inline-flex align-items-center gap-2">

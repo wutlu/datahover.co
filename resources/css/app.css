@@ -1,7 +1,7 @@
 @import 'bootstrap';
 
-html, body, .btn, * {
-  font-family: 'Noto Sans Display', sans-serif;
+html, body, * {
+  font-family: 'Roboto', sans-serif;
 }
 
 html, body {
@@ -110,6 +110,7 @@ a {
 .w-300px { width: 300px; }
 .h-300px { height: 300px; }
 
+.mw-100px { max-width: 100px; }
 .mw-200px { max-width: 200px; }
 .mw-300px { max-width: 300px; }
 .mw-400px { max-width: 400px; }
@@ -124,11 +125,12 @@ a {
   text-align: center;
 }
 
-.pink-bg {
-  background-image: url('../images/pink-bg.svg');
-  background-position: center;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
+.unselectable {
+  user-select: none;
+}
+
+.grayscale {
+  filter: grayscale(1);
 }
 
 /**
@@ -162,13 +164,6 @@ input[type=number].hide-arrows {
   position: absolute;
   top: -4px;
   left: -2px;
-}
-
-/**
- * Helpers
- */
-.unselectable {
-  user-select: none;
 }
 
 /**

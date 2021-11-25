@@ -1,6 +1,5 @@
 import 'jquery.cookie';
 import 'block-ui';
-
 import Test from './components/test.js';
 
 global.cookie = require('jquery.cookie');
@@ -215,7 +214,7 @@ let ajaxAction = function(__)
         {
             etsetraAlert(
                 {
-                    'id': 'confirmation',
+                    'id': 'confirmation-' + md5(confirmation),
                     'message': confirmation,
                     'data': __.data()
                 }
@@ -569,7 +568,7 @@ let etsetraAlert = function(obj)
         modal.find('.modal-body').html(obj.message)
         modal.css('z-index', zIndex)
 
-    if (obj.id == 'confirmation')
+    if (obj.id && (obj.id).substr(0, 12) == 'confirmation')
     {
         let ok = modal.find('[data-name=ok]');
             ok.html(keywords['ok'])

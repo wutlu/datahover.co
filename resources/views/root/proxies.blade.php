@@ -198,7 +198,7 @@
                 data-action="{{ route('root.proxies.list') }}"
                 data-callback="__results"
                 data-skip="0"
-                data-take="10"
+                data-take="25"
                 data-include="search,sources"
                 data-loading="#items->children(.loading)"
                 data-more="#itemsMore"

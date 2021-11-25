@@ -19,6 +19,15 @@
 		@if (!$greetingWelcome)
 			let modal = $('#greetingModal').modal('show');
 		@endif
+
+		$('#greetingCarousel').on('slide.bs.carousel', function (e) {
+			let trigger = $('[data-bs-target="#greetingCarousel"]');
+
+			if (e.to == 2)
+				trigger.addClass('d-none')
+			else
+				trigger.removeClass('d-none')
+		})
 	})
 @endpush
 
@@ -38,17 +47,17 @@
 					<a
 						href="#"
 						class="link-dark"
-						data-bs-target="#carouselExampleDark"
+						data-bs-target="#greetingCarousel"
 						data-bs-slide="next">
 						<i class="material-icons">arrow_forward_ios</i>
 					</a>
 				</div>
 				<div class="modal-body">
-					<div id="carouselExampleDark" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">
+					<div id="greetingCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">
 						<div class="carousel-indicators">
-							<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="h-16px active"></button>
-							<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" class="h-16px"></button>
-							<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" class="h-16px"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="0" class="h-16px active"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="1" class="h-16px"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="2" class="h-16px"></button>
 						</div>
 						<div class="carousel-inner p-0">
 							<div class="carousel-item h-200px active">
@@ -63,11 +72,11 @@
 									<p class="text-muted">Use our Search API. Get all the content on your server according to the criteria you want.</p>
 								</div>
 							</div>
-							<div class="carousel-item h-256px">
+							<div class="carousel-item h-200px">
 								<div class="carousel-caption top-0">
 									<h5>Automation</h5>
-									<p class="text-muted">Automate your own with our track API's!</p>
-									<a href="#" class="btn btn-outline-secondary rounded-0" data-bs-dismiss="modal">Enter dashboard</a>
+									<p class="text-muted mb-4">Automate your own with our track API's!</p>
+									<a href="#" class="btn btn-outline-secondary btn-sm rounded-0" data-bs-dismiss="modal">Enter dashboard</a>
 								</div>
 							</div>
 						</div>
@@ -75,14 +84,14 @@
 
 					<div class="d-flex justify-content-end">
 						<label class="form-check d-flex align-items-center gap-2">
+							<small>Don't show it again</small>
 							<input
-								class="form-check-input rounded-0 shadow-sm"
+								class="form-check-input rounded-0 shadow-sm m-0"
 								autocomplete="off"
 								data-action="{{ route('user.info.hide') }}"
 								type="checkbox"
 								name="info_key"
 								value="greeting.welcome" />
-							<small>Don't show it again</small>
 						</label>
 					</div>
 				</div>
@@ -118,12 +127,11 @@
 		<ul
 			id="items"
 			class="list-group list-group-flush load border-0"
-			data-action="{{ route('api.logs.list') }}"
+			data-action="{{ route('user.logs.list') }}"
 			data-skip="0"
 			data-take="5"
 			data-include="search"
 			data-loading="#items->children(.loading)"
-			data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
 			data-more="#itemsMore"
 			data-each="#items">
 			<li class="list-group-item border-0 d-flex justify-content-center loading">
@@ -132,7 +140,7 @@
 			<li class="list-group-item border-0 each-model">
 				<div class="d-flex justify-content-between">
 					<a href="#" target="_blank" class="link-primary d-flex flex-column" data-name="link">
-						<span data-col="site" class="fw-bold"></span>
+						<span data-col="site"></span>
 						<small data-col="created_at" class="text-muted"></small>
 					</a>
 					<small class="d-flex flex-column align-items-end text-muted">
@@ -151,54 +159,5 @@
 			data-action-target="#items">
 			<i class="material-icons d-table mx-auto text-muted">more_horiz</i>
 		</a>
-		<div class="accordion" id="apiAccordion">
-			@foreach ($apis as $key => $api)
-				<div class="accordion-item border-0 rounded-0 border-top">
-					<div class="accordion-header">
-						<button
-							class="accordion-button bg-light rounded-0 shadow-none collapsed py-2"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#{{ $key }}">
-							<small class="text-muted">{{ $api['name'] }}</small>
-						</button>
-					</div>
-					<div id="{{ $key }}" class="accordion-collapse collapse border-0" data-bs-parent="#apiAccordion">
-						<ul class="list-group list-group-flush">
-							<li class="list-group-item ps-4 d-flex flex-column border-0">
-								<small class="text-muted">{{ $api['method'] }}</small>
-								<label>{{ $api['route'] }}</label>
-							</li>
-							<li class="list-group-item ps-4 d-flex flex-column border-0">
-								<small class="text-muted">Request Limit</small>
-								<label>{{ $rate_limit }} request per {{ $rate_minutes }} minutes</label>
-							</li>
-							<li class="list-group-item fw-bold border-0 text-uppercase">Headers</li>
-							<li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-								<small class="text-muted">X-Api-Key</small>
-								<label>{{ auth()->user()->api_key }}</label>
-							</li>
-							<li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-								<small class="text-muted">X-Secret-Key</small>
-								<label>{{ auth()->user()->api_secret }}</label>
-							</li>
-							<li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-								<small class="text-muted">Accept</small>
-								<label>application/json</label>
-							</li>
-
-							<li class="list-group-item fw-bold border-0 text-uppercase">Params</li>
-
-							@foreach ($api['params'] as $key => $value)
-								<li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-									<small class="text-muted">{{ $key }}</small>
-									<label>{{ $value }}</label>
-								</li>
-							@endforeach
-						</ul>
-					</div>
-				</div>
-			@endforeach
-		</div>
 	</div>
 @endsection

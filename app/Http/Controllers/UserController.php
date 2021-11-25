@@ -20,8 +20,6 @@ use Auth;
 
 class UserController extends Controller
 {
-    protected $subscriptions;
-
     public function __construct()
     {
         $this->middleware('guest')->except(
@@ -29,8 +27,6 @@ class UserController extends Controller
                 'gateExit',
                 'account',
                 'apiSecretGenerator',
-                'subscription',
-                'getSubscription',
                 'hideInfo'
             ]
         );
@@ -38,43 +34,17 @@ class UserController extends Controller
             [
                 'account',
                 'apiSecretGenerator',
-                'subscription',
-                'getSubscription',
                 'hideInfo'
             ]
         );
-
-        $this->subscriptions = config('subscriptions');
-
-        unset($this->subscriptions['demo']);
-    }
-
-    public function subscription()
-    {
-        $subscription = auth()->user()->subscription();
-        $subscriptions = $this->subscriptions;
-
-        return view('subscription', compact('subscription', 'subscriptions'));
     }
 
     /**
-     * @param string $name
+     * User info modals
+     * 
+     * @param Illuminate\Http\Request $request
      * @return object
      */
-    public function getSubscription(Request $request)
-    {
-        $request->validate(
-            [
-                'name' => 'required|string|in:'.implode(',', array_keys($this->subscriptions))
-            ]
-        );
-
-        return [
-            'success' => 'ok',
-            'data' => config("subscriptions.$request->name")
-        ];
-    }
-
     public function hideInfo(Request $request)
     {
         $request->validate(
@@ -125,7 +95,7 @@ class UserController extends Controller
         $user->api_secret = $secret;
         $user->save();
 
-        (new Logs)->enter($user->id, request()->ip().': Api Secret Regenerated');
+        (new Logs)->enter($user->id, 'Api Secret Regenerated');
 
         return [
             'success' => 'ok',
@@ -153,7 +123,7 @@ class UserController extends Controller
      * 
      * @return object
      */
-    public function gateRedirect(Request$request)
+    public function gateRedirect(Request $request)
     {
         return Socialite::driver('github')->redirect();
     }
@@ -163,7 +133,7 @@ class UserController extends Controller
      * 
      * @return object
      */
-    public function gateCallback(Request$request)
+    public function gateCallback(Request $request)
     {
         try
         {
@@ -204,7 +174,7 @@ class UserController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        (new Logs)->enter($user->id, request()->ip().': Enter to dashboard');
+        (new Logs)->enter($user->id, 'Enter to dashboard');
 
         return redirect()->route('dashboard');
     }
@@ -216,7 +186,7 @@ class UserController extends Controller
      */
     public function gateExit()
     {
-        (new Logs)->enter(auth()->user()->id, request()->ip().': Exit to dashboard');
+        (new Logs)->enter(auth()->user()->id, 'Exit to dashboard');
 
         Auth::logout();
 

@@ -8,29 +8,26 @@ use App\Models\Logs;
 
 class LogController extends Controller
 {
-    public $list_rules;
-    public $rate_minutes = 1;
-    public $rate_limit = 100;
-
     public function __construct()
     {
-        // $this->middleware('auth');
-
-        $this->list_rules = [
-            'search' => 'nullable|string|max:1000',
-            'skip' => 'required|integer|max:1000000',
-            'take' => 'required|integer|max:1000',
-        ];
+        $this->middleware('auth')->only([ 'list' ]);
     }
 
     /**
      * List Api
      * 
+     * @param Illuminate\Http\Request $request
      * @return view
      */
-    public function listApi(Request $request)
+    public function list(Request $request)
     {
-        $request->validate($this->list_rules);
+        $request->validate(
+            [
+                'search' => 'nullable|string|max:1000',
+                'skip' => 'required|integer|max:1000000',
+                'take' => 'required|integer|max:1000',
+            ]
+        );
 
         $data = Logs::select('id', 'site', 'message', 'repeat', 'created_at')
             ->where(function($query) use($request) {
@@ -40,7 +37,7 @@ class LogController extends Controller
                     $query->orWhere('site', 'ilike', '%'.$request->search.'%');
                 }
             })
-            ->where('user_id', $request->user->id)
+            ->where('user_id', $request->user()->id)
             ->skip($request->skip)
             ->take($request->take)
             ->orderBy('updated_at', 'desc')
@@ -69,6 +66,7 @@ class LogController extends Controller
         $item->message = $message;
         $item->hash = $hash;
         $item->repeat = $item->repeat + 1;
+        $item->ip = request()->ip();
         $item->save();
 
         return (object) [

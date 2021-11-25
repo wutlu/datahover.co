@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:wght@200;400;600&family=Material+Icons&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Material+Icons&display=swap" />
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" />
 
     <link rel="canonical" href="{{ url()->current() }}" />

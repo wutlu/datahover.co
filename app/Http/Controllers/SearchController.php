@@ -49,7 +49,7 @@ class SearchController extends Controller
 
         $take = $request->take ?? 100;
 
-        if ($request->user->subscription == 'demo')
+        if ($request->user->subscription == 'trial')
             $take = $take >= 10 ? 10 : $take;
 
         $query = (new DataPool)->find(

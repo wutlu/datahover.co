@@ -38,7 +38,7 @@
 @endpush
 
 @section('content')
-	<div class="card rounded-0 shadow-sm mb-4 border-top-0" id="masterCard">
+	<div class="card rounded-0 shadow-sm" id="masterCard">
         <div class="card-body">
             <h6 class="card-title text-uppercase h6 fw-bold mb-0">Search Api</h6>
         </div>

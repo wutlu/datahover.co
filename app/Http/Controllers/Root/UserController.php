@@ -33,7 +33,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|max:255|unique:users,email,'.$request->id,
-            'subscription' => [ 'required', 'string', 'in:'.implode(',', array_keys(config('subscriptions'))) ],
+            'subscription' => [ 'required', 'string', 'in:'.implode(',', array_keys(config('plans'))) ],
             'subscription_end_date' => 'required|date',
             'is_root' => 'nullable|string|in:on'
         ]);

@@ -25,6 +25,8 @@ class CreateLogsTable extends Migration
 
             $table->unsignedBigInteger('repeat')->default(1);
 
+            $table->ipAddress('ip');
+
             $table->timestamps();
         });
     }

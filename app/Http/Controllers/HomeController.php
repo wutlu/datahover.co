@@ -70,16 +70,6 @@ class HomeController extends Controller
     public function dashboard()
     {
         return view('dashboard', [
-            'rate_minutes' => (new LogController)->rate_minutes,
-            'rate_limit' => (new LogController)->rate_limit,
-            'apis' => [
-                'logList' => [
-                    'name' => 'Log List APi',
-                    'method' => 'POST',
-                    'route' => route('api.logs.list'),
-                    'params' => (new LogController)->list_rules,
-                ],
-            ],
             'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists()
         ]);
     }

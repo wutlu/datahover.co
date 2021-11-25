@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, Notifiable, Billable;
 
     public $incrementing = false;
 
@@ -39,6 +39,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'balance' => 'float',
     ];
 
     public function subscription()
@@ -47,7 +48,7 @@ class User extends Authenticatable
 
         return (object) [
             'days' => $days >= 0 ? $days : 0,
-            'package' => config('subscriptions')[$this->subscription]
+            'plan' => config('plans')[$this->subscription]
         ];
     }
 

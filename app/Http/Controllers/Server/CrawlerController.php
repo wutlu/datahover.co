@@ -213,11 +213,12 @@ class CrawlerController extends Controller
             $data->image = @$schema->image->url ?? null;
             $data->created_at = @$schema->datePublished ?? null;
         }
-        else
-        {
-            $saw = new Nokogiri($html);
-            $metas = $saw->get('meta')->toArray();
 
+        $saw = new Nokogiri($html);
+        $metas = $saw->get('meta')->toArray();
+
+        if (!$data->title || !$data->article || !$data->created_at)
+        {
             $title = [];
             $article = [];
             $image = [];
@@ -235,12 +236,21 @@ class CrawlerController extends Controller
                 }
             }
 
-            preg_match('/\d{4}.\d{1,2}.\d{1,2}.\d{1,2}:\d{1,2}:\d{1,2}/', $html, $created_at);
+            if (!$data->title)
+                $data->title = @$title[0] ?? ($saw->get('h1')->toText() ?? ($saw->get('title')->toText() ?? null));
 
-            $data->title = @$title[0] ?? ($saw->get('h1')->toText() ?? ($saw->get('title')->toText() ?? null));
-            $data->article = @$article[0] ?? null;
-            $data->image = @$image[0] ?? null;
-            $data->created_at = @$created_at[0] ? (new DT)->nowAt($created_at[0]) : null;
+            if (!$data->article)
+                $data->article = @$article[0] ?? null;
+
+            if (!$data->image)
+                $data->image = @$image[0] ?? null;
+
+            if (!$data->created_at)
+            {
+                preg_match('/\d{4}.\d{1,2}.\d{1,2}.\d{1,2}:\d{1,2}:\d{1,2}/', $html, $created_at);
+
+                $data->created_at = @$created_at[0] ? (new DT)->nowAt($created_at[0]) : null;
+            }
         }
 
         return $data;

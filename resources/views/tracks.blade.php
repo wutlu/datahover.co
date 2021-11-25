@@ -150,9 +150,9 @@
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
                     <span class="card-title text-uppercase h6 fw-bold mb-0">Track List</span>
-                    <span class="text-muted">
+                    <small class="text-muted">
                         Current <span data-name="track-total">0</span> / Limit <span data-name="track-limit">0</span>
-                    </span>
+                    </small>
                 </div>
                 <div class="d-flex gap-1">
                     <input

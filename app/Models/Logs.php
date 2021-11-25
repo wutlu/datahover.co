@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Etsetra\Library\DateTime as DT;
+use Request;
 
 class Logs extends Model
 {
@@ -13,7 +14,7 @@ class Logs extends Model
     {
         $hash = $user_id.md5($message);
 
-        $log = Logs::where('hash', $hash)->first();
+        $log = self::where('hash', $hash)->first();
 
         if ($log)
         {
@@ -21,12 +22,13 @@ class Logs extends Model
             $log->updated_at = (new DT)->nowAt();
         }
         else
-            $log = new Logs;
+            $log = new self;
 
         $log->site = $site ?? config('app.domain');
         $log->user_id = $user_id;
         $log->message = $message;
         $log->hash = $hash;
+        $log->ip = Request::ip();
         $log->save();
     }
 }

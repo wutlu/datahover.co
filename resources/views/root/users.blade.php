@@ -37,7 +37,7 @@
 
     let edit = function(__, obj)
     {
-        let modal = $('#editModal');
+        let modal = $('#edit-modal');
             modal.find('input[name=name]').val(obj.data.name)
             modal.find('input[name=email]').val(obj.data.email)
             modal.find('input[name=subscription_end_date]').val(obj.data.subscription_end_date)
@@ -51,7 +51,7 @@
 
     let __edit = function(__, obj)
     {
-        $('#editModal').modal('hide')
+        $('#edit-modal').modal('hide')
 
         let item = $('#items').find('[data-id=' + obj.data.id + ']');
             item.find('[data-col=name]').html(obj.data.name)
@@ -60,100 +60,80 @@
 @endpush
 
 @push('footer')
-    <div
-        id="editModal"
-        class="modal"
-        data-bs-backdrop="static"
-        aria-hidden="true"
-        aria-labelledby="editModalLabel"
-        tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content shadow border-0 rounded-0">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title">Edit</h5>
-                    <button
-                        type="button"
-                        class="btn-close rounded-circle"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+    @component('includes.modals.modal', [ 'name' => 'edit', 'title' => 'Edit' ])
+        <form
+            id="editForm"
+            autocomplete="off"
+            method="post"
+            action="#"
+            data-blockui="#edit-modal->find(.modal-content)"
+            data-callback="__edit"
+            data-action="{{ route('root.users.update') }}">
+
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control shadow-sm rounded-0" name="name" id="name" />
+                        <label for="name">{{ __('validation.attributes.name') }}</label>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form
-                        id="editForm"
-                        autocomplete="off"
-                        method="post"
-                        action="#"
-                        data-blockui="#editModal->find(.modal-content)"
-                        data-callback="__edit"
-                        data-action="{{ route('root.users.update') }}">
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <input type="text" class="form-control shadow-sm rounded-0" name="name" id="name" />
-                                    <label for="name">{{ __('validation.attributes.name') }}</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <input type="email" class="form-control shadow-sm rounded-0" name="email" id="email" />
-                                    <label for="email">{{ __('validation.attributes.email') }}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <select class="form-select shadow-sm rounded-0" name="subscription" id="subscription">
-                                        @foreach(config('subscriptions') as $key => $item)
-                                            <option value="{{ $key }}">{{ $item['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="subscription">{{ __('validation.attributes.subscription') }}</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <input type="date" class="form-control shadow-sm rounded-0" name="subscription_end_date" id="subscription_end_date" />
-                                    <label for="subscription_end_date">{{ __('validation.attributes.subscription_end_date') }}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <input readonly data-copy="api_key" data-copied="Api Key Copied!" class="form-control shadow-sm rounded-0" type="text" name="api_key" id="api_key" />
-                                    <label for="api_key">{{ __('validation.attributes.api_key') }}</label>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <div class="form-floating mb-2">
-                                    <input readonly data-copy="api_secret" data-copied="Api Secret Copied!" class="form-control shadow-sm rounded-0" type="text" name="api_secret" id="api_secret" />
-                                    <label for="api_secret">{{ __('validation.attributes.api_secret') }}</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-check form-switch mb-4">
-                            <input
-                                class="form-check-input rounded-0"
-                                type="checkbox"
-                                name="is_root"
-                                id="is_root"
-                                value="on" />
-                            <label class="form-check-label" for="is_root">Is Root</label>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0">Save</button>
-                        </div>
-                    </form>
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <input type="email" class="form-control shadow-sm rounded-0" name="email" id="email" />
+                        <label for="email">{{ __('validation.attributes.email') }}</label>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <select class="form-select shadow-sm rounded-0" name="subscription" id="subscription">
+                            @foreach(config('plans') as $key => $plan)
+                                <option value="{{ $key }}">{{ $plan['name'] }}</option>
+                            @endforeach
+                        </select>
+                        <label for="subscription">{{ __('validation.attributes.subscription') }}</label>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <input type="date" class="form-control shadow-sm rounded-0" name="subscription_end_date" id="subscription_end_date" />
+                        <label for="subscription_end_date">{{ __('validation.attributes.subscription_end_date') }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <input readonly data-copy="api_key" data-copied="Api Key Copied!" class="form-control shadow-sm rounded-0" type="text" name="api_key" id="api_key" />
+                        <label for="api_key">{{ __('validation.attributes.api_key') }}</label>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="form-floating mb-2">
+                        <input readonly data-copy="api_secret" data-copied="Api Secret Copied!" class="form-control shadow-sm rounded-0" type="text" name="api_secret" id="api_secret" />
+                        <label for="api_secret">{{ __('validation.attributes.api_secret') }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-check form-switch mb-4">
+                <input
+                    class="form-check-input rounded-0"
+                    type="checkbox"
+                    name="is_root"
+                    id="is_root"
+                    value="on" />
+                <label class="form-check-label" for="is_root">Is Root</label>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0">Save</button>
+            </div>
+        </form>
+    @endcomponent
 @endpush
 
 @section('content')
@@ -162,9 +142,9 @@
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
                     <span class="card-title text-uppercase h6 fw-bold mb-0">User Management</span>
-                    <span class="text-muted">
+                    <small class="text-muted">
                         Total <span data-name="total-count">0</span> / Active <span data-name="active-count">0</span>
-                    </span>
+                    </small>
                 </div>
                 <div class="d-flex gap-1">
                     <input

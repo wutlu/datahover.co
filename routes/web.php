@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\VerifyCsrfToken;
 
 Route::get('/', 'HomeController@index')->name('index');
 Route::post('console', 'HomeController@console')->name('index.console');
@@ -13,9 +14,18 @@ Route::get('gate/exit', 'UserController@gateExit')->name('user.gate.exit');
 Route::prefix('user')->group(function() {
 	Route::get('account', 'UserController@account')->name('user.account');
 	Route::post('api/secret-generator', 'UserController@apiSecretGenerator')->name('user.api.secret_generator');
-	Route::get('subscription', 'UserController@subscription')->name('user.subscription');
-	Route::post('get-subscription', 'UserController@getSubscription')->name('user.get_subscription');
+
 	Route::post('hide-info', 'UserController@hideInfo')->name('user.info.hide');
+	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
+});
+
+Route::prefix('subscription')->group(function() {
+	Route::get('/', 'SubscriptionController@view')->name('subscription.index');
+	Route::post('details', 'SubscriptionController@details')->name('subscription.details');
+	Route::post('cancel', 'SubscriptionController@cancel')->name('subscription.cancel');
+	Route::post('start', 'SubscriptionController@start')->name('subscription.start');
+	Route::post('order', 'SubscriptionController@order')->name('subscription.order')->withoutMiddleware([ VerifyCsrfToken::class ]);
+	Route::get('payment/{status?}', 'SubscriptionController@payment')->name('subscription.payment')->where('status', '(success|cancel)');
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');

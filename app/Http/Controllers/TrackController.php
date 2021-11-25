@@ -79,7 +79,7 @@ class TrackController extends Controller
     {
         $total_track = Track::whereJsonContains('users', $request->user->id)->count();
 
-        if ($total_track < $request->user->subscription()->package['track_limit'])
+        if ($total_track < $request->user->subscription()->plan['track_limit'])
         {
             $request->validate(
                 array_merge(
@@ -138,7 +138,9 @@ class TrackController extends Controller
                 $q->save();
             }
 
-            (new Logs)->enter($request->user->id, $request->ip().': createTrack {"'.$request->source.':'.$request->type.'","'.$request->value.'"}');
+            $ip = $request->ip();
+
+            (new Logs)->enter($request->user->id, 'A new track has been added. ('.$request->source.', '.$request->type.', '.$request->value.')');
 
             return [
                 'success' => 'ok',
@@ -192,7 +194,7 @@ class TrackController extends Controller
             'success' => 'ok',
             'data' => $data,
             'track' => [
-                'limit' => $request->user->subscription()->package['track_limit'],
+                'limit' => $request->user->subscription()->plan['track_limit'],
                 'total' => Track::whereJsonContains('users', $request->user->id)->count()
             ]
         ];
@@ -206,9 +208,11 @@ class TrackController extends Controller
             ->whereIn('id', $request->id)
             ->get();
 
+        $ip = $request->ip();
+
         foreach ($tracks as $track)
         {
-            (new Logs)->enter($request->user->id, $request->ip().': deleteTrack {"'.$track->source.':'.$track->type.'","'.$track->value.'"}');
+            (new Logs)->enter($request->user->id, 'A track has been deleted. ('.$track->source.', '.$track->type.', '.$track->value.')');
 
             if (count($track->users) <= 1)
                 $track->delete();
