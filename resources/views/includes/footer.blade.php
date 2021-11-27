@@ -19,12 +19,14 @@
 					<p class="mb-0 text-muted">© {{ date('Y') }} {{ config('app.name') }}</p>
 				</div>
 				<div class="d-flex flex-column align-items-center align-items-lg-start">
-					<a href="{{ route('page', 'about-us') }}" class="link-light">About Us</a>
-					<a href="{{ route('page', 'public-offer-agreement') }}" class="link-light">Public Offer Agreement</a>
-					<a href="{{ route('page', 'privacy-policy') }}" class="link-light">Privacy Policy</a>
+					<a href="{{ route('page', [ 'base' => 'page', 'name' => 'about-us' ]) }}" class="link-light">About Us</a>
+					<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="link-light">Privacy Policy</a>
+					<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="link-light">Terms of Service</a>
+					<a href="{{ route('faq.index') }}" class="link-light">F.A.Q.</a>
 				</div>
 				<div class="d-flex flex-column text-center text-lg-end">
 					<small class="mb-2 text-muted mw-300px">{{ config('etsetra.address') }}</small>
+					<small class="mb-2 text-muted">{{ config('etsetra.phone') }}</small>
 					<a href="mailto:{{ config('etsetra.email') }}" class="text-muted">{{ config('etsetra.email') }}</a>
 				</div>
 			</div>

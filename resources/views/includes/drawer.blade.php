@@ -13,13 +13,13 @@
 				</small>
 			@else
 				@if (auth()->user()->subscription()->days == 0)
-					<p class="card-text text-danger h6 mb-0">Your subscription has expired!</p>
+					<div class="alert alert-danger border border-1 border-danger rounded-0 shadow-sm small mb-0">Your subscription has expired!</div>
 				@elseif (auth()->user()->subscription()->days <= 7)
-					<p class="card-text text-muted h6 mb-0">Expires on {{ date('M d\t\h Y', strtotime(auth()->user()->subscription_end_date)) }}</p>
+					<div class="alert alert-warning border border-1 border-warning rounded-0 shadow-sm small mb-0">Expires on {{ date('M d\t\h Y', strtotime(auth()->user()->subscription_end_date)) }}</div>
 				@endif
 			@endif
 
-			<a href="{{ route('subscription.index') }}" class="btn btn-sm btn-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
+			<a href="{{ route('subscription.index') }}" class="btn btn-sm btn-outline-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
 		</div>
 		<div class="card-body">
 			<small class="card-title text-muted text-uppercase mb-0">Menu</small>

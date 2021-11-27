@@ -57,14 +57,14 @@
 					@else
 						<p class="mb-2 text-muted small">Etsetra is a technical system that only concerns developers. Therefore, you can only sign up or login with GitHub. Click the button below and if you are not registered with Etsetra, we will create an account for you using your GitHub information. All users who go beyond this stage are deemed to have read and accepted the following rule pages.</p>
 						<div class="d-flex flex-column mb-4">
-							<a href="#" class="text-dark text-decoration-none">Public Offer Agreement</a>
-							<a href="#" class="text-dark text-decoration-none">Privacy Policy</a>
+							<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="text-dark text-decoration-none">Privacy Policy</a>
+							<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="text-dark text-decoration-none">Terms of Service</a>
 						</div>
 					@endif
-{{-- 					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 rounded-0 border border-1 fw-bold">
+					<a href="{{ route('user.gate.redirect') }}" class="btn btn-light shadow-sm d-flex align-items-center justify-content-center gap-2 rounded-0 border border-1 fw-bold">
 						<img alt="GitHub" src="{{ asset('images/icons/github.png') }}" width="24" height="24" />
 						Continue with GitHub
-					</a> --}}
+					</a>
 				</div>
 			</div>
 		</div>

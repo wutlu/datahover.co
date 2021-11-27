@@ -25,14 +25,17 @@ Route::prefix('subscription')->group(function() {
 	Route::post('cancel', 'SubscriptionController@cancel')->name('subscription.cancel');
 	Route::post('start', 'SubscriptionController@start')->name('subscription.start');
 	Route::post('order', 'SubscriptionController@order')->name('subscription.order')->withoutMiddleware([ VerifyCsrfToken::class ]);
+
 	Route::get('payment/{status?}', 'SubscriptionController@payment')->name('subscription.payment')->where('status', '(success|cancel)');
+	Route::get('payment-history', 'SubscriptionController@paymentHistory')->name('subscription.payment.history');
+	Route::post('payment-history', 'SubscriptionController@paymentHistoryData');
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('track-list', 'TrackController@dashboard')->name('track.dashboard');
 Route::get('search', 'SearchController@dashboard')->name('search.dashboard');
 
-Route::get('page/{page}', 'HomeController@page')->name('page');
+Route::get('{base}/{name}', 'HomeController@page')->name('page');
 
 Route::get('faq', 'FaqController@view')->name('faq.index');
 Route::post('faq', 'FaqController@list')->name('faq.list');

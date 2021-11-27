@@ -2,6 +2,7 @@
 
 return [
 	'info' => 'DATAHOVER provides data for companies working with open source big data.',
-	'address' => 'M. Kemal Mh. Dumlupinar Blv. METU MEMS 280/G No: 1260 Lower Ground Floor, 06510 Çankaya/Ankara - Turkey',
+	'address' => '27 Old Gloucester Street, London, United Kingdom, WC1N 3AX',
 	'email' => 'support@datahover.co',
+	'phone' => '+44 0 (772) 385 58 15',
 ];

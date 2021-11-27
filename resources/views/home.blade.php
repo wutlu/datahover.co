@@ -134,10 +134,26 @@
 		</div>
 	@endcomponent
 
+	@php
+	$code = '{
+    "id": "f8b627242b1bc64a8...",
+    "site": "nytimes.com",
+    "link": "nytimes.com/2021/1...",
+    "device": "Web",
+    "status": "ok",
+    "created_at": "2021-11-12T03:13:40+00:00",
+    "called_at": "2021-11-12T03:15:52+00:00",
+    "image": "https://static01.nyt.co...",
+    "title": "Lorem ipsum dolor...",
+    "article": "Lorem ipsum dolor sit amet...",
+    "lang": "en"
+}';
+	@endphp
+
 	<div class="container">
 		<div class="card border-0 bg-transparent mw-1024px mx-auto">
 			<div class="card-body">
-				<h3 class="card-title fw-bold dotted-title py-4">What is {{ config('app.name') }}</h3>
+				<h3 class="card-title fw-bold dotted-title py-4">What is Datahover</h3>
 
 				<div class="row mb-4">
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
@@ -151,8 +167,8 @@
 				</div>
 
 				<div class="row">
-					<div class="col-12 col-sm-6 d-flex justify-content-center">
-						<div class="d-flex flex-wrap align-items-center justify-content-center gap-2">
+					<div class="col-12 col-sm-6 d-flex flex-column align-items-center justify-content-center">
+						<div class="d-flex flex-wrap align-items-center justify-content-center gap-4">
 							@foreach (config('sources') as $key => $item)
 								<div class="bg-dark p-3 rounded-circle">
 									<img

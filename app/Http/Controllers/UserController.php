@@ -22,19 +22,19 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest')->except(
+        $this->middleware('guest')->only(
             [
-                'gateExit',
-                'account',
-                'apiSecretGenerator',
-                'hideInfo'
+                'gate',
+                'gateRedirect',
+                'gateCallback',
             ]
         );
         $this->middleware('auth')->only(
             [
                 'account',
                 'apiSecretGenerator',
-                'hideInfo'
+                'hideInfo',
+                'gateExit',
             ]
         );
     }

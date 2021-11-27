@@ -137,17 +137,19 @@
 			<li class="list-group-item border-0 d-flex justify-content-center loading">
 				<img alt="Loading" src="{{ asset('images/rolling-dark.svg') }}" class="w-32px h-32px" />
 			</li>
-			<li class="list-group-item border-0 each-model">
+			<li class="list-group-item list-group-item-action border-0 each-model">
 				<div class="d-flex justify-content-between">
 					<a href="#" target="_blank" class="link-primary d-flex flex-column" data-name="link">
-						<span data-col="site"></span>
-						<small data-col="created_at" class="text-muted"></small>
+						<small data-col="site" class="fw-bold"></small>
+						<p class="mb-0">
+							<small class="text-dark" data-col="message"></small>
+							<small data-col="created_at" class="text-muted"></small>
+						</p>
 					</a>
 					<small class="d-flex flex-column align-items-end text-muted">
 						<span data-col="repeat"></span> repeat
 					</small>
 				</div>
-				<small class="d-block text-muted bg-light p-1" data-col="message"></small>
 			</li>
 		</ul>
 		<a

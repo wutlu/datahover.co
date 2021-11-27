@@ -52,7 +52,8 @@
 						<circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
 						<polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
 					</svg>
-					<p class="success mb-5 text-center mw-300px">Your account has been charged. After <span class="intdown fw-bold">5</span> seconds you will be redirected to the <a href="{{ route('subscription.index') }}" class="text-underline link-success fw-bold">Subscription Management</a> page.</p>
+					<p class="success mb-4 text-center mw-300px">Your account has been charged. After <span class="intdown fw-bold">10</span> seconds you will be redirected to the <a href="{{ route('subscription.index') }}" class="text-underline link-success fw-bold">Subscription Management</a> page.</p>
+					<p class="text-muted text-center small">Confirmation of payment may be delayed for a few minutes depending on the intensity.</p>
 				</div>
 			@break
 			@case('cancel')
@@ -62,7 +63,7 @@
 						<line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
 						<line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
 					</svg>
-					<p class="error mb-5 text-center mw-300px">Payment failed! After <span class="intdown fw-bold">5</span> seconds you will be redirected to the <a href="{{ route('subscription.index') }}" class="text-underline link-danger fw-bold">Subscription Management</a> page.</p>
+					<p class="error mb-5 text-center mw-300px">Payment failed! After <span class="intdown fw-bold">10</span> seconds you will be redirected to the <a href="{{ route('subscription.index') }}" class="text-underline link-danger fw-bold">Subscription Management</a> page.</p>
 				</div>
 			@break
 		@endswitch
@@ -71,13 +72,12 @@
 
 @push('js')
 	$(window).on('load', function() {
-		window.setTimeout(function() {
-			window.location.href = '{{ route('subscription.index') }}';
-		}, 5000)
-
 		window.setInterval(function() {
 			let el = $('.intdown');
 				el.html(el.text() - 1)
+
+			if (el.text() <= 0)
+				window.location.href = '{{ route('subscription.index') }}';
 		}, 1000)
 	})
 @endpush

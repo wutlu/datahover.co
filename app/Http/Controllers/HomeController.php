@@ -77,21 +77,32 @@ class HomeController extends Controller
     /**
      * Portal Single Pages
      * 
-     * @param string $page
+     * @param string $name
      * @return view
      */
-    public function page(string $page)
+    public function page(string $base, string $name)
     {
-        switch ($page)
+        switch ($base)
         {
-            case 'about-us':
-            case 'public-offer-agreement':
-            case 'privacy-policy':
-                return view("pages.$page");
+            case 'legal':
+                switch ($name)
+                {
+                    case 'privacy-policy':
+                    case 'terms-of-service':
+                        return view("pages.$name");
+                    break;
+                }
             break;
-            default:
-                return abort(404);
+            case 'page':
+                switch ($name)
+                {
+                    case 'about-us':
+                        return view("pages.$name");
+                    break;
+                }
             break;
         }
+
+        return abort(404);
     }
 }

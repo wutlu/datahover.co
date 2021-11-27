@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
 
             $table->string('subscription')->default('trial');
             $table->timestamp('subscription_end_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->decimal('balance', 10, 2)->default(0);
             $table->string('stripe_id')->nullable()->index();
 
             $table->string('api_key');
@@ -30,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->index([ 'api_key', 'api_secret' ]);
 
             $table->boolean('is_root')->default(false);
+            $table->boolean('auto_renew')->default(false);
 
             $table->rememberToken();
             $table->timestamps();

@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Cashier\Billable;
 
+use App\Models\PaymentHistory;
+
+use Etsetra\Library\DateTime as DT;
+
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, Billable;
@@ -39,27 +43,28 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'balance' => 'float',
     ];
 
     public function subscription()
     {
-        $days = \Carbon\Carbon::now()->diffInDays($this->subscription_end_date, false);
+        $hours = (new DT)->diffIn('Hours', $this->subscription_end_date, false);
+        $days = intval($hours / 24);
 
         return (object) [
-            'days' => $days >= 0 ? $days : 0,
+            'days' => $hours <= 0 ? 0 : ($days == 0 ? 1 : $days),
             'plan' => config('plans')[$this->subscription]
         ];
     }
 
     /**
-     * Subscription End Date field full date to date
+     * Balance Field
      * 
-     * @param string $value
-     * @return string
+     * @return float
      */
-    public function getSubscriptionEndDateAttribute(string $value)
+    public function balance()
     {
-        return date('Y-m-d', strtotime($value));
+        return PaymentHistory::where('user_id', $this->id)
+            ->where('status', true)
+            ->sum('amount');
     }
 }
