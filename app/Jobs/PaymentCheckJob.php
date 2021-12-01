@@ -14,6 +14,8 @@ use App\Models\User;
 
 use Etsetra\Library\DateTime as DT;
 
+use App\Http\Controllers\LogController;
+
 class PaymentCheckJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -49,6 +51,23 @@ class PaymentCheckJob implements ShouldQueue
             {
                 $session = $this->user->stripe()->checkout->sessions->retrieve($payment->session_id);
                 $payment->status = $session->status == 'complete' ? true : false;
+
+                if ($session->status == 'complete')
+                {
+                    LogController::create(
+                        config('app.domain'),
+                        'Your '.config('cashier.currency_symbol').$payment->amount.' payment has been defined to your account.',
+                        $this->user->id
+                    );
+                }
+                else
+                {
+                    LogController::create(
+                        config('app.domain'),
+                        'Your payment could not be received',
+                        $this->user->id
+                    );
+                }
             }
             else
                 $payment->status = false;

@@ -23,6 +23,8 @@
         "jquery.cookie": "^1.4.1",
         "laravel-echo": "^1.11.2",
         "md5": "^2.3.0",
-        "pusher-js": "^7.0.3"
+        "pusher-js": "^7.0.3",
+        "select2": "^4.1.0-rc.0",
+        "select2-bootstrap-5-theme": "^1.2.0"
     }
 }

@@ -16,7 +16,10 @@
 				<div class="d-flex flex-column text-center text-lg-start">
 					<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" width="164" height="auto" class="mx-auto mx-lg-0 mb-2" />
 					<small class="mb-4 text-muted mw-300px">{{ config('etsetra.info') }}</small>
-					<p class="mb-0 text-muted">© {{ date('Y') }} {{ config('app.name') }}</p>
+					<p class="mb-0 text-muted d-flex flex-column">
+						<span class="fw-bold">© {{ date('Y') }} {{ config('app.name') }}</span>
+						<small>All rights reserved.</small>
+					</p>
 				</div>
 				<div class="d-flex flex-column align-items-center align-items-lg-start">
 					<a href="{{ route('page', [ 'base' => 'page', 'name' => 'about-us' ]) }}" class="link-light">About Us</a>

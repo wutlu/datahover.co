@@ -76,7 +76,6 @@
 				<li>To process payments. We may use the information Users provide about themselves when placing an order only to provide service to that order. We do not share this information with outside parties except to the extent necessary to provide the service.</li>
 				<li>To run a promotion, contest, survey or other Site feature.</li>
 				<li>To send Users information they agreed to receive about topics we think will be of interest to them.</li>
-				<li>To send Users information they agreed to receive about topics we think will be of interest to them.</li>
 				<li>To send periodic emails.</li>
 				<li>We may use the email address to send User information and updates pertaining to their order.</li>
 				<li>It may also be used to respond to their inquiries, questions, and/or other requests.</li>

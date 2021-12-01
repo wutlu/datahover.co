@@ -1,5 +1,6 @@
 import 'jquery.cookie';
 import 'block-ui';
+import 'select2';
 import Test from './components/test.js';
 
 global.cookie = require('jquery.cookie');
@@ -107,7 +108,7 @@ let getFormData = function(items, target)
 
             if (item.attr('multiple'))
             {
-                for (i = 0; i < __.length; i++)
+                for (let i = 0; i < __.length; i++)
                 {
                     arr[i] = __.eq(i).val();
                     array.data(item.data('alias') ? item.data('alias') : name, arr);
@@ -125,7 +126,7 @@ let getFormData = function(items, target)
 
             if (item.attr('multiple'))
             {
-                for (i = 0; i < options.length; i++)
+                for (let i = 0; i < options.length; i++)
                 {
                     arr[i] = options.eq(i).val();
                     array.data(item.data('alias') ? item.data('alias') : name, arr);
@@ -134,8 +135,8 @@ let getFormData = function(items, target)
             else
             {
                 array.data(
-                item.data('alias') ? item.data('alias') : name,
-                options.eq(0).val()
+                    item.data('alias') ? item.data('alias') : name,
+                    options.eq(0).val()
                 );
             }
         }

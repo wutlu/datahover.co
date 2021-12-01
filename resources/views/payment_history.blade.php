@@ -14,42 +14,36 @@
 @push('js')
     let __items = function(__, o)
     {
-    	let status = __.find('[data-name=status]');
+        let status = __.find('[data-name=status]');
 
-    	if (o.status == null)
-    	{
-    		status.html('Pending').addClass('text-muted');
-    	}
-    	else if (o.status == true)
-    	{
-    		status.html('Paid').addClass('text-muted');
-    	}
-    	else
-    	{
-    		status.html('Failed').addClass('text-muted');
-    	}
+        if (o.status == null)
+            status.html('Pending').addClass('text-muted');
+        else if (o.status == true)
+            status.html('Paid').addClass('text-success');
+        else
+            status.html('Failed').addClass('text-danger');
 
-    	let amount = __.find('[data-name=amount]');
+        let amount = __.find('[data-name=amount]');
 
-    	if (o.amount == 0)
-    		amount.addClass('text-dark')
-    	else if (o.amount > 0)
-    		amount.addClass('text-dark')
-    	else if (o.amount < 0)
-    		amount.addClass('text-dark')
+        if (o.amount == 0)
+            amount.addClass('text-dark')
+        else if (o.amount > 0)
+            amount.addClass('text-dark')
+        else if (o.amount < 0)
+            amount.addClass('text-dark')
 
-    	if (o.session_id)
-    	{
-    		if (o.status == null)
-    			__.find('[data-name=pay]')
-    			  .removeClass('d-none')
-    			  .addClass('d-flex')
-    			  .attr('href', o.meta.url)
-    		else if (o.status == true)
-    			__.find('[data-name=invoice]').removeClass('d-none').addClass('d-flex')
-    	}
+        if (o.session_id)
+        {
+            if (o.status == null)
+                __.find('[data-name=pay]')
+                  .removeClass('d-none')
+                  .addClass('d-flex')
+                  .attr('href', o.meta.url)
+            else if (o.status == true)
+                __.find('[data-name=invoice]').removeClass('d-none').addClass('d-flex')
+        }
 
-    	__.find('[data-name=payload]').data('payload', o.meta)
+        __.find('[data-name=payload]').data('payload', o.meta)
     }
 
     let __results = function(__, obj)
@@ -59,24 +53,24 @@
 @endpush
 
 @push('footer')
-	@component('includes.modals.modal')
-		@slot('title', 'Payload (Payment Metas)')
-		@slot('name', 'payload')
-		<pre class="payload mb-0"></pre>
-	@endcomponent
+    @component('includes.modals.modal')
+        @slot('title', 'Payload (Payment Metas)')
+        @slot('name', 'payload')
+        <pre class="payload mb-0"></pre>
+    @endcomponent
 @endpush
 
 @push('js')
-	$(window).on('load', function() {
-		$('#payload-modal').on('shown.bs.modal', function (e) {
-			let __ = $(this);
-			let invoker = $(e.relatedTarget);
-			let payload = JSON.stringify(invoker.data('payload'), null, 2);
+    $(window).on('load', function() {
+        $('#payload-modal').on('shown.bs.modal', function (e) {
+            let __ = $(this);
+            let invoker = $(e.relatedTarget);
+            let payload = JSON.stringify(invoker.data('payload'), null, 2);
 
-			__.find('.payload').html(payload)
-			__.find('.modal-body').css({ 'background-color': '#d6bc6f' })
-		})
-	})
+            __.find('.payload').html(payload)
+            __.find('.modal-body').css({ 'background-color': '#d6bc6f' })
+        })
+    })
 @endpush
 
 @section('content')
@@ -109,31 +103,31 @@
             </div>
             <label class="list-group-item list-group-item-action border-0 each-model unselectable">
                 <div class="d-flex align-items-center justify-content-between">
-                	<div class="d-flex flex-column">
-                		<span data-name="amount" class="fw-bold">
-                			{{ config('cashier.currency_symbol') }} <span data-col="amount"></span>
-                		</span>
-            			<small data-name="status"></small>
-                	</div>
-                	<div class="d-flex flex-column gap-2">
-	            		<small class="text-muted" data-col="created_at"></small>
-		                <div class="d-flex align-items-center justify-content-end gap-3">
-		                	<a data-name="pay" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
-		                		<i class="material-icons icon-sm">credit_card</i> Pay
-		                	</a>
-		                	<a data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2">
-		                		<i class="material-icons icon-sm">receipt</i> Invoice
-		                	</a>
-		                	<a
-		                		data-name="payload"
-		                		href="#"
-		                		class="small link-dark d-flex align-items-center gap-2"
-		                		data-bs-toggle="modal"
-		                		data-bs-target="#payload-modal">
-		                		<i class="material-icons icon-sm">text_snippet</i> Payload
-		                	</a>
-		                </div>
-	                </div>
+                    <div class="d-flex flex-column">
+                        <span data-name="amount">
+                            {{ config('cashier.currency_symbol') }} <span data-col="amount"></span>
+                        </span>
+                        <small data-name="status"></small>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <small class="text-muted" data-col="created_at"></small>
+                        <div class="d-flex align-items-center justify-content-end gap-3">
+                            <a data-name="pay" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
+                                <i class="material-icons icon-sm">credit_card</i> Pay
+                            </a>
+                            <a data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2">
+                                <i class="material-icons icon-sm">receipt</i> Invoice
+                            </a>
+                            <a
+                                data-name="payload"
+                                href="#"
+                                class="small link-dark d-flex align-items-center gap-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#payload-modal">
+                                <i class="material-icons icon-sm">text_snippet</i> Payload
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </label>
         </div>

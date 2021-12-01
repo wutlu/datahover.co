@@ -43,18 +43,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_root' => 'boolean'
     ];
-
-    public function subscription()
-    {
-        $hours = (new DT)->diffIn('Hours', $this->subscription_end_date, false);
-        $days = intval($hours / 24);
-
-        return (object) [
-            'days' => $hours <= 0 ? 0 : ($days == 0 ? 1 : $days),
-            'plan' => config('plans')[$this->subscription]
-        ];
-    }
 
     /**
      * Balance Field
@@ -66,5 +56,25 @@ class User extends Authenticatable
         return PaymentHistory::where('user_id', $this->id)
             ->where('status', true)
             ->sum('amount');
+    }
+
+    /**
+     * Subscription
+     * 
+     * @return object
+     */
+    public function subscription()
+    {
+        $hours = (new DT)->diffIn('Hours', $this->subscription_end_date, false);
+        $days = intval($hours / 24);
+
+        return (object) [
+            'days' => $hours <= 0 ? 0 : ($days == 0 ? 1 : $days),
+            'end_date' => $this->subscription_end_date,
+            'plan' => Plan::where(
+                    $this->plan_id ? [ 'id' => $this->plan_id ] : [ 'name' => 'Trial' ]
+                )
+                ->first(),
+        ];
     }
 }

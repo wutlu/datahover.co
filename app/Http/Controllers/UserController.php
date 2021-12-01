@@ -35,6 +35,7 @@ class UserController extends Controller
                 'apiSecretGenerator',
                 'hideInfo',
                 'gateExit',
+                'emailAlerts',
             ]
         );
     }
@@ -73,6 +74,23 @@ class UserController extends Controller
     }
 
     /**
+     * E-mail Alerts
+     * 
+     * @param Illuminate\Http\Request $request
+     * @return object
+     */
+    public function emailAlerts()
+    {
+        $user = auth()->user();
+        $user->email_alerts = $user->email_alerts ? false : true;
+        $user->save();
+
+        return [
+            'success' => 'ok'
+        ];
+    }
+
+    /**
      * Account View
      * 
      * @return view
@@ -95,7 +113,9 @@ class UserController extends Controller
         $user->api_secret = $secret;
         $user->save();
 
-        (new Logs)->enter($user->id, 'Api Secret Regenerated');
+        $message = 'Api Secret Regenerated';
+
+        LogController::create(config('app.domain'), $message, $user->id);
 
         return [
             'success' => 'ok',
@@ -174,7 +194,9 @@ class UserController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        (new Logs)->enter($user->id, 'Enter to dashboard');
+        $message = 'Enter to dashboard';
+
+        LogController::create(config('app.domain'), $message, $user->id);
 
         return redirect()->route('dashboard');
     }
@@ -186,7 +208,9 @@ class UserController extends Controller
      */
     public function gateExit()
     {
-        (new Logs)->enter(auth()->user()->id, 'Exit to dashboard');
+        $message = 'Exit to dashboard';
+
+        LogController::create(config('app.domain'), $message, auth()->user()->id);
 
         Auth::logout();
 

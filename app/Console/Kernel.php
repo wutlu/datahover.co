@@ -41,6 +41,14 @@ class Kernel extends ConsoleKernel
 
         # Subscription Auto Renew
         $schedule->command('subscription:renew')
+                 ->hourlyAt(9)
+                 ->withoutOverlapping()
+                 ->runInBackground();
+
+
+
+        # E-mail Alerts
+        $schedule->command('email:alerts')
                  ->everyMinute()
                  ->withoutOverlapping()
                  ->runInBackground();

@@ -5,9 +5,12 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 
 use App\Models\User;
+use App\Models\Plan;
 use App\Models\PaymentHistory;
 
 use Etsetra\Library\DateTime as DT;
+
+use App\Http\Controllers\LogController;
 
 class SubscriptionRenew extends Command
 {
@@ -42,38 +45,49 @@ class SubscriptionRenew extends Command
      */
     public function handle()
     {
-        $users = User::whereDate('subscription_end_date', '<=', date('Y-m-d'))->get();
+        $trial_plan_ids = Plan::where('price', '>', 0)->pluck('id')->toArray();
+
+        $users = User::whereNotIn('plan_id', $trial_plan_ids)->get();
 
         foreach ($users as $user)
         {
-            $this->info($user->email);
+            $subscription = $user->subscription();
+            $plan = $subscription->plan;
 
-            if ($user->subscription()->days == 0)
+            $this->info($user->email.' ('.$subscription->days.' days left)');
+
+            if ($subscription->days <= 1)
             {
-                if ($user->balance() >= $plan['price'])
+                if ($user->balance() >= $plan->price)
                 {
                     $user->subscription_end_date = (new DT)->nowAt('+31 days');
                     $user->save();
 
-                    $message = "";
-
-                    (new Logs)->enter($user->id, $message);
-
                     PaymentHistory::create(
                         [
                             'user_id' => $user->id,
-                            'amount' => -$plan['price'],
+                            'amount' => -$plan->price,
                             'expires_at' => (new DT)->nowAt('+1 days'),
-                            'meta' => array_merge($plan, [ 'ip' => $request->ip() ]),
+                            'meta' => array_merge($plan->toArray(), [ 'log' => 'Auto Renew' ]),
                             'status' => true,
                         ]
                     );
+
+                    $message = 'Your subscription has been renewed for '.config('cashier.currency_symbol').$plan->price.'.';
+
+                    $this->info($message);
                 }
                 else
                 {
-                    // balance alert
+                    $message = 'Your account balance is insufficient. Your subscription could not be renewed.';
+
+                    $this->error($message);
                 }
+
+                LogController::create(config('app.domain'), $message, $user->id);
             }
+            else
+                $this->error('The payment day has not come.');
         }
     }
 }

@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(OptionTableSeeder::class);
         $this->call(FaqTableSeeder::class);
+        $this->call(PlanTableSeeder::class);
     }
 }

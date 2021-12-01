@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -10,20 +11,20 @@ use App\Models\Logs;
 use App\Models\User;
 use App\Models\PaymentHistory;
 use App\Models\Track;
+use App\Models\Plan;
 
 use App\Jobs\PaymentCheckJob;
 
+use Stripe\Stripe;
+use Stripe\InvoiceItem;
+
+use App\Http\Requests\IdRequest;
+
 class SubscriptionController extends Controller
 {
-    protected $plans;
-
     public function __construct()
     {
         $this->middleware('auth');
-
-        $this->plans = config('plans');
-
-        unset($this->plans['trial']);
     }
 
     /**
@@ -44,14 +45,22 @@ class SubscriptionController extends Controller
      */
     public function details(Request $request)
     {
+        $user = $request->user();
+
+        $last_invoice = PaymentHistory::where('user_id', $user->id)
+            ->whereNotNull('session_id')
+            ->where('status', true)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         return [
             'success' => 'ok',
             'user' => [
-                'balance' => $request->user()->balance(),
-                'subscription' => $request->user()->subscription(),
-                'auto_renew' => $request->user()->auto_renew ? true : false,
+                'balance' => $user->balance(),
+                'subscription' => $user->subscription(),
             ],
-            'data' => array_values($this->plans),
+            'data' => Plan::orWhere('user_id', $user->id)->orWhereIn('name', [ 'Basic', 'Enterprise' ])->get(),
+            'last_invoice' => $last_invoice ?? []
         ];
     }
 
@@ -61,96 +70,16 @@ class SubscriptionController extends Controller
      * @param Illuminate\Http\Request $request
      * @return object
      */
-    public function start(Request $request)
+    public function start(IdRequest $request)
     {
-        $request->validate(
-            [
-                'plan' => 'required|string|in:'.implode(',', array_keys($this->plans))
-            ]
-        );
-
         $user = $request->user();
-        $plan = config('plans')[$request->plan];
+        $subscription = $user->subscription();
 
-        if ($user->subscription == 'trial')
+        if ($subscription->plan->price > 0)
         {
-            if ($user->balance() >= $plan['price'])
-            {
-                $user->subscription = $request->plan;
-                $user->subscription_end_date = (new DT)->nowAt('+31 days');
-                $user->save();
+            $message = 'You are currently subscribed to the '.$subscription->plan->name.' plan. To start a new subscription, you need to cancel your current subscription.';
 
-                $message = "Started subscription for plan ".$plan['name'].". \$".$plan['price']." has been deducted from your balance.";
-
-                (new Logs)->enter($user->id, $message);
-
-                PaymentHistory::create(
-                    [
-                        'user_id' => $user->id,
-                        'amount' => -$plan['price'],
-                        'expires_at' => (new DT)->nowAt('+1 days'),
-                        'meta' => array_merge($plan, [ 'ip' => $request->ip() ]),
-                        'status' => true,
-                    ]
-                );
-
-                $current_tracks = Track::whereJsonContains('users', $user->id)->orderBy('id', 'desc')->get();
-
-                if ($plan['track_limit'] < count($current_tracks))
-                {
-                    foreach ($current_tracks as $key => $track)
-                    {
-                        if (($key + 1) > $plan['track_limit'])
-                        {
-                            if (count($track->users) == 1)
-                                $track->delete();
-                            else
-                            {
-                                $array = $track->users;
-
-                                if (($key = array_search($user->id, $array)) !== false)
-                                    unset($array[$key]);
-
-                                $track->users = array_values($array);
-                                $track->save();
-                            }
-                        }
-                    }
-
-                    $deleted_count = count($current_tracks) - $plan['track_limit'];
-
-                    (new Logs)->enter($user->id, "More than $deleted_count tracks were deleted.");
-                }
-
-                return [
-                    'success' => 'ok',
-                    'toast' => [
-                        'type' => 'success',
-                        'message' => 'Subscription started',
-                    ],
-                    'redirect' => route('subscription.index')
-                ];
-            }
-            else
-            {
-                $message = 'Your balance is not sufficient for this subscription. Please add balance to your account above.';
-
-                (new Logs)->enter($user->id, $message);
-
-                return [
-                    'success' => 'failed',
-                    'alert' => [
-                        'type' => 'danger',
-                        'message' => $message,
-                    ]
-                ];
-            }
-        }
-        else
-        {
-            $message = 'You are currently subscribed to the '.$user->subscription()->plan['name'].' plan. To start a new subscription, you need to cancel your current subscription.';
-
-            (new Logs)->enter($user->id, $message);
+            LogController::create(config('app.domain'), $message, $user->id);
 
             return [
                 'success' => 'failed',
@@ -159,6 +88,100 @@ class SubscriptionController extends Controller
                     'message' => $message,
                 ]
             ];
+        }
+        else
+        {
+            $plan = Plan::where('price', '>', 0)
+                ->where(function($query) use($user) {
+                    $query->orWhereNull('user_id');
+                    $query->orWhere('user_id', $user->id);
+                })
+                ->find($request->id);
+
+            if ($plan)
+            {
+                if ($user->balance() >= $plan->price)
+                {
+                    $user->plan_id = $request->id;
+                    $user->subscription_end_date = (new DT)->nowAt('+31 days');
+                    $user->save();
+
+                    LogController::create(
+                        config('app.domain'),
+                        'Started subscription for plan '.$plan->name.'. '.config('cashier.currency_symbol').$plan->price.' has been deducted from your balance.',
+                        $user->id
+                    );
+
+                    PaymentHistory::create(
+                        [
+                            'user_id' => $user->id,
+                            'amount' => -$plan->price,
+                            'expires_at' => (new DT)->nowAt('+1 days'),
+                            'meta' => array_merge($plan->toArray(), [ 'ip' => $request->ip() ]),
+                            'status' => true,
+                        ]
+                    );
+
+                    $current_tracks = Track::whereJsonContains('users', $user->id)->orderBy('id', 'desc')->get();
+
+                    if ($plan->track_limit < count($current_tracks))
+                    {
+                        foreach ($current_tracks as $key => $track)
+                        {
+                            if (($key + 1) > $plan->track_limit)
+                            {
+                                if (count($track->users) == 1)
+                                    $track->delete();
+                                else
+                                {
+                                    $array = $track->users;
+
+                                    if (($key = array_search($user->id, $array)) !== false)
+                                        unset($array[$key]);
+
+                                    $track->users = array_values($array);
+                                    $track->save();
+                                }
+                            }
+                        }
+
+                        $deleted_count = count($current_tracks) - $plan->track_limit;
+
+                        LogController::create(config('app.domain'), "More than $deleted_count tracks were deleted.", $user->id);
+                    }
+
+                    return [
+                        'success' => 'ok',
+                        'toast' => [
+                            'type' => 'success',
+                            'message' => 'Subscription started',
+                        ],
+                        'redirect' => route('subscription.index')
+                    ];
+                }
+                else
+                {
+                    $message = 'Your balance is not sufficient for this subscription. Please add balance to your account above.';
+
+                    LogController::create(config('app.domain'), $message, $user->id);
+
+                    return [
+                        'success' => 'failed',
+                        'alert' => [
+                            'type' => 'danger',
+                            'message' => $message,
+                        ]
+                    ];
+                }
+            }
+            else
+                return [
+                    'success' => 'failed',
+                    'alert' => [
+                        'type' => 'danger',
+                        'message' => 'You cannot switch to this plan'
+                    ]
+                ];
         }
     }
 
@@ -171,25 +194,15 @@ class SubscriptionController extends Controller
     public function cancel(Request $request)
     {
         $user = $request->user();
+        $subscription = $user->subscription();
+        $plan = $subscription->plan;
 
-        if ($user->subscription == 'trial')
-            return [
-                'success' => 'failed',
-                'toast' => [
-                    'type' => 'danger',
-                    'message' => 'You cannot cancel the trial package.'
-                ]
-            ];
-        else
+        if ($plan->price > 0)
         {
-            $plan = $user->subscription()->plan;
-
-            $refund = number_format($user->subscription()->plan['price'] / 31 * $user->subscription()->days, 2, '.', '');
+            $refund = number_format($plan->price / 31 * $subscription->days, 2, '.', '');
             // $refund = $refund - 5;
 
-            (new Logs)->enter($user->id, $plan['name']." plan canceled. \$$refund refunded to your account.");
-
-            $user->subscription = 'trial';
+            $user->plan_id = null;
             $user->subscription_end_date = (new DT)->nowAt();
             $user->save();
 
@@ -198,9 +211,15 @@ class SubscriptionController extends Controller
                     'user_id' => $user->id,
                     'amount' => $refund,
                     'expires_at' => (new DT)->nowAt('+1 days'),
-                    'meta' => array_merge($plan, [ 'ip' => $request->ip() ]),
+                    'meta' => array_merge($plan->toArray(), [ 'ip' => $request->ip() ]),
                     'status' => true,
                 ]
+            );
+
+            LogController::create(
+                config('app.domain'),
+                $plan->name.' plan canceled. '.config('cashier.currency_symbol').$refund.' refunded to your account.',
+                $user->id
             );
 
             return [
@@ -208,6 +227,14 @@ class SubscriptionController extends Controller
                 'redirect' => route('subscription.index')
             ];
         }
+        else
+            return [
+                'success' => 'failed',
+                'toast' => [
+                    'type' => 'danger',
+                    'message' => 'You cannot cancel the trial package.'
+                ]
+            ];
     }
 
     /**
@@ -220,13 +247,14 @@ class SubscriptionController extends Controller
     {
         $request->validate(
             [
+                'terms' => 'required|accepted',
                 'amount' => 'required|integer|min:10|max:50000',
                 'name' => 'required|string|max:128',
                 'country' => 'required|string|max:128|in:'.implode(',', config('locale.countries')),
                 'city' => 'required|string|max:128',
                 'zip_code' => 'required|string|max:48',
                 'vat_id' => 'nullable|string|max:24',
-                'phone' => 'required|string',
+                'phone' => 'required|string|max:16',
                 'invoice_address' => 'required|string|max:255',
             ]
         );
@@ -263,8 +291,16 @@ class SubscriptionController extends Controller
                     'meta' => [
                         'url' => $session->url,
                         'currency' => $session->currency,
-                    ],
-                    'status' => true,
+                        'amount' => $request->amount,
+                        'name' => $request->name,
+                        'country' => $request->country,
+                        'city' => $request->city,
+                        'zip_code' => $request->zip_code,
+                        'vat_id' => $request->vat_id,
+                        'phone' => $request->phone,
+                        'invoice_address' => $request->invoice_address,
+                        'ip' => $request->ip(),
+                    ]
                 ]
             );
 

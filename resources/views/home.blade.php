@@ -58,9 +58,6 @@
 	.bg-info {
 		background-color: #6159F6 !important;
 	}
-	.bg-dark {
-		background-color: #1c1c28 !important;
-	}
 	.text-info {
 		color: #6159F6 !important;
 	}
@@ -134,22 +131,6 @@
 		</div>
 	@endcomponent
 
-	@php
-	$code = '{
-    "id": "f8b627242b1bc64a8...",
-    "site": "nytimes.com",
-    "link": "nytimes.com/2021/1...",
-    "device": "Web",
-    "status": "ok",
-    "created_at": "2021-11-12T03:13:40+00:00",
-    "called_at": "2021-11-12T03:15:52+00:00",
-    "image": "https://static01.nyt.co...",
-    "title": "Lorem ipsum dolor...",
-    "article": "Lorem ipsum dolor sit amet...",
-    "lang": "en"
-}';
-	@endphp
-
 	<div class="container">
 		<div class="card border-0 bg-transparent mw-1024px mx-auto">
 			<div class="card-body">
@@ -197,46 +178,42 @@
 			<div class="my-5 py-5 text-center">
 				<h3 class="text-light fw-bold mb-5">How does it work?</h3>
 				<div class="d-flex align-items-center justify-content-between mb-5">
-					<div class="text-white d-flex flex-column gap-4">
+					<div class="text-white d-flex flex-column gap-5">
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">face</i>
 							Leila's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
-								<small class="badge rounded-pill bg-info text-dark">Netflix</small>
-								<small class="badge rounded-pill bg-info text-dark">Carrefour</small>
-								<small class="badge rounded-pill bg-info text-dark">Tesla</small>
+								<small class="badge rounded-pill text-white">+ Netflix</small>
+								<small class="badge rounded-pill text-white">+ Carrefour</small>
+								<small class="badge rounded-pill text-white">+ Tesla</small>
 							</div>
 						</span>
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">sentiment_satisfied_alt</i>
 							Hector's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
-								<small class="badge rounded-pill bg-info text-dark">Election</small>
-								<small class="badge rounded-pill bg-info text-dark">Politics</small>
-								<small class="badge rounded-pill bg-info text-dark">nytimes.com</small>
+								<small class="badge rounded-pill text-white">+ Election</small>
+								<small class="badge rounded-pill text-white">+ Politics</small>
+								<small class="badge rounded-pill text-white">+ nytimes.com</small>
 							</div>
 						</span>
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">insert_emoticon</i>
 							Paul's criteria
 							<div class="d-flex flex-wrap gap-1 justify-content-center">
-								<small class="badge rounded-pill bg-info text-dark">Coffe</small>
-								<small class="badge rounded-pill bg-info text-dark">Arabica</small>
-								<small class="badge rounded-pill bg-info text-dark">Starbucks</small>
+								<small class="badge rounded-pill text-white">+ Coffe</small>
+								<small class="badge rounded-pill text-white">+ Arabica</small>
+								<small class="badge rounded-pill text-white">+ Starbucks</small>
 							</div>
 						</span>
 					</div>
 					<div class="d-flex align-items-center" style="z-index: 2;">
 						<div class="d-flex flex-column align-items-start text-white">
-							<i class="material-icons">south_east</i>
 							<i class="material-icons icon-lg">east</i>
-							<i class="material-icons">north_east</i>
 						</div>
 					</div>
 					<div class="d-flex justify-content-center align-items-center">
 						<div class="pool position-relative d-flex flex-column align-items-center justify-content-center" style="z-index: 2;">
-							<span class="text-white">Realtime Workers</span>
-							<i class="material-icons text-white">arrow_downward</i>
 							<span class="text-white">Communal Data Pool</span>
 						</div>
 						<canvas class="rounded-circle position-absolute" id="revolving"></canvas>
@@ -254,15 +231,15 @@
 				</div>
 				<div class="p-4 text-white">
 					<p class="lead">What types of APi services are there?</p>
-					<div class="d-flex align-items-center justify-content-center gap-4">
+					<div class="d-flex align-items-center justify-content-center gap-4 mb-4">
 						<span class="d-flex flex-column justify-content-center">
-							<div class="d-flex align-items-center justify-content-center w-32px h-32px bg-success rounded-circle mx-auto mb-2">
+							<div class="d-flex align-items-center justify-content-center w-32px h-32px bg-white rounded-circle mx-auto mb-2">
 								<i class="material-icons text-dark">add</i>
 							</div>
 							<small class="text-nowrap">Track Create</small>
 						</span>
 						<span class="d-flex flex-column justify-content-center">
-							<div class="d-flex align-items-center justify-content-center w-32px h-32px bg-danger rounded-circle mx-auto mb-2">
+							<div class="d-flex align-items-center justify-content-center w-32px h-32px bg-white rounded-circle mx-auto mb-2">
 								<i class="material-icons text-dark">clear</i>
 							</div>
 							<small class="text-nowrap">Track Delete</small>
@@ -279,6 +256,9 @@
 							</div>
 							<small class="text-nowrap">Data Search</small>
 						</span>
+					</div>
+					<div class="text-center d-table mx-auto mw-768px">
+						<p class="fw-bold">You can automate the criteria you will follow with Track Create, Track Delete and Track List APIs. With the Search API, you can search the entire database according to the criteria you want.</p>
 					</div>
 				</div>
 			</div>
@@ -302,94 +282,61 @@
 
 	<div class="container">
 		<div class="row row-cols-1 row-cols-md-3 align-items-center">
+			@foreach ($plans as $key => $plan)
 			<div class="col">
-				<div class="card rounded-0 shadow-sm mb-4">
+				<div class="card rounded-0 shadow-sm mb-4 {{ $key == 1 ? 'border-primary border-5' : '' }}">
+					@if ($key == 1)
+						<small class="p-1 text-white text-center border-bottom border-primary bg-primary">Most Popular</small>
+					@endif
 					<div class="card-body d-flex flex-column gap-3 p-4">
-						<h4 class="card-title mb-0">{{ config('plans.basic.name') }}</h4>
-						<div class="d-flex align-items-end gap-2">
-							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('plans.basic.price') }}</span>
-							</span>
-							<small class="text-muted h4">/Month</small>
-						</div>
-						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
+						<h4 class="card-title mb-0">{{ $plan->name }}</h4>
+						@if ($plan->price > 0)
+							<div class="d-flex align-items-end gap-2">
+								<span class="price fw-bold display-4">
+									$<span data-name="price">{{ intval($plan->price) }}</span>
+								</span>
+								<small class="text-muted h4">/Month</small>
+							</div>
+						@else
+							<div class="d-flex align-items-end gap-2">
+								<span class="price fw-bold display-4">Contact</span>
+							</div>
+						@endif
+						<ul class="list-unstyled d-flex flex-column gap-2 mb-5 {{ $key == 1 ? 'pb-5' : '' }}">
 							<li class="d-inline-flex align-items-center gap-2">
 								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('plans.basic.track_limit') }} Track</span>
+								@if ($track = $plan->track_limit)
+									<span class="h6 mb-0">{{ $plan->track_limit }} tracks</span>
+								@else
+									<span class="h6 mb-0">Custom Tracks</span>
+								@endif
 								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
 							</li>
 							<li class="d-inline-flex align-items-center gap-2">
 								<i class="material-icons text-success">check</i>
 								<span class="h6 mb-0">Limitless filterable query</span>
 							</li>
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">E-mail support</span>
-							</li>
+							@if ($plan->price > 0)
+								<li class="d-inline-flex align-items-center gap-2">
+									<i class="material-icons text-success">check</i>
+									<span class="h6 mb-0">E-mail support</span>
+								</li>
+							@else
+								<li class="d-inline-flex align-items-center gap-2">
+									<i class="material-icons text-success">check</i>
+									<span class="h6 mb-0">Premium support</span>
+								</li>
+							@endif
 						</ul>
-						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
+						@if ($plan->price > 0)
+							<a href="{{ route('subscription.index') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
+						@else
+							<a href="mailto:{{ config('etsetra.email') }}" class="btn btn-primary rounded-0 shadow-sm">Contact Us</a>
+						@endif
 					</div>
 				</div>
 			</div>
-			<div class="col">
-				<div class="card rounded-0 shadow mb-4 border-3 border-primary">
-					<div class="card-body d-flex flex-column gap-3 p-4">
-						<small class="bg-light text-primary text-center py-2">Most Popular Plan</small>
-						<h4 class="card-title mb-0">{{ config('plans.pro.name') }}</h4>
-						<div class="d-flex align-items-end gap-2">
-							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('plans.pro.price') }}</span>
-							</span>
-							<small class="text-muted h4">/Month</small>
-						</div>
-						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('plans.pro.track_limit') }} Track</span>
-								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-dark"><i class="material-icons">info</i></a>
-							</li>
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">Limitless filterable query</span>
-							</li>
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">E-mail support</span>
-							</li>
-						</ul>
-						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card rounded-0 shadow-sm mb-4 text-white bg-dark">
-					<div class="card-body d-flex flex-column gap-3 p-4">
-						<h4 class="card-title mb-0 text-warning">{{ config('plans.enterprise.name') }}</h4>
-						<div class="d-flex align-items-end gap-2">
-							<span class="price fw-bold display-4">
-								$<span data-name="price">{{ config('plans.enterprise.price') }}</span>
-							</span>
-							<small class="text-muted h4">/Month</small>
-						</div>
-						<ul class="list-unstyled d-flex flex-column gap-2 mb-5">
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">{{ config('plans.enterprise.track_limit') }} Track</span>
-								<a href="#" data-bs-toggle="modal" data-bs-target="#trackInfoModal" class="text-white"><i class="material-icons">info</i></a>
-							</li>
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">Limitless filterable query</span>
-							</li>
-							<li class="d-inline-flex align-items-center gap-2">
-								<i class="material-icons text-success">check</i>
-								<span class="h6 mb-0">E-mail support</span>
-							</li>
-						</ul>
-						<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
-					</div>
-				</div>
-			</div>
+			@endforeach
 		</div>
 	</div>
 

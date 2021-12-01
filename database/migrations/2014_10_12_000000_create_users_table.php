@@ -20,8 +20,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('timezone')->default('UTC');
 
-            $table->string('subscription')->default('trial');
-            $table->timestamp('subscription_end_date')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->string('stripe_id')->nullable()->index();
 
             $table->string('api_key');
@@ -29,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->index([ 'api_key', 'api_secret' ]);
 
             $table->boolean('is_root')->default(false);
-            $table->boolean('auto_renew')->default(false);
+            $table->boolean('email_alerts')->default(true);
 
             $table->rememberToken();
             $table->timestamps();

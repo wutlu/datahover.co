@@ -6,25 +6,36 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Models\Faq;
+use App\Http\Requests\IdRequest;
+use App\Models\Plan;
 
-class FaqController extends Controller
+class PlanController extends Controller
 {
     public function view()
     {
-        return view('root.faq');
+        return view('root.plans');
     }
 
-    public function action(Request $request)
+    public function action(IdRequest $request)
     {
         $request->validate([
             'id' => 'nullable|integer',
-            'question' => 'required|string|max:255',
-            'answer' => 'required|string|max:1000',
+            'tracks' => 'required|integer|min:0|max:10000',
+            'price' => 'required|integer',
+            'user_id' => 'nullable|integer|exists:users,id',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                $request->id ? "unique:plans,name,$request->id" : 'unique:plans,name'
+            ],
         ]);
 
-        $q = $request->id ? Faq::findOrFail($request->id) : new Faq;
-        $q->fill($request->all());
+        $q = $request->id ? Plan::findOrFail($request->id) : new Plan;
+        $q->name = $request->name;
+        $q->price = $request->price;
+        $q->track_limit = $request->tracks;
+        $q->user_id = $request->user_id;
         $q->save();
 
         return [
@@ -44,7 +55,7 @@ class FaqController extends Controller
 
         return [
             'success' => 'ok',
-            'data' => Faq::findOrFail($request->id)
+            'data' => Plan::with([ 'user' => function($query) { $query->select('id', 'name', 'email'); } ])->findOrFail($request->id)
         ];
     }
 
@@ -55,7 +66,7 @@ class FaqController extends Controller
             'id.*' => 'required_with:id|integer',
         ]);
 
-        $tracks = Faq::whereIn('id', $request->id)->delete();
+        $tracks = Plan::whereIn('id', $request->id)->delete();
 
         return [
             'success' => 'ok',
@@ -74,12 +85,10 @@ class FaqController extends Controller
             'take' => 'required|integer|max:1000',
         ]);
 
-        $data = Faq::where(function($query) use($request) {
+        $data = Plan::with([ 'user' => function($query) { $query->select('id', 'name', 'email'); } ])
+            ->where(function($query) use($request) {
                 if ($request->search)
-                {
-                    $query->orWhere('question', 'ilike', '%'.$request->search.'%');
-                    $query->orWhere('answer', 'ilike', '%'.$request->search.'%');
-                }
+                    $query->orWhere('user_id', $request->search);
             })
             ->skip($request->skip)
             ->take($request->take)
@@ -90,7 +99,7 @@ class FaqController extends Controller
             'success' => 'ok',
             'data' => $data,
             'stats' => [
-                'total' => Faq::count()
+                'total' => Plan::count()
             ]
         ];
     }
