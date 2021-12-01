@@ -22,6 +22,8 @@ Route::prefix('user')->group(function() {
 	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
 });
 
+Route::get('invoice/{key}', 'SubscriptionController@invoice')->name('invoice');
+
 Route::prefix('subscription')->group(function() {
 	Route::get('/', 'SubscriptionController@view')->name('subscription.index');
 	Route::post('details', 'SubscriptionController@details')->name('subscription.details');

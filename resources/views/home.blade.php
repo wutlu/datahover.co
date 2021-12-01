@@ -293,7 +293,7 @@
 						@if ($plan->price > 0)
 							<div class="d-flex align-items-end gap-2">
 								<span class="price fw-bold display-4">
-									$<span data-name="price">{{ intval($plan->price) }}</span>
+									{{ config('cashier.currency_symbol') }}<span data-name="price">{{ intval($plan->price) }}</span>
 								</span>
 								<small class="text-muted h4">/Month</small>
 							</div>

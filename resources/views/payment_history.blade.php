@@ -35,12 +35,23 @@
         if (o.session_id)
         {
             if (o.status == null)
+            {
                 __.find('[data-name=pay]')
                   .removeClass('d-none')
                   .addClass('d-flex')
                   .attr('href', o.meta.url)
-            else if (o.status == true)
-                __.find('[data-name=invoice]').removeClass('d-none').addClass('d-flex')
+            }
+
+            if (o.meta.url)
+            {
+                let invoice_link = '{{ route('invoice', [ 'key' => '__key__' ]) }}';
+                    invoice_link = invoice_link.replace('__key__', o.session_id)
+
+                __.find('[data-name=invoice]')
+                  .removeClass('d-none')
+                  .addClass('d-flex')
+                  .attr('href', invoice_link)
+            }
         }
 
         __.find('[data-name=payload]').data('payload', o.meta)
@@ -115,7 +126,7 @@
                             <a data-name="pay" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
                                 <i class="material-icons icon-sm">credit_card</i> Pay
                             </a>
-                            <a data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2">
+                            <a data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
                                 <i class="material-icons icon-sm">receipt</i> Invoice
                             </a>
                             <a

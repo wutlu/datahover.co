@@ -30,7 +30,7 @@
 		$('#planCard').addClass(plan.price > 0 ? 'border-success' : 'border-danger')
 		$('[data-name=cancel-plan]').removeClass('d-none').addClass(plan.price > 0 ? '' : 'd-none')
 
-		if (obj.last_invoice.length)
+		if (obj.last_invoice)
 		{
 			let form = $('form#paymentForm');
 				form.find('input[name=amount]').val(obj.last_invoice.meta.amount)
@@ -101,7 +101,7 @@
 				<div class="flex-fill">
 					<div class="form-floating">
 						<input type="number" class="form-control border-success rounded-0 shadow-sm text-success" id="amount" name="amount" value="10" min="10" max="100000" />
-						<label for="amount">{{ __('validation.attributes.amount') }} * ($)</label>
+						<label for="amount">{{ __('validation.attributes.amount') }} * ({{ config('cashier.currency_symbol') }})</label>
 						<small class="text-muted">The amount you want to charge</small>
 						<small class="invalid-feedback"></small>
 					</div>
@@ -207,7 +207,7 @@
 						<div class="d-flex flex-column text-end">
 							<div class="input-group shadow-sm flex-nowrap">
 								<label class="input-group-text rounded-0">
-									<small>Balance $<span data-name="balance">0</span></small>
+									<small>Balance {{ config('cashier.currency_symbol') }}<span data-name="balance">0</span></small>
 								</label>
 								<a
 									href="#"
@@ -229,7 +229,7 @@
 					<h4 class="card-title mb-0" data-col="name">-</h4>
 					<div class="d-flex align-items-end gap-2">
 						<span class="price fw-bold display-5">
-							$<span data-name="price">-</span>
+							{{ config('cashier.currency_symbol') }}<span data-name="price">-</span>
 						</span>
 						<small class="text-muted">/ Month</small>
 					</div>

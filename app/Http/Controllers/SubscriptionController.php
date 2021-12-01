@@ -20,6 +20,9 @@ use Stripe\InvoiceItem;
 
 use App\Http\Requests\IdRequest;
 
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Party;
+
 class SubscriptionController extends Controller
 {
     public function __construct()
@@ -60,7 +63,7 @@ class SubscriptionController extends Controller
                 'subscription' => $user->subscription(),
             ],
             'data' => Plan::orWhere('user_id', $user->id)->orWhereIn('name', [ 'Basic', 'Enterprise' ])->get(),
-            'last_invoice' => $last_invoice ?? []
+            'last_invoice' => $last_invoice ?? null
         ];
     }
 
@@ -282,6 +285,8 @@ class SubscriptionController extends Controller
 
         if ($session->url)
         {
+            $sequence = PaymentHistory::orderBy('sequence', 'desc')->value('sequence') + 1;
+
             PaymentHistory::create(
                 [
                     'user_id' => $request->user()->id,
@@ -300,7 +305,9 @@ class SubscriptionController extends Controller
                         'phone' => $request->phone,
                         'invoice_address' => $request->invoice_address,
                         'ip' => $request->ip(),
-                    ]
+                    ],
+                    'series' => 'AA',
+                    'sequence' => $sequence,
                 ]
             );
 
@@ -376,5 +383,59 @@ class SubscriptionController extends Controller
                 'total' => PaymentHistory::where('user_id', $request->user()->id)->count()
             ]
         ];
+    }
+
+    /**
+     * Invoice
+     * 
+     * @return view
+     */
+    public function invoice(string $key)
+    {
+        $payment = PaymentHistory::where('session_id', $key)->firstOrFail();
+
+        $customer = new Party([
+            'name' => $payment->meta['name'],
+            'address' => $payment->meta['invoice_address'],
+            'custom_fields' => [
+                'Country' => $payment->meta['zip_code'].' - '.$payment->meta['city'].' / '.$payment->meta['country'],
+                'Vat Id' => $payment->meta['vat_id'],
+            ],
+        ]);
+
+        if ($payment->status)
+        {
+            $notes = '';
+        }
+        else
+        {
+            $notes = implode('<br />', [
+                'To make payments or view your invoices, go to the payment history page.',
+                '<a href="'.route('subscription.payment.history').'">'.route('subscription.payment.history').'</a>',
+            ]);
+        }
+
+        $items = [
+            Invoice::makeItem('Datahover balance')->pricePerUnit($payment->amount)
+        ];
+
+        $invoice = Invoice::make('receipt')
+            ->series($payment->series)
+            ->sequence($payment->sequence)
+            ->status($payment->status ? __('invoices::invoice.paid') : __('invoices::invoice.due'))
+            ->serialNumberFormat('{SERIES} {SEQUENCE}')
+            ->buyer($customer)
+            ->date($payment->created_at)
+            ->dateFormat('d/m/Y')
+            ->currencyThousandsSeparator('.')
+            ->currencyDecimalPoint(',')
+            ->addItems($items)
+            ->notes($notes)
+            ->currencySymbol(config('cashier.currency_symbol'))
+            ->currencyCode(config('cashier.currency'))
+            ->logo(public_path('images/logo.png'))
+            ->save('public');
+
+        return $invoice->stream();
     }
 }
