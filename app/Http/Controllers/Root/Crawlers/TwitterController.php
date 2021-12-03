@@ -90,13 +90,18 @@ class TwitterController extends Controller
                 $messages[] = "Failed to add $device key";
         }
 
-        return [
+        $return = [
             'success' => 'ok',
             'alert' => [
-            	'type' => 'default',
-            	'message' => implode('<br />', $messages)
+                'type' => 'default',
+                'message' => implode('<br />', $messages)
             ]
         ];
+
+        if (@$access)
+            $return['log'] = $access;
+
+        return $return;;
     }
 
     public function deleteToken(Request $request)

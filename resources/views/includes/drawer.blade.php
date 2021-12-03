@@ -25,7 +25,7 @@ $subscription = auth()->user()->subscription();
 				@if ($subscription->days == 0)
 					<div class="alert alert-danger border border-1 border-danger rounded-0 shadow-sm small mb-0">Your subscription has expired!</div>
 				@elseif ($subscription->days <= 7)
-					<div class="alert alert-warning border border-1 border-warning rounded-0 shadow-sm small mb-0">Expires on {{ date('M d\t\h Y', strtotime($subsubscription->end_date)) }}</div>
+					<div class="alert alert-warning border border-1 border-warning rounded-0 shadow-sm small mb-0">Expires on {{ date('M d\t\h Y', strtotime($subscription->end_date)) }}</div>
 				@endif
 			@else
 				<small class="text-muted rounded-0 mb-0 d-flex align-items-center gap-3">
