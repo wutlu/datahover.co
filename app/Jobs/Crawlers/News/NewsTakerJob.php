@@ -18,6 +18,7 @@ use Etsetra\Library\Nokogiri;
 
 use App\Models\DataPool;
 use App\Models\Track;
+use App\Models\User;
 
 use LanguageDetection\Language;
 
