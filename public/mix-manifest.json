@@ -11,14 +11,11 @@
     "/images/logo.svg": "/images/logo.svg",
     "/images/mastercard.svg": "/images/mastercard.svg",
     "/images/payment.webp": "/images/payment.webp",
+    "/images/protected.svg": "/images/protected.svg",
     "/images/rolling-dark.svg": "/images/rolling-dark.svg",
     "/images/rolling.svg": "/images/rolling.svg",
     "/images/stripe.svg": "/images/stripe.svg",
     "/images/visa.svg": "/images/visa.svg",
-<<<<<<< HEAD
-    "/images/protected.svg": "/images/protected.svg"
-=======
     "/images/wave-dark.svg": "/images/wave-dark.svg",
     "/images/wave-light.svg": "/images/wave-light.svg"
->>>>>>> 2c76ba413af894c7925cd12b1a6f61f1a3db864a
 }
