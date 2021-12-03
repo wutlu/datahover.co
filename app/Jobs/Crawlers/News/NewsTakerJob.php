@@ -57,7 +57,7 @@ class NewsTakerJob implements ShouldQueue
             {
                 $this->array['status'] = 'ok';
                 $this->array['title'] = $article->title;
-                $this->array['article'] = $article->article;
+                $this->array['text'] = $article->article;
                 $this->array['lang'] = @array_keys((new Language)->detect($article->article)->close())[0] ?? 'unknown';
 
                 if ($article->image)

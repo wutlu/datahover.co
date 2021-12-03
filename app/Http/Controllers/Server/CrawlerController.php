@@ -213,16 +213,15 @@ class CrawlerController extends Controller
         {
             $data->title = $schema->headline;
             $data->article = $schema->articleBody;
-
             $data->image = @$schema->image->url ?? null;
             $data->created_at = @$schema->datePublished ?? null;
         }
 
-        $saw = new Nokogiri($html);
-        $metas = $saw->get('meta')->toArray();
-
         if (!$data->title || !$data->article || !$data->created_at)
         {
+            $saw = new Nokogiri($html);
+            $metas = $saw->get('meta')->toArray();
+
             $title = [];
             $article = [];
             $image = [];
