@@ -110,7 +110,7 @@
 
 			<h4 class="mb-2 fw-bold">Contacting us</h4>
 			<p class="lead mb-2">If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at: <span class="fw-bold">ETSETRA LTD</span>.</p>
-			<p class="lead mb-2">{{ config('etsetra.address') }}</p>
+			<p class="lead mb-2">{!! config('etsetra.address') !!}</p>
 			<p class="lead mb-4"><a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
 			<small class="text-muted">This document was last updated on November 27th, 2021</small>
 		</div>

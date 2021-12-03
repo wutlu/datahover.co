@@ -70,6 +70,8 @@ class Organizer extends Command
                     $array[] = $track->value;
                 else
                     $this->error('This track does not belong to a current account.');
+
+                $track->update([ 'valid' => true ]);
             }
         }
 
