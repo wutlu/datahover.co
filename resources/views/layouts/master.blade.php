@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Material+Icons&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&family=Material+Icons&display=swap" />
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" />
 
     <link rel="canonical" href="{{ url()->current() }}" />
@@ -77,7 +77,7 @@
             0: 'Internet connection problem!',
             401: 'You are not authorized for this page.',
             403: 'test',
-            404: 'test',
+            404: '404 not found',
             405: 'test',
             422: 'test',
             429: 'You made too many requests. Please calm down and try again later.',

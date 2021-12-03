@@ -140,7 +140,9 @@ class TrackController extends Controller
 
             $ip = $request->ip();
 
-            (new Logs)->enter($request->user->id, 'A new track has been added. ('.$request->source.', '.$request->type.', '.$request->value.')');
+            $message = 'A new track has been added. ('.$request->source.', '.$request->type.', '.$request->value.')';
+
+            LogController::create($request->source, $message, $request->user->id);
 
             return [
                 'success' => 'ok',
@@ -212,7 +214,9 @@ class TrackController extends Controller
 
         foreach ($tracks as $track)
         {
-            (new Logs)->enter($request->user->id, 'A track has been deleted. ('.$track->source.', '.$track->type.', '.$track->value.')');
+            $message = 'A track has been deleted. ('.$track->source.', '.$track->type.', '.$track->value.')';
+
+            LogController::create($track->source, $message, $request->user->id);
 
             if (count($track->users) <= 1)
                 $track->delete();

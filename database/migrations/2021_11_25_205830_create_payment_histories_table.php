@@ -25,6 +25,9 @@ class CreatePaymentHistoriesTable extends Migration
             $table->timestamp('expires_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->json('meta')->default(json_encode([]));
 
+            $table->string('series')->default('AA');
+            $table->unsignedInteger('sequence')->default(1);
+
             $table->timestamps();
         });
     }

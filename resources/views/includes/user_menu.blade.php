@@ -25,7 +25,7 @@
 				</a>
 			</li>
 			<li>
-				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('subscription.payment.history') }}">
+				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('payment.history') }}">
 					<i class="material-icons icon-sm">receipt</i>
 					<div class="d-flex flex-column">
 						<span>Payment History</span>

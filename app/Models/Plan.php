@@ -3,16 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Etsetra\Library\DateTime as DT;
-use Request;
 
-class Logs extends Model
+class Plan extends Model
 {
-    protected $table = 'logs';
-
-    protected $fillable = [
-        'email_sent',
-    ];
+    protected $table = 'plans';
 
     /**
      * Get the user associated with the user.

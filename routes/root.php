@@ -34,6 +34,14 @@ Route::prefix('faq-management')->group(function() {
 	Route::post('list', 'FaqController@list')->name('root.faq.list');
 });
 
+Route::prefix('plan-management')->group(function() {
+	Route::get('/', 'PlanController@view')->name('root.plans');
+	Route::post('action', 'PlanController@action')->name('root.plans.action');
+	Route::post('read', 'PlanController@read')->name('root.plans.read');
+	Route::post('delete', 'PlanController@delete')->name('root.plans.delete');
+	Route::post('list', 'PlanController@list')->name('root.plans.list');
+});
+
 Route::prefix('elasticsearch-monitor')->group(function() {
 	Route::get('/', 'ElasticsearchController@view')->name('root.elasticsearch');
 	Route::post('status/{status}', 'ElasticsearchController@status')->name('root.elasticsearch.status')->where('status', '(health|nodes|indices)');

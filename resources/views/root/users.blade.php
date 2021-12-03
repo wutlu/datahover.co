@@ -40,8 +40,8 @@
         let modal = $('#edit-modal');
             modal.find('input[name=name]').val(obj.data.name)
             modal.find('input[name=email]').val(obj.data.email)
+            modal.find('select[name=plan_id]').val(obj.data.plan_id)
             modal.find('input[name=subscription_end_date]').val(obj.data.subscription_end_date)
-            modal.find('select[name=subscription]').val(obj.data.subscription)
             modal.find('input[name=api_key]').val(obj.data.api_key)
             modal.find('input[name=api_secret]').val(obj.data.api_secret)
             modal.find('input[name=is_root]').prop('checked', obj.data.is_root ? true : false)
@@ -88,17 +88,17 @@
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <div class="form-floating mb-2">
-                        <select class="form-select shadow-sm rounded-0" name="subscription" id="subscription">
-                            @foreach(config('plans') as $key => $plan)
-                                <option value="{{ $key }}">{{ $plan['name'] }}</option>
+                        <select class="form-select shadow-sm rounded-0" name="plan_id" id="plan_id">
+                            @foreach($plans as $key => $plan)
+                                <option value="{{ $plan->id }}">{{ $plan->name }}</option>
                             @endforeach
                         </select>
-                        <label for="subscription">{{ __('validation.attributes.subscription') }}</label>
+                        <label for="plan_id">{{ __('validation.attributes.plan_id') }}</label>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-floating mb-2">
-                        <input type="date" class="form-control shadow-sm rounded-0" name="subscription_end_date" id="subscription_end_date" />
+                        <input type="text" class="form-control shadow-sm rounded-0" name="subscription_end_date" id="subscription_end_date" />
                         <label for="subscription_end_date">{{ __('validation.attributes.subscription_end_date') }}</label>
                     </div>
                 </div>

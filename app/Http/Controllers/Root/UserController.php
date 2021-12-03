@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use App\Models\Plan;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -14,7 +15,9 @@ class UserController extends Controller
 {
     public function view()
     {
-        return view('root.users');
+        $plans = Plan::get();
+
+        return view('root.users', compact('plans'));
     }
 
     public function read(Request $request)
@@ -33,7 +36,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|max:255|unique:users,email,'.$request->id,
-            'subscription' => [ 'required', 'string', 'in:'.implode(',', array_keys(config('plans'))) ],
+            'plan_id' => 'required|string|exists:plans,id',
             'subscription_end_date' => 'required|date',
             'is_root' => 'nullable|string|in:on'
         ]);
@@ -41,7 +44,7 @@ class UserController extends Controller
         $user = User::findOrFail($request->id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->subscription = $request->subscription;
+        $user->plan_id = $request->plan_id;
         $user->subscription_end_date = $request->subscription_end_date;
         $user->is_root = $request->is_root ? true : false;
         $user->save();

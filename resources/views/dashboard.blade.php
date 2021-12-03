@@ -43,7 +43,7 @@
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content shadow border-0 rounded-0">
 				<div class="modal-header border-0">
-					<h5 class="modal-title">Welcome</h5>
+					<h5 class="modal-title unselectable">Welcome</h5>
 					<a
 						href="#"
 						class="link-dark"
@@ -83,12 +83,12 @@
 					</div>
 
 					<div class="d-flex justify-content-end">
-						<label class="form-check d-flex align-items-center gap-2">
+						<label class="form-check d-flex align-items-center gap-2 p-0">
 							<small>Don't show it again</small>
 							<input
 								class="form-check-input rounded-0 shadow-sm m-0"
 								autocomplete="off"
-								data-action="{{ route('user.info.hide') }}"
+								data-action="{{ route('user.hide_info') }}"
 								type="checkbox"
 								name="info_key"
 								value="greeting.welcome" />
@@ -129,7 +129,7 @@
 			class="list-group list-group-flush load border-0"
 			data-action="{{ route('user.logs.list') }}"
 			data-skip="0"
-			data-take="5"
+			data-take="50"
 			data-include="search"
 			data-loading="#items->children(.loading)"
 			data-more="#itemsMore"
@@ -137,16 +137,14 @@
 			<li class="list-group-item border-0 d-flex justify-content-center loading">
 				<img alt="Loading" src="{{ asset('images/rolling-dark.svg') }}" class="w-32px h-32px" />
 			</li>
-			<li class="list-group-item list-group-item-action border-0 each-model">
-				<div class="d-flex justify-content-between">
-					<a href="#" target="_blank" class="link-primary d-flex flex-column" data-name="link">
-						<small data-col="site" class="fw-bold"></small>
-						<p class="mb-0">
-							<small class="text-dark" data-col="message"></small>
-							<small data-col="created_at" class="text-muted"></small>
-						</p>
+			<li class="list-group-item border-0 list-group-item-action each-model">
+				<div class="d-flex align-items-start justify-content-between">
+					<a href="#" target="_blank" data-name="link">
+						<small data-col="site" class="border border-1 rounded px-1 shadow-sm text-muted bg-light"></small>
+						<small class="text-dark" data-col="message"></small>
+						<small data-col="updated_at" class="text-muted"></small>
 					</a>
-					<small class="d-flex flex-column align-items-end text-muted">
+					<small class="d-flex gap-1 align-items-end text-muted">
 						<span data-col="repeat"></span> repeat
 					</small>
 				</div>
@@ -161,5 +159,18 @@
 			data-action-target="#items">
 			<i class="material-icons d-table mx-auto text-muted">more_horiz</i>
 		</a>
+	</div>
+	<div class="d-flex justify-content-end">
+		<label class="form-check d-flex align-items-center gap-2 py-2 px-0">
+			<small class="text-muted">I want the logs to be sent by e-mail</small>
+			<input
+				class="form-check-input rounded-0 shadow-sm m-0"
+				autocomplete="off"
+				data-action="{{ route('user.email_alerts') }}"
+				type="checkbox"
+				name="email_alerts"
+				{{ $emailAlerts ? 'checked' : '' }}
+				value="on" />
+		</label>
 	</div>
 @endsection

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogsTable extends Migration
+class CreatePlansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,15 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logs', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->id()->unsigned();
-            $table->string('site')->index();
 
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->nullable()->default(null)->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->string('message');
-            $table->string('hash')->unique();
-
-            $table->unsignedBigInteger('repeat')->default(1);
-
-            $table->ipAddress('ip');
-
-            $table->boolean('email_sent')->default(false);
+            $table->string('name')->unique();
+            $table->decimal('price', 10, 2)->default(0);
+            $table->unsignedInteger('track_limit')->default(0);
 
             $table->timestamps();
         });
@@ -40,6 +34,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('plans');
     }
 }

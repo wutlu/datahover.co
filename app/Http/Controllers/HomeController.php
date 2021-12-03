@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use Etsetra\Library\DateTime as DT;
 
 use App\Models\Logs;
 use App\Models\DataPool;
 use App\Models\HideInfo;
+use App\Models\Plan;
 
 class HomeController extends Controller
 {
@@ -22,9 +24,24 @@ class HomeController extends Controller
      * 
      * @return view
      */
-    public function index(Request $request)
+    public function index()
     {
-        return view('home');
+        $plans = Plan::whereIn('name', [ 'Basic', 'Enterprise', 'Company' ])->get();
+
+        return view('home', compact('plans'));
+    }
+
+    /**
+     * Dashboard
+     * 
+     * @return view
+     */
+    public function dashboard()
+    {
+        return view('dashboard', [
+            'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists(),
+            'emailAlerts' => auth()->user()->email_alerts,
+        ]);
     }
 
     public function console()
@@ -63,18 +80,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Dashboard
-     * 
-     * @return view
-     */
-    public function dashboard()
-    {
-        return view('dashboard', [
-            'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists()
-        ]);
-    }
-
-    /**
      * Portal Single Pages
      * 
      * @param string $name
@@ -92,6 +97,8 @@ class HomeController extends Controller
                         return view("pages.$name");
                     break;
                 }
+
+                return abort(404);
             break;
             case 'page':
                 switch ($name)
@@ -100,9 +107,9 @@ class HomeController extends Controller
                         return view("pages.$name");
                     break;
                 }
+
+                return abort(404);
             break;
         }
-
-        return abort(404);
     }
 }

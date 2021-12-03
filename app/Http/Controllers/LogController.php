@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Logs;
 
+use Etsetra\Library\DateTime as DT;
+
 class LogController extends Controller
 {
     public function __construct()
@@ -29,7 +31,7 @@ class LogController extends Controller
             ]
         );
 
-        $data = Logs::select('id', 'site', 'message', 'repeat', 'created_at')
+        $data = Logs::select('id', 'site', 'message', 'repeat', 'updated_at')
             ->where(function($query) use($request) {
                 if ($request->search)
                 {
@@ -56,7 +58,7 @@ class LogController extends Controller
      */
     public static function create(string $site, string $message, int $user_id)
     {
-        $hash = md5($message);
+        $hash = md5($user_id.'_'.$message);
 
         $item = Logs::where('hash', $hash)->first();
         $item = $item ?? new Logs;
@@ -67,6 +69,8 @@ class LogController extends Controller
         $item->hash = $hash;
         $item->repeat = $item->repeat + 1;
         $item->ip = request()->ip();
+        $item->updated_at = (new DT)->nowAt();
+        $item->email_sent = false;
         $item->save();
 
         return (object) [

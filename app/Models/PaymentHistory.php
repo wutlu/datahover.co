@@ -15,6 +15,8 @@ class PaymentHistory extends Model
         'status',
         'expires_at',
         'meta',
+        'series',
+        'sequence',
     ];
 
     protected $casts = [
