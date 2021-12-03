@@ -51,6 +51,10 @@ $subscription = auth()->user()->subscription();
 				<i class="material-icons">search</i>
 				Search Api
 			</a>
+			<a href="{{ route('faq.index') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<i class="material-icons">quiz</i>
+				FAQ
+			</a>
 		</div>
 		@if (auth()->user()->is_root)
 			<div class="card-body">
