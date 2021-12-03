@@ -13,7 +13,7 @@
 @push('js')
 	function __results(__, obj)
 	{
-		app.toast(obj.stats.total + ' results found!', 'info')
+		$('[data-name=total]').html(obj.stats.total)
 	}
 
 	function __items(__, o)
@@ -40,24 +40,33 @@
 @section('content')
 	<div class="card rounded-0 shadow-sm" id="masterCard">
         <div class="card-body">
-            <h6 class="card-title text-uppercase h6 fw-bold mb-0">Search Api</h6>
+            <div class="d-flex gap-2">
+                <span class="card-title text-uppercase h6 fw-bold mb-0">Search Api</span>
+                <small class="text-muted">
+                    <span data-name="total">0</span> results found!
+                </small>
+            </div>
         </div>
-		<div class="input-group input-group-lg d-flex flex-nowrap">
-			<input
-				type="text"
-				class="form-control bg-light border shadow-sm rounded-0 border-start-0"
-				placeholder="Write something"
-				name="search"
-				id="search"
-				data-blockui="#masterCard"
-				data-reset="true"
-				data-action="true"
-				data-action-target="#items" />
-			<button data-bs-toggle="modal" data-bs-target="#searchQueries-modal" class="btn btn-light border border-1 border-end-0 rounded-0 shadow-sm" type="button">
-				<i class="material-icons text-muted">info</i>
-			</button>
-		</div>
-        <small class="text-muted px-3 py-1 mb-2">Search within 24 hour data.</small>
+        <div class="card-body">
+
+            <div class="input-group input-group-lg d-flex flex-nowrap">
+                <input
+                    type="text"
+                    class="form-control bg-light border shadow-sm rounded-0"
+                    placeholder="Write something"
+                    name="search"
+                    id="search"
+                    data-blockui="#masterCard"
+                    data-reset="true"
+                    data-action="true"
+                    data-action-target="#items" />
+                <button data-bs-toggle="modal" data-bs-target="#searchQueries-modal" class="btn btn-light border border-1 rounded-0 shadow-sm" type="button">
+                    <i class="material-icons text-muted">info</i>
+                </button>
+            </div>
+            <small class="text-muted py-1 mb-2">Search within 24 hours data.</small>
+
+        </div>
         <div
             id="items"
             class="list-group list-group-flush border-0"

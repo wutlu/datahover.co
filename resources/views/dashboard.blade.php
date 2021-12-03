@@ -31,6 +31,14 @@
 	})
 @endpush
 
+@push('css')
+	.carousel-indicators > button {
+		width: 24px !important;
+		height: 24px !important;
+		border-radius: 50%;
+	}
+@endpush
+
 @push('footer')
 	<div
 		id="greetingModal"
@@ -55,9 +63,9 @@
 				<div class="modal-body">
 					<div id="greetingCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">
 						<div class="carousel-indicators">
-							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="0" class="h-16px active"></button>
-							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="1" class="h-16px"></button>
-							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="2" class="h-16px"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="0" class="active"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="1"></button>
+							<button type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="2"></button>
 						</div>
 						<div class="carousel-inner p-0">
 							<div class="carousel-item h-200px active">

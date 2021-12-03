@@ -188,7 +188,7 @@ class UserController extends Controller
 
                 $roots = User::where('is_root', true)->get();
 
-                Notification::send($roots, (new ServerAlert('New member! ('.$user->name.', ) '.$user->email))->onQueue('notifications'));
+                Notification::send($roots, (new ServerAlert('New member! ('.$user->name.') '.$user->email))->onQueue('notifications'));
             }
         }
 

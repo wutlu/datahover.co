@@ -139,7 +139,7 @@
 				<div class="row mb-4">
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
 						<div class="p-4">
-							<span class="lead">You do not need to specify any details, whether it is Rss or Api or not. You just need to specify the domain. <strong>We provide api output of news and blog sites.</strong></span>
+							<span class="lead">You do not need to specify any details, whether it is Rss or API or not. You just need to specify the domain. <strong>We provide API output of news and blog sites.</strong></span>
 						</div>
 					</div>
 					<div class="col-12 col-sm-6 text-center text-sm-end">
@@ -165,7 +165,7 @@
 					</div>
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
 						<div class="p-4">
-							<p class="lead mb-0">You specify the word, we will follow the social media platforms for you. You can easily reach the results we found with our Api services.</p>
+							<p class="lead mb-0">You specify the word, we will follow the social media platforms for you. You can easily reach the results we found with our API services.</p>
 						</div>
 					</div>
 				</div>
@@ -224,13 +224,13 @@
 					<div class="text-white d-flex flex-column">
 						<span class="d-flex flex-column align-items-center">
 							<i class="material-icons icon-lg">insights</i>
-							Limitless filterable data APi
+							Limitless filterable data API
 						</span>
 						<span class="text-info">An advanced dashboard</span>
 					</div>
 				</div>
 				<div class="p-4 text-white">
-					<p class="lead">What types of APi services are there?</p>
+					<p class="lead">What types of API services are there?</p>
 					<div class="d-flex align-items-center justify-content-center gap-4 mb-4">
 						<span class="d-flex flex-column justify-content-center">
 							<div class="d-flex align-items-center justify-content-center w-32px h-32px bg-white rounded-circle mx-auto mb-2">
@@ -329,7 +329,7 @@
 							@endif
 						</ul>
 						@if ($plan->price > 0)
-							<a href="{{ route('subscription.index') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
+							<a href="{{ route('user.gate') }}" class="btn btn-primary rounded-0 shadow-sm">Choose Plan</a>
 						@else
 							<a href="mailto:{{ config('etsetra.email') }}" class="btn btn-primary rounded-0 shadow-sm">Contact Us</a>
 						@endif
