@@ -92,7 +92,7 @@
 		<form
 			method="post"
 			action="#"
-			data-action="{{ route('subscription.order') }}"
+			data-action="{{ route('payment.order') }}"
 			data-blockui="#recharge-modal->find(.modal-content)"
 			id="paymentForm"
 			autocomplete="off">

@@ -36,7 +36,7 @@ $subscription = auth()->user()->subscription();
 
 			<div class="d-flex flex-column gap-1 drawer-subscription">
 				<a href="{{ route('subscription.index') }}" class="btn btn-sm btn-outline-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
-				<a href="{{ route('subscription.payment.history') }}" class="mx-auto small text-muted payment-history" style="display: none;">Payment History</a>
+				<a href="{{ route('payment.history') }}" class="mx-auto small text-muted payment-history" style="display: none;">Payment History</a>
 			</div>
 		</div>
 		<div class="card-body">

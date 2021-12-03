@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <title>{{ $invoice->name }}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <style type="text/css" media="screen">
             html {
@@ -29,7 +29,7 @@
 
             p {
                 margin-top: 0;
-                margin-bottom: 1rem;
+                margin-bottom: .4rem;
             }
 
             strong {
@@ -77,7 +77,12 @@
 
             .table thead th {
                 vertical-align: bottom;
-                border-bottom: 2px solid #dee2e6;
+                /*border-bottom: 2px solid #dee2e6;*/
+            }
+
+            .table-sm th,
+            .table-sm td {
+                padding: 0;
             }
 
             .mt-5 {
@@ -125,31 +130,47 @@
             .cool-gray {
                 color: #6B7280;
             }
+            .cool-red {
+                color: #dc3461;
+            }
+            .cool-green {
+                color: #93dc34;
+            }
         </style>
     </head>
 
     <body>
-        {{-- Header --}}
-        @if($invoice->logo)
-            <img src="{{ $invoice->getLogo() }}" alt="logo" height="30" />
-        @endif
-
-        <table class="table mt-5">
+        <table class="table">
             <tbody>
                 <tr>
-                    <td class="border-0 pl-0" width="70%">
+                    <td width="70%" valign="top">
+                        @if ($invoice->logo)
+                            <img src="{{ $invoice->getLogo() }}" alt="logo" height="30" />
+                            <br />
+                            <br />
+                        @endif
+
                         <h4 class="text-uppercase">
                             <strong>{{ $invoice->name }}</strong>
                         </h4>
                     </td>
-                    <td class="border-0 pl-0">
-                        @if($invoice->status)
-                            <h4 class="text-uppercase cool-gray">
-                                <strong>{{ $invoice->status }}</strong>
+                    <td valign="top">
+                        @if ($status = $invoice->status)
+                            <h4 class="text-uppercase {{ $status == 'Due' ? 'cool-red' : 'cool-green' }}">
+                                <strong>{{ $status }}</strong>
                             </h4>
                         @endif
-                        <p>{{ __('invoices::invoice.serial') }} <strong>{{ $invoice->getSerialNumber() }}</strong></p>
-                        <p>{{ __('invoices::invoice.date') }}: <strong>{{ $invoice->getDate() }}</strong></p>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <td>{{ __('invoices::invoice.serial') }}</td>
+                                <td align="right"><strong>{{ $invoice->getSerialNumber() }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>{{ __('invoices::invoice.date') }}</td>
+                                <td align="right"><strong>{{ $invoice->getDate() }}</strong></td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </tbody>
@@ -171,77 +192,72 @@
             <tbody>
                 <tr>
                     <td class="px-0">
-                        @if($invoice->seller->name)
-                            <p class="seller-name">
-                                <strong>{{ $invoice->seller->name }}</strong>
-                            </p>
-                        @endif
+                        <p class="seller-name">
+                            <strong>{{ config('etsetra.company_name') }}</strong><br />
+                            <small>Company Number {{ config('etsetra.company_number') }}</small>
+                        </p>
 
-                        @if($invoice->seller->address)
-                            <p class="seller-address">
-                                {{ __('invoices::invoice.address') }}: {{ $invoice->seller->address }}
-                            </p>
-                        @endif
+                        <p class="seller-address">
+                            {{ __('invoices::invoice.address') }}: {!! config('etsetra.address') !!}
+                        </p>
 
-                        @if($invoice->seller->code)
+{{--                         @if ($invoice->seller->code)
                             <p class="seller-code">
                                 {{ __('invoices::invoice.code') }}: {{ $invoice->seller->code }}
                             </p>
                         @endif
 
-                        @if($invoice->seller->vat)
+                        @if ($invoice->seller->vat)
                             <p class="seller-vat">
                                 {{ __('invoices::invoice.vat') }}: {{ $invoice->seller->vat }}
                             </p>
                         @endif
 
-                        @if($invoice->seller->phone)
+                        @if ($invoice->seller->phone)
                             <p class="seller-phone">
                                 {{ __('invoices::invoice.phone') }}: {{ $invoice->seller->phone }}
                             </p>
                         @endif
 
-                        @foreach($invoice->seller->custom_fields as $key => $value)
+                        @foreach ($invoice->seller->custom_fields as $key => $value)
                             <p class="seller-custom-field">
                                 {{ ucfirst($key) }}: {{ $value }}
                             </p>
-                        @endforeach
+                        @endforeach --}}
                     </td>
                     <td class="border-0"></td>
                     <td class="px-0">
-                        @if($invoice->buyer->name)
+                        @if ($invoice->buyer->name)
                             <p class="buyer-name">
                                 <strong>{{ $invoice->buyer->name }}</strong>
+                                @if ($invoice->buyer->vat)
+                                    <br />
+                                    <small>Vat Id {{ $invoice->buyer->vat }}</small>
+                                @endif
                             </p>
                         @endif
 
-                        @if($invoice->buyer->address)
+                        @if ($invoice->buyer->address)
                             <p class="buyer-address">
                                 {{ __('invoices::invoice.address') }}: {{ $invoice->buyer->address }}
                             </p>
                         @endif
 
-                        @if($invoice->buyer->code)
+                        @if ($invoice->buyer->code)
                             <p class="buyer-code">
                                 {{ __('invoices::invoice.code') }}: {{ $invoice->buyer->code }}
                             </p>
                         @endif
 
-                        @if($invoice->buyer->vat)
-                            <p class="buyer-vat">
-                                {{ __('invoices::invoice.vat') }}: {{ $invoice->buyer->vat }}
-                            </p>
-                        @endif
-
-                        @if($invoice->buyer->phone)
+                        @if ($invoice->buyer->phone)
                             <p class="buyer-phone">
                                 {{ __('invoices::invoice.phone') }}: {{ $invoice->buyer->phone }}
                             </p>
                         @endif
 
-                        @foreach($invoice->buyer->custom_fields as $key => $value)
+                        @foreach ($invoice->buyer->custom_fields as $key => $value)
                             <p class="buyer-custom-field">
-                                {{ ucfirst($key) }}: {{ $value }}
+                                {{ $value }}
                             </p>
                         @endforeach
                     </td>
@@ -254,15 +270,15 @@
             <thead>
                 <tr>
                     <th scope="col" class="border-0 pl-0">{{ __('invoices::invoice.description') }}</th>
-                    @if($invoice->hasItemUnits)
+                    @if ($invoice->hasItemUnits)
                         <th scope="col" class="text-center border-0">{{ __('invoices::invoice.units') }}</th>
                     @endif
                     <th scope="col" class="text-center border-0">{{ __('invoices::invoice.quantity') }}</th>
                     <th scope="col" class="text-right border-0">{{ __('invoices::invoice.price') }}</th>
-                    @if($invoice->hasItemDiscount)
+                    @if ($invoice->hasItemDiscount)
                         <th scope="col" class="text-right border-0">{{ __('invoices::invoice.discount') }}</th>
                     @endif
-                    @if($invoice->hasItemTax)
+                    @if ($invoice->hasItemTax)
                         <th scope="col" class="text-right border-0">{{ __('invoices::invoice.tax') }}</th>
                     @endif
                     <th scope="col" class="text-right border-0 pr-0">{{ __('invoices::invoice.sub_total') }}</th>
@@ -270,28 +286,28 @@
             </thead>
             <tbody>
                 {{-- Items --}}
-                @foreach($invoice->items as $item)
+                @foreach ($invoice->items as $item)
                 <tr>
                     <td class="pl-0">
                         {{ $item->title }}
 
-                        @if($item->description)
+                        @if ($item->description)
                             <p class="cool-gray">{{ $item->description }}</p>
                         @endif
                     </td>
-                    @if($invoice->hasItemUnits)
+                    @if ($invoice->hasItemUnits)
                         <td class="text-center">{{ $item->units }}</td>
                     @endif
                     <td class="text-center">{{ $item->quantity }}</td>
                     <td class="text-right">
                         {{ $invoice->formatCurrency($item->price_per_unit) }}
                     </td>
-                    @if($invoice->hasItemDiscount)
+                    @if ($invoice->hasItemDiscount)
                         <td class="text-right">
                             {{ $invoice->formatCurrency($item->discount) }}
                         </td>
                     @endif
-                    @if($invoice->hasItemTax)
+                    @if ($invoice->hasItemTax)
                         <td class="text-right">
                             {{ $invoice->formatCurrency($item->tax) }}
                         </td>
@@ -303,7 +319,7 @@
                 </tr>
                 @endforeach
                 {{-- Summary --}}
-                @if($invoice->hasItemOrInvoiceDiscount())
+                @if ($invoice->hasItemOrInvoiceDiscount())
                     <tr>
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_discount') }}</td>
@@ -312,7 +328,7 @@
                         </td>
                     </tr>
                 @endif
-                @if($invoice->taxable_amount)
+                @if ($invoice->taxable_amount)
                     <tr>
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.taxable_amount') }}</td>
@@ -321,7 +337,7 @@
                         </td>
                     </tr>
                 @endif
-                @if($invoice->tax_rate)
+                @if ($invoice->tax_rate)
                     <tr>
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.tax_rate') }}</td>
@@ -330,7 +346,7 @@
                         </td>
                     </tr>
                 @endif
-                @if($invoice->hasItemOrInvoiceTax())
+                @if ($invoice->hasItemOrInvoiceTax())
                     <tr>
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.total_taxes') }}</td>
@@ -339,7 +355,7 @@
                         </td>
                     </tr>
                 @endif
-                @if($invoice->shipping_amount)
+                @if ($invoice->shipping_amount)
                     <tr>
                         <td colspan="{{ $invoice->table_columns - 2 }}" class="border-0"></td>
                         <td class="text-right pl-0">{{ __('invoices::invoice.shipping') }}</td>
@@ -358,10 +374,8 @@
             </tbody>
         </table>
 
-        @if($invoice->notes)
-            <p>
-                {{ trans('invoices::invoice.notes') }}: {!! $invoice->notes !!}
-            </p>
+        @if ($invoice->notes)
+            <p>{!! $invoice->notes !!}</p>
         @endif
 
         <script type="text/php">

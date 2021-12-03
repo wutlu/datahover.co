@@ -102,7 +102,7 @@
         <div
             id="items"
             class="list-group list-group-flush load border-0"
-            data-action="{{ route('subscription.payment.history') }}"
+            data-action="{{ route('payment.history') }}"
             data-callback="__results"
             data-skip="0"
             data-take="10"

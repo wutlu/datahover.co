@@ -28,8 +28,7 @@
 					<a href="{{ route('faq.index') }}" class="link-light">F.A.Q.</a>
 				</div>
 				<div class="d-flex flex-column text-center text-lg-end">
-					<small class="mb-2 text-muted mw-300px">{{ config('etsetra.address') }}</small>
-					<small class="mb-2 text-muted">{{ config('etsetra.phone') }}</small>
+					<small class="mb-2 text-muted mw-300px">{!! config('etsetra.address') !!}</small>
 					<a href="mailto:{{ config('etsetra.email') }}" class="text-muted">{{ config('etsetra.email') }}</a>
 				</div>
 			</div>

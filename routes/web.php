@@ -22,18 +22,19 @@ Route::prefix('user')->group(function() {
 	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
 });
 
-Route::get('invoice/{key}', 'SubscriptionController@invoice')->name('invoice');
-
 Route::prefix('subscription')->group(function() {
 	Route::get('/', 'SubscriptionController@view')->name('subscription.index');
 	Route::post('details', 'SubscriptionController@details')->name('subscription.details');
 	Route::post('cancel', 'SubscriptionController@cancel')->name('subscription.cancel');
 	Route::post('start', 'SubscriptionController@start')->name('subscription.start');
-	Route::post('order', 'SubscriptionController@order')->name('subscription.order')->withoutMiddleware([ VerifyCsrfToken::class ]);
+});
 
-	Route::get('payment/{status?}', 'SubscriptionController@payment')->name('subscription.payment')->where('status', '(success|cancel)');
-	Route::get('payment-history', 'SubscriptionController@paymentHistory')->name('subscription.payment.history');
-	Route::post('payment-history', 'SubscriptionController@paymentHistoryData');
+Route::prefix('payment')->group(function() {
+	Route::post('order', 'PaymentController@order')->name('payment.order')->withoutMiddleware([ VerifyCsrfToken::class ]);
+	Route::get('invoice/{key}.pdf', 'PaymentController@invoice')->name('invoice');
+	Route::get('payment/{status?}', 'PaymentController@payment')->name('payment')->where('status', '(success|cancel)');
+	Route::get('payment-history', 'PaymentController@paymentHistory')->name('payment.history');
+	Route::post('payment-history', 'PaymentController@paymentHistoryData');
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');

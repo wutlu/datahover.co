@@ -3,7 +3,7 @@
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-body d-flex justify-content-between align-items-center gap-3">
 				<p class="mb-0">We use cookies to personalise content and ads, to provide social media features and to analyse our traffic.</p>
-				<a href="#" data-bs-dismiss="modal" class="btn btn-light rounded-0 text-nowrap">I agree</a>
+				<a href="#" data-bs-dismiss="modal" class="btn btn-secondary shadow-sm rounded-0 text-nowrap">I agree</a>
 			</div>
 		</div>
 	</div>
