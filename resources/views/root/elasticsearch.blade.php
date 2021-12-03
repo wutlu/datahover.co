@@ -34,8 +34,6 @@
 
     let __nodes = function(__, o)
     {
-        app.etsetraAjax($('#indices'))
-
         __.find('[data-name=heap_percent]').children('.progress-bar').css('width', o['heap.percent'] + '%').html(o['heap.percent'] + '%')
         __.find('[data-name=ram_percent]').children('.progress-bar').css('width', o['ram.percent'] + '%').html(o['ram.percent'] + '%')
         __.find('[data-name=cpu]').children('.progress-bar').css('width', o['cpu'] + '%').html(o['cpu'] + '%')
@@ -168,7 +166,8 @@
             id="indices"
             data-action="{{ route('root.elasticsearch.status', 'indices') }}"
             data-loading="#indices->children(.loading)"
-            data-each="#indices">
+            data-each="#indices"
+            class="load">
             <div class="card-body d-flex justify-content-center loading">
                 <img alt="Loading" src="{{ asset('images/rolling-dark.svg') }}" class="w-32px h-32px" />
             </div>
