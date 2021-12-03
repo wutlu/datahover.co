@@ -113,6 +113,14 @@ class Kernel extends ConsoleKernel
                  ->everyMinute()
                  ->runInBackground()
                  ->withoutOverlapping();
+
+
+
+        # Run failed jobs
+        $schedule->command('queue:failed')
+                 ->everyTenMinutes()
+                 ->withoutOverlapping()
+                 ->runInBackground();
     }
 
     /**

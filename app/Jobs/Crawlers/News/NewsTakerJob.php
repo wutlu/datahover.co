@@ -94,7 +94,7 @@ class NewsTakerJob implements ShouldQueue
 
                 foreach ($users as $user)
                 {
-                    Log::create($value, $source->alert->message, $user->id);
+                    Log::create($site, $source->alert->message, $user->id);
                 }
             }
 
