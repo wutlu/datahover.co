@@ -204,6 +204,10 @@ class CrawlerController extends Controller
         $schema = self::getSchemaInHtml($html);
 
         $data = new \stdClass;
+        $data->title = null;
+        $data->article = null;
+        $data->image = null;
+        $data->created_at = null;
 
         if (@$schema->headline && @$schema->articleBody)
         {

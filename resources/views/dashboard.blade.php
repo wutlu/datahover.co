@@ -12,7 +12,7 @@
 @push('js')
 	let __items = function(__, o)
 	{
-		__.find('[data-name=link]').attr('href', '//' + o.site)
+		__.find('[data-name=link]')
 	}
 
 	$(document).ready(function() {
@@ -137,13 +137,13 @@
 			<li class="list-group-item border-0 d-flex justify-content-center loading">
 				<img alt="Loading" src="{{ asset('images/rolling-dark.svg') }}" class="w-32px h-32px" />
 			</li>
-			<li class="list-group-item border-0 list-group-item-action each-model">
+			<li class="list-group-item border-0 each-model">
 				<div class="d-flex align-items-start justify-content-between">
-					<a href="#" target="_blank" data-name="link">
+					<div data-name="link">
 						<small data-col="site" class="border border-1 rounded px-1 shadow-sm text-muted bg-light"></small>
 						<small class="text-dark" data-col="message"></small>
 						<small data-col="updated_at" class="text-muted"></small>
-					</a>
+					</div>
 					<small class="d-flex gap-1 align-items-end text-muted">
 						<span data-col="repeat"></span> repeat
 					</small>
