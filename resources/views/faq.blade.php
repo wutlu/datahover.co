@@ -8,8 +8,8 @@
 @push('js')
     let __items = function(__, o)
     {
-    	__.find('.accordion-collapse').attr('id', 'collapse-' + o.id).children('.accordion-body').html(o.answer)
     	__.find('.accordion-button').attr('data-bs-target', '#collapse-' + o.id).html(o.question)
+    	__.find('.accordion-collapse').attr('id', 'collapse-' + o.id).find('pre').html(o.answer)
     }
 @endpush
 
@@ -41,10 +41,12 @@
 
 				<div class="accordion-item each-model mb-2">
 					<h2 class="accordion-header">
-						<a href="#" class="accordion-button collapsed shadow-sm border-bottom" data-bs-toggle="collapse"></a>
+						<a href="#" class="accordion-button collapsed shadow-sm border-bottom fw-bold" data-bs-toggle="collapse"></a>
 					</h2>
 					<div class="accordion-collapse collapse" data-bs-parent="#items">
-						<div class="accordion-body"></div>
+						<div class="accordion-body">
+							<pre class="mb-0"></pre>
+						</div>
 					</div>
 				</div>
 			</div>
