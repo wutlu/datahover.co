@@ -5,6 +5,7 @@ namespace App\Console\Commands\Stripe;
 use Illuminate\Console\Command;
 
 use App\Models\PaymentHistory;
+use App\Models\User;
 
 use App\Jobs\PaymentCheckJob;
 
