@@ -96,7 +96,7 @@
 
 			items.pop();
 		}
-	}, 400)
+	}, 1000)
 @endpush
 
 @push('footer')

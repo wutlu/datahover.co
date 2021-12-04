@@ -59,7 +59,7 @@ class HomeController extends Controller
                     ],
                     'filter' => [
                         [
-                            'range' => [ 'created_at' => [ 'gte' => (new DT)->nowAt('-1 hours') ] ]
+                            'range' => [ 'created_at' => [ 'gte' => (new DT)->nowAt('-6 hours') ] ]
                         ]
                     ]
                 ]

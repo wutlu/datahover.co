@@ -194,7 +194,7 @@ class UserController extends Controller
 
         Auth::loginUsingId($user->id);
 
-        $message = 'Enter to dashboard';
+        $message = 'You are logged into the Dashboard';
 
         LogController::create(config('app.domain'), $message, $user->id);
 
@@ -208,7 +208,7 @@ class UserController extends Controller
      */
     public function gateExit()
     {
-        $message = 'Exit to dashboard';
+        $message = 'You are logged out of Dashboard';
 
         LogController::create(config('app.domain'), $message, auth()->user()->id);
 
