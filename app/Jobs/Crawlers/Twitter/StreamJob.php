@@ -143,7 +143,11 @@ class StreamJob implements ShouldQueue
             $token->status = $token->error_hit >= 10 ? 'error' : 'run';
             $token->save();
 
-            $message = [ 'Twitter token ('.$token->screen_name.') stalled '.$token->error_hit.' times. The error message is as follows: '.$e->getMessage() ];
+            $message = [
+                'Twitter token ('.$token->screen_name.') stalled '.$token->error_hit.' times.',
+                'The error message is as follows: '.$e->getMessage(),
+                '('.$token->value.')'
+            ];
 
             if ($token->status == 'error')
                 $message[] = 'Token closed!';

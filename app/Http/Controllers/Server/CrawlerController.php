@@ -70,18 +70,18 @@ class CrawlerController extends Controller
             switch ($e->getCode())
             {
                 case 0: $message = 'It takes over 10 seconds to connect to this website.'; break;
-                case 400: $message = 'Bad Request'; break;
-                case 401: $message = 'Unauthorized'; break;
-                case 403: $message = 'Forbidden'; break;
-                case 404: $message = 'Not Found'; break;
-                case 405: $message = 'Method Not Allowed'; break;
-                case 407: $message = 'Proxy Authentication Required'; break;
+                case 400: $message = '(400) Bad Request! We were unable to connect due to a technical problem on this site.'; break;
+                case 401: $message = '(401) Unauthorized! This site does not accept bots.'; break;
+                case 403: $message = '(403) Forbidden! This site does not allow you to access it.'; break;
+                case 404: $message = '(404) Not Found! The links we found do not open.'; break;
+                case 405: $message = '(405) The site does not accept our login method.'; break;
+                case 407: $message = '(407) Proxy Authentication Required'; break;
                 case 408: $message = '(408) Request Timeout'; break;
-                case 429: $message = 'Too Many Requests'; break;
-                case 500: $message = 'Internal Server Error'; break;
-                case 502: $message = 'Bad Gateway'; break;
-                case 503: $message = 'Service Unavailable'; break;
-                case 504: $message = 'Gateway Timeout'; break;
+                case 429: $message = '(429) Too Many Requests'; break;
+                case 500: $message = '(500) Internal Server Error'; break;
+                case 502: $message = '(502) Bad Gateway'; break;
+                case 503: $message = '(503) Service Unavailable'; break;
+                case 504: $message = '(504) Gateway Timeout'; break;
             }
 
             return (object) [
