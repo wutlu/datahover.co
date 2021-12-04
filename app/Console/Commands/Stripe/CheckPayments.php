@@ -52,8 +52,10 @@ class CheckPayments extends Command
             {
                 $this->info('Check '.$item->session_id);
 
+                $user = User::find($item->user_id);
+
                 if ($item->expires_at > date('Y-m-d H:i:s'))
-                    PaymentCheckJob::dispatch($item->user())->onQueue('paymentCheck');
+                    PaymentCheckJob::dispatch($user)->onQueue('paymentCheck');
                 else
                 {
                     $item->update([ 'status' => false ]);
