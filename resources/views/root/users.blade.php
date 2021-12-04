@@ -40,7 +40,7 @@
         let modal = $('#edit-modal');
             modal.find('input[name=name]').val(obj.data.name)
             modal.find('input[name=email]').val(obj.data.email)
-            modal.find('select[name=plan_id]').val(obj.data.plan_id)
+            modal.find('select[name=plan_id]').val(obj.data.plan_id).change()
             modal.find('input[name=subscription_end_date]').val(obj.data.subscription_end_date)
             modal.find('input[name=api_key]').val(obj.data.api_key)
             modal.find('input[name=api_secret]').val(obj.data.api_secret)

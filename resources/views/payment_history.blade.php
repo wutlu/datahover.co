@@ -152,4 +152,6 @@
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>
+
+    <p class="text-muted my-5 text-center mx-auto mw-400px">Bank check may take 10-20 minutes. If you have paid and waited longer, please contact us at email <a class="link-dark" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
 @endsection

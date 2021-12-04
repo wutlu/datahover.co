@@ -121,6 +121,12 @@ class Kernel extends ConsoleKernel
                  ->everyTenMinutes()
                  ->withoutOverlapping()
                  ->runInBackground();
+
+        # Check Payment
+        $schedule->command('stripe:payment:check')
+                 ->everyTenMinute()
+                 ->withoutOverlapping()
+                 ->runInBackground();
     }
 
     /**

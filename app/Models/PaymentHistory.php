@@ -23,4 +23,12 @@ class PaymentHistory extends Model
         'expires_at' => 'datetime',
         'meta' => 'json'
     ];
+
+    /**
+     * Get the user associated with the user.
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }
