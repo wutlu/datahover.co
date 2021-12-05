@@ -57,6 +57,7 @@ class StreamJob implements ShouldQueue
             $token->error_reason = null;
             $token->error_hit = 0;
             $token->status = 'working';
+            $token->pid = getmypid();
             $token->save();
 
             $response = $client->post('statuses/filter.json', [

@@ -22,5 +22,6 @@ class TwitterToken extends Model
         'error_reason',
         'created_at',
         'updated_at',
+        'pid',
     ];
 }

@@ -37,9 +37,6 @@ class Test extends Command
      */
     public function handle()
     {
-        $language = new \LanguageDetection\Language;
-
-        echo $language->detect('Bugün hava gerçekten çok güzel!').PHP_EOL;
-        echo $language->detect('hello mother fucker').PHP_EOL;
+        print_r(exec("kill -9 13576"));
     }
 }
