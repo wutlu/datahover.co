@@ -57,19 +57,17 @@ class Kernel extends ConsoleKernel
 
         # Twitter Organizer
         $schedule->command('twitter:organizer')
-                 ->everyTenMinutes()
+                 ->everyFiveMinutes()
                  ->withoutOverlapping()
-                 ->runInBackground()
-                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
+                 ->runInBackground();
         # Twitter Trigger
         $schedule->command('twitter:trigger')
                  ->everyMinute()
                  ->withoutOverlapping()
-                 ->runInBackground()
-                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
+                 ->runInBackground();
         # Twitter Counter
         $schedule->command('twitter:counter')
-                 ->everyThirtyMinutes()
+                 ->everyTenMinutes()
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
@@ -96,7 +94,7 @@ class Kernel extends ConsoleKernel
                  ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });
         # News Minuter
         $schedule->command('news:minuter')
-                 ->everyThirtyMinutes()
+                 ->everyTenMinutes()
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('news.status', true) == 'on' ? false : true; });

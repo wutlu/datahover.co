@@ -76,7 +76,7 @@ class Trigger extends Command
                         $this->info('Status is currently *working*');
                 break;
                 case 'close':
-                    $this->info('Status is currently *close*');
+                    $this->line('Status is currently *close*');
                 break;
                 case 'error':
                     $this->info('Status is currently *error*');
@@ -106,7 +106,7 @@ class Trigger extends Command
                         $this->info('Triggered start');
                     }
                     else
-                        $this->info('Will be *restarted* but it needs to wait -1 minutes.');
+                        $this->info('Will be *restarted* but it needs to wait 1 minutes.');
                 break;
                 case 'run':
                     $start = true;

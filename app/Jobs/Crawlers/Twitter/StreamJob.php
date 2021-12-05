@@ -95,11 +95,13 @@ class StreamJob implements ShouldQueue
                     {
                         $token = $this->token();
 
-                        if ($token->status == 'restart' || $token->status == 'kill' || $token->status == 'close' || (new Option)->get('twitter.status', true) == 'off')
+                        if ($token->status == 'restart' || $token->status == 'kill' || $token->status == 'close')
                         {
                             $this->line("Token $token->status gave");
 
-                            if ($token->status != 'restart')
+                            if ($token->status == 'restart')
+                                StreamJob::dispatch($this->id)->onQueue('twitter');
+                            else
                             {
                                 $token->status = 'close';
                                 $token->tmp_key = null;
