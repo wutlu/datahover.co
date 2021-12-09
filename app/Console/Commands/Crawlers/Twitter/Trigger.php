@@ -5,6 +5,7 @@ namespace App\Console\Commands\Crawlers\Twitter;
 use Illuminate\Console\Command;
 
 use App\Models\TwitterToken;
+use App\Models\Option;
 use App\Jobs\Crawlers\Twitter\StreamJob;
 
 use Etsetra\Library\DateTime as DT;
@@ -42,83 +43,136 @@ class Trigger extends Command
      */
     public function handle()
     {
-        /**
-         * 'working' çalışıyor
-         * 'close' kapalı
-         * 'error' hatalı
-         * 'restart' tekrar başlatılacak
-         * 'kill' durdurulacak
-         * 'run' başlatılacak
-         **/ 
         $tokens = TwitterToken::orderBy('id', 'asc')->get();
 
         foreach ($tokens as $token)
         {
-            echo PHP_EOL;
+            $this->newLine();
 
+            $stop = false;
             $start = false;
 
-            $this->line("#$token->id: $token->screen_name ($token->device)");
-
-            switch ($token->status)
+            if ((new Option)->get('twitter.status', true) == 'on')
             {
-                case 'working':
-                    if ($token->updated_at <= date('Y-m-d H:i:s', strtotime('-5 minutes')))
-                    {
-                        $token->status = 'restart';
-                        $token->save();
+                switch ($token->status)
+                {
+                    case 'working':
+                        if ($token->pid && posix_getpgid($token->pid))
+                            $this->line('Token is working #1');
+                        else
+                        {
+                            $this->error('Token is not working, triggered to start #2');
 
-                        $this->info('Status working to *restart* and triggered start.');
+                            $start = true;
+                        }
+                    break;
+                    case 'not_working':
+                        $this->line('Token stable #3');
+
+                        $stop = $token->pid && posix_getpgid($token->pid) ? $token->pid : true;
+                    break;
+                    case 'start':
+                        if ($token->pid && posix_getpgid($token->pid))
+                        {
+                            $this->line('Token already working #4');
+
+                            $token->status = 'working';
+                        }
+                        else
+                        {
+                            $this->info('Token triggered to start #5');
+
+                            $start = true;
+                        }
+                    break;
+                    case 'stop':
+                    case 'error':
+                        if ($token->pid && posix_getpgid($token->pid))
+                        {
+                            $this->info('Token triggered to close #6');
+
+                            $stop = $token->pid;
+                        }
+                        else
+                        {
+                            $this->error('The token is already not working #7');
+
+                            $stop = true;
+                        }
+                    break;
+                    case 'restart':
+                        if ($token->pid && posix_getpgid($token->pid))
+                        {
+                            $this->info('Token triggered to close (by restart) #8');
+
+                            $stop = $token->pid;
+                        }
+                        else
+                        {
+                            $this->line('The token is already not working (by restart) #9');
+
+                            $stop = true;
+                        }
+
+                        $this->error('Token is not working, triggered to start #10');
 
                         $start = true;
-                    }
-                    else
-                        $this->info('Status is currently *working*');
-                break;
-                case 'close':
-                    $this->line('Status is currently *close*');
-                break;
-                case 'error':
-                    $this->info('Status is currently *error*');
-                    $this->error($token->error_reason);
-                break;
-                case 'kill':
-                    if ($token->updated_at <= date('Y-m-d H:i:s', strtotime('-5 minutes')))
+                    break;
+                }
+            }
+            else
+            {
+                $this->info('Twitter status is off #11');
+
+                $stop = $token->pid && posix_getpgid($token->pid) ? $token->pid : true;
+            }
+
+
+            if (!$token->value)
+            {
+                $stop = $token->pid && posix_getpgid($token->pid) ? $token->pid : true;
+                $start = false;
+            }
+
+            if ($stop)
+            {
+                if ($stop !== true)
+                {
+                    posix_kill($stop, SIGINT);
+
+                    $this->info('Posix kill! #12');
+                }
+
+                if ($token->status == 'error')
+                {
+                    $this->error('Token status is error #13');
+                }
+                else
+                {
+                    if ($token->status != 'restart')
                     {
-                        $token->update(
-                            [
-                                'status' => 'close',
-                                'tmp_key' => null,
-                                'value' => null
-                            ]
-                        );
+                        $token->tmp_key = null;
+                        $token->value = null;
+                        $token->pid = null;
+                        $token->status = 'not_working';
 
-                        $this->info('Status *kill* to *close*');
+                        $this->info('Stop token! #14');
                     }
-                    else
-                        $this->info('Will be *killed* but it needs to wait 5 minutes.');
-                break;
-                case 'restart':
-                    if ($token->updated_at <= date('Y-m-d H:i:s', strtotime('-1 minutes')))
-                    {
-                        $start = true;
-
-                        $this->info('Triggered start');
-                    }
-                    else
-                        $this->info('Will be *restarted* but it needs to wait 1 minutes.');
-                break;
-                case 'run':
-                    $start = true;
-
-                    $this->info('Triggered start');
-                break;
+                }
             }
 
             if ($start)
-                StreamJob::dispatch($token->id)->onQueue('twitter');
+            {
+                $token->status = 'start';
 
-            echo PHP_EOL;
+                StreamJob::dispatch($token->id)->onQueue('twitter')->delay(now()->addSeconds(5));
+
+                $this->info('Start token! #15');
+            }
+
+            $token->save();
+
+            $this->newLine();
         }
     }
 }

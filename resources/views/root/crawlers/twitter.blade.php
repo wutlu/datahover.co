@@ -20,11 +20,11 @@
         switch (o.status)
         {
             case 'working': status.addClass('text-success'); break;
-            case 'close': status.addClass('text-muted'); break;
+            case 'not_working': status.addClass('text-muted'); break;
             case 'error': status.addClass('text-danger'); break;
             case 'restart': status.addClass('text-info'); break;
-            case 'kill': status.addClass('text-danger'); break;
-            case 'run': status.addClass('text-warning'); break;
+            case 'stop': status.addClass('text-danger'); break;
+            case 'start': status.addClass('text-warning'); break;
         }
     }
 

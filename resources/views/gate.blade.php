@@ -61,7 +61,7 @@
 							<a class="small" href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="text-dark text-decoration-none">Terms of Service</a>
 						</div>
 					@endif
-					<a href="{{ route('user.gate.redirect') }}" class="btn btn-outline-primary btn-sm d-block shadow-sm rounded-0">Continue with GitHub</a>
+					<a href="{{ route('user.gate.redirect') }}" class="btn btn-outline-primary d-block shadow-sm rounded-0">Continue with GitHub</a>
 				</div>
 			</div>
 		</div>

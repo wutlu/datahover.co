@@ -57,21 +57,21 @@ class Kernel extends ConsoleKernel
 
         # Twitter Organizer
         $schedule->command('twitter:organizer')
-                 ->everyFiveMinutes()
+                 ->everyTenMinutes()
                  ->withoutOverlapping()
-                 ->runInBackground();
-        # Twitter Trigger
-        $schedule->command('twitter:trigger')
-                 ->everyMinute()
-                 ->withoutOverlapping()
-                 ->runInBackground();
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
         # Twitter Counter
         $schedule->command('twitter:counter')
                  ->everyTenMinutes()
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('twitter.status', true) == 'on' ? false : true; });
-
+        # Twitter Trigger
+        $schedule->command('twitter:trigger')
+                 ->everyMinute()
+                 ->withoutOverlapping()
+                 ->runInBackground();
 
 
         # News Detector

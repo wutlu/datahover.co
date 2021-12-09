@@ -37,6 +37,6 @@ class Test extends Command
      */
     public function handle()
     {
-        print_r(exec("kill -9 13576"));
+        print_r(posix_kill(46414, SIGINT));
     }
 }

@@ -54,86 +54,66 @@ class StreamJob implements ShouldQueue
         try
         {
             $token = $this->token();
-            $token->error_reason = null;
-            $token->error_hit = 0;
-            $token->status = 'working';
-            $token->pid = getmypid();
-            $token->save();
 
-            $response = $client->post('statuses/filter.json', [
-                'form_params' => [
-                    'track' => $this->token()->value
-                ]
-            ]);
-
-            $stream = $response->getBody();
-
-            $start = (new DT)->nowAt();
-            $now = $start;
-
-            while (!$stream->eof())
+            if (($token->status == 'start' || $token->status == 'restart') && $token->value)
             {
-                $obj = json_decode($this->jsonLine($stream));
+                $token->error_reason = null;
+                $token->error_hit = 0;
+                $token->status = 'working';
+                $token->pid = getmypid();
+                $token->save();
 
-                if (@$obj->id_str)
+                $response = $client->post('statuses/filter.json', [
+                    'form_params' => [
+                        'track' => $token->value
+                    ]
+                ]);
+
+                $stream = $response->getBody();
+
+                $start = (new DT)->nowAt();
+                $now = $start;
+
+                while (!$stream->eof())
                 {
-                    $push = true;
+                    $obj = json_decode($this->jsonLine($stream));
 
-                    if ($item = @$obj->retweeted_status)
+                    if (@$obj->id_str)
                     {
-                        $this->pattern($item);
+                        $push = true;
 
-                        $push = false;
-                    }
-
-                    if ($item = @$obj->quoted_status)
-                        $this->pattern($item);
-
-                    if ($push)
-                        $this->pattern($obj);
-
-                    if ($now <= (new DT)->nowAt('-10 seconds'))
-                    {
-                        $token = $this->token();
-
-                        if ($token->status == 'restart' || $token->status == 'kill' || $token->status == 'close')
+                        if ($item = @$obj->retweeted_status)
                         {
-                            $this->line("Token $token->status gave");
+                            $this->pattern($item);
 
-                            if ($token->status == 'restart')
-                                StreamJob::dispatch($this->id)->onQueue('twitter');
-                            else
-                            {
-                                $token->status = 'close';
-                                $token->tmp_key = null;
-                                $token->value = null;
-                                $token->error_hit = 0;
-                                $token->error_reason = null;
-                                $token->save();
-                            }
+                            $push = false;
+                        }
+
+                        if ($item = @$obj->quoted_status)
+                            $this->pattern($item);
+
+                        if ($push)
+                            $this->pattern($obj);
+
+                        if ($now <= (new DT)->nowAt('-10 seconds'))
+                        {
+                            $token = $this->token();
+
+                            $token->updated_at = (new DT)->nowAt();
+                            $token->pid = getmypid();
+                            $token->save();
+
+                            $this->line('Token updated');
+
+                            $now = (new DT)->nowAt();
+                        }
+
+                        if ($start <= (new DT)->nowAt('-60 minutes'))
+                        {
+                            $this->line('The token had been working for 60 minutes. Restarting to refresh.');
 
                             break;
                         }
-
-                        $token->error_reason = null;
-                        $token->error_hit = 0;
-                        $token->updated_at = (new DT)->nowAt();
-                        $token->save();
-
-                        $this->line('Token updated');
-
-                        $token->save();
-
-                        $now = (new DT)->nowAt();
-                    }
-
-                    if ($start <= (new DT)->nowAt('-60 minutes'))
-                    {
-                        $this->line('The token had been working for 60 minutes. Restarting to refresh.');
-
-                        StreamJob::dispatch($this->id)->onQueue('twitter');
-
-                        break;
                     }
                 }
             }
@@ -143,7 +123,7 @@ class StreamJob implements ShouldQueue
             $token = $this->token();
             $token->error_reason = $e->getMessage();
             $token->error_hit = $token->error_hit + 1;
-            $token->status = $token->error_hit >= 10 ? 'error' : 'run';
+            $token->status = $token->error_hit >= 10 ? 'error' : 'start';
             $token->save();
 
             $message = [
