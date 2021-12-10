@@ -48,11 +48,11 @@ return [
         ],
 
         'daily' => [
-            'driver' => 'daily',
+            'driver' => 'single',
             'path' => storage_path('logs/app.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 7,
-            'permission' => 0664,
+            // 'days' => 7,
+            // 'permission' => 0664,
         ],
 
         'slack' => [

@@ -33,7 +33,7 @@ class TrackController extends Controller
             'search' => 'nullable|string|max:1000',
             'skip' => 'required|integer|max:1000000',
             'take' => 'required|integer|max:1000',
-            'source' => 'required|array',
+            'source' => 'nullable|array',
             'source.*' => 'required_with:source|string|in:'.implode(',', $this->sources)
         ];
         $this->delete_rules = [
@@ -74,19 +74,29 @@ class TrackController extends Controller
 
     public function createApi(Request $request)
     {
+        $request->validate($this->create_rules);
+
         $total_track = Track::whereJsonContains('users', $request->user->id)->count();
 
         if ($total_track < $request->user->subscription()->plan['track_limit'])
         {
-            $request->validate(
-                array_merge(
-                    $this->create_rules,
+            if ($tracks = @config("sources.$request->source.tracks"))
+            {
+                $request->validate(
                     [
-                        'type' => 'required|string|in:'.implode(',', array_keys(config('sources.'.($request->source ?? 'twitter').'.tracks'))),
-                        'value' => config("sources.$request->source.tracks.$request->type")
+                        'type' => 'required|string|in:'.implode(',', array_keys($tracks)),
+                        'value' => $tracks[$request->type]
                     ]
-                )
-            );
+                );
+            }
+            else
+                return [
+                    'success' => 'failed',
+                    'toast' => [
+                        'type' => 'danger',
+                        'message' => 'Something went wrong'
+                    ]
+                ];
 
             $pattern = str_replace('regex:', '', array_values(Arr::where(config("sources.$request->source.tracks.$request->type"), function($value, $key) {
                 return Str::startsWith($value, 'regex');
@@ -182,7 +192,7 @@ class TrackController extends Controller
                 if ($request->search)
                     $query->orWhere('value', 'ilike', '%'.$request->search.'%');
             })
-            ->whereIn('source', $request->source)
+            ->whereIn('source', $request->source ?? array_keys(config('sources')))
             ->whereJsonContains('users', $request->user->id)
             ->skip($request->skip)
             ->take($request->take)

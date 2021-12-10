@@ -36,8 +36,10 @@
         let form = $('#createForm');
         let source = form.find('select[name=source]');
         let type = form.find('select[name=type]');
-        let value = form.find('input[name=value]');
             type.html('')
+        let value = form.find('input[name=value]');
+
+        type.append($('<option />', { 'value': '', 'text': 'Seçin' }))
 
         $.each(source.children('option:selected').data('types'), function(k, value) {
             type.append($('<option />', { 'value': value, 'text': value }))
@@ -70,7 +72,10 @@
     }
 
     $(document).on('show.bs.modal','#createModal', function () {
-        $(this).find('form')[0].reset()
+        let form = $(this).find('form');
+            form[0].reset()
+
+        sourceUpdate()
     })
 @endpush
 
@@ -104,6 +109,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <div class="form-floating flex-fill mb-2">
                                 <select class="form-select shadow-sm rounded-0" name="source" id="source">
+                                    <option value="">Seçin</option>
                                     @foreach (config('sources') as $key => $source)
                                         <option value="{{ $key }}" data-types='{!! json_encode(array_keys($source['tracks'])) !!}'>{{ $source['name'] }}</option>
                                     @endforeach
@@ -194,7 +200,6 @@
             @foreach (config('sources') as $key => $item)
                 <input
                     type="checkbox"
-                    checked
                     class="btn-check"
                     name="sources"
                     data-alias="source"
