@@ -68,6 +68,10 @@
 
         app.etsetraAjax($('#items').data('skip', 0))
     }
+
+    $(document).on('show.bs.modal','#createModal', function () {
+        $(this).find('form')[0].reset()
+    })
 @endpush
 
 @push('footer')
