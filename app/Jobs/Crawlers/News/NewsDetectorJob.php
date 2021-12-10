@@ -43,9 +43,6 @@ class NewsDetectorJob implements ShouldQueue
 
         if ($source->success == 'ok')
         {
-            $this->track->error_hit = 0;
-            $this->track->error_reason = null;
-
             $collect = Crawler::getLinksInHtml($this->track->value, $source->html);
 
             if ($collect->success == 'ok')
@@ -67,6 +64,17 @@ class NewsDetectorJob implements ShouldQueue
                         ],
                         'create'
                     );
+                }
+
+                if (count($collect->links) > 10)
+                {
+                    $this->track->error_hit = 0;
+                    $this->track->error_reason = null;
+                }
+                else
+                {
+                    $this->track->error_hit = $this->track->error_hit + 1;
+                    $this->track->error_reason = 'We are unable to detect the content on the site. We will work on this problem.';
                 }
 
                 $this->line('The collection has been submitted to DB.');
