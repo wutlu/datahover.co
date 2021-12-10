@@ -39,7 +39,7 @@
             type.html('')
         let value = form.find('input[name=value]');
 
-        type.append($('<option />', { 'value': '', 'text': 'Seçin' }))
+        type.append($('<option />', { 'value': '', 'text': 'Choose' }))
 
         $.each(source.children('option:selected').data('types'), function(k, value) {
             type.append($('<option />', { 'value': value, 'text': value }))
@@ -109,7 +109,7 @@
                         <div class="d-flex align-items-center gap-2">
                             <div class="form-floating flex-fill mb-2">
                                 <select class="form-select shadow-sm rounded-0" name="source" id="source">
-                                    <option value="">Seçin</option>
+                                    <option value="">Choose</option>
                                     @foreach (config('sources') as $key => $source)
                                         <option value="{{ $key }}" data-types='{!! json_encode(array_keys($source['tracks'])) !!}'>{{ $source['name'] }}</option>
                                     @endforeach
