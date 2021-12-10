@@ -38,9 +38,9 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'theguardian.com/sport/live/2021/dec/10/ashes-2021-22-day-3-three-cricket-australia-vs-england-first-test-live-score-card-aus-v-eng-start-time-latest-updates';
+        $site = 'nbcnews.com';
         $source = Crawler::getPageSource($site);
-        $collect = Crawler::getArticleInHtml($source->html);
+        $collect = Crawler::getLinksInHtml($site, $source->html);
 
         print_r($collect);
     }

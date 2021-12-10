@@ -263,13 +263,6 @@ nav.master {
   position: initial;
 }
 
-.card.card-wave {
-  background-image: url('../images/wave-dark.svg');
-  background-position: left bottom;
-  background-size: cover;
-  background-color: #1c1c28;
-}
-
 /**
  * Drawer
  */

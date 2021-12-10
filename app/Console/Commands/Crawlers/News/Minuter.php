@@ -84,7 +84,7 @@ class Minuter extends Command
                         $this->info('data: ['.$item->stats['total'].']');
 
                         $total = $item->stats['total'];
-                        $minute = intval(360 / ($total > 0 ? $total : 1));
+                        $minute = intval(60 / ($total > 0 ? $total : 1));
 
                         $this->info('minute: ['.$minute.']');
 
