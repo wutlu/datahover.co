@@ -38,6 +38,7 @@ Route::prefix('payment')->group(function() {
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+Route::get('log-console', 'LogController@view')->name('logs');
 Route::get('track-list', 'TrackController@dashboard')->name('track.dashboard');
 Route::get('search', 'SearchController@dashboard')->name('search.dashboard');
 

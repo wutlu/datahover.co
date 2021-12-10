@@ -34,8 +34,8 @@ class CrawlerController extends Controller
         ]);
 
         $params = [
-            'timeout' => 10,
-            'connect_timeout' => 10,
+            'timeout' => 15,
+            'connect_timeout' => 15,
             'headers' => [
                 'User-Agent' => config('crawler.user_agents')[array_rand(config('crawler.user_agents'))],
             ],
@@ -45,7 +45,7 @@ class CrawlerController extends Controller
             ],
             'verify' => false,
             'allow_redirects' => [
-                'max' => 6
+                'max' => 10
             ]
         ];
 
@@ -69,7 +69,7 @@ class CrawlerController extends Controller
 
             switch ($e->getCode())
             {
-                case 0: $message = 'It takes over 10 seconds to connect to this website.'; break;
+                case 0: $message = 'It takes over 15 seconds to connect to this website.'; break;
                 case 400: $message = '(400) Bad Request! We were unable to connect due to a technical problem on this site.'; break;
                 case 401: $message = '(401) Unauthorized! This site does not accept bots.'; break;
                 case 403: $message = '(403) Forbidden! This site does not allow you to access it.'; break;
@@ -116,8 +116,9 @@ class CrawlerController extends Controller
             $append = false;
 
             $link = Str::beforeLast($link, '#');
+            $link = Str::beforeLast($link, '?');
             $link_without_protocol = str_replace([ 'https://', 'http://', 'www.' ], '', $link);
-            $clean_link = str_replace('//', '/', Str::start($link_without_protocol, $site));
+            $clean_link = str_replace('\/\/', '/', Str::start($link_without_protocol, $site));
             $clean_link_ending_without_slash = Str::replaceLast('/', '', str_replace('//', '/', Str::start($clean_link, $site)));
             $segments = explode('/', $clean_link_ending_without_slash);
             $slug_length = strlen(str_replace($site, '', $clean_link));
@@ -134,6 +135,7 @@ class CrawlerController extends Controller
                     '/Object',
                     '/ ',
                     '//',
+                    '\\',
                 ]
             );
             $check_contains = count($segments) == 2 ? Str::contains(
@@ -178,21 +180,29 @@ class CrawlerController extends Controller
      */
     public static function getSchemaInHtml(string $html)
     {
-        try
-        {
-            $dom  = new \DOMDocument();
-            libxml_use_internal_errors(1);
-            $dom->loadHTML($html);
-            $xpath = new \DOMXpath($dom);
-            $jsonScripts = $xpath->query('//script[@type="application/ld+json"]');
-            $json = trim($jsonScripts->item(0)->nodeValue);
+        $dom  = new \DOMDocument();
+        libxml_use_internal_errors(1);
+        $dom->loadHTML($html);
+        $xpath = new \DOMXpath($dom);
+        $jsonScripts = $xpath->query('//script[@type="application/ld+json"]');
 
-            return json_decode($json);
-        }
-        catch (\Exception $e)
+        if ($jsonScripts->length)
         {
-            return null;
+            for ($i = 0; $i <= 5; $i++)
+            {
+                $item = $jsonScripts->item($i);
+
+                if ($item)
+                {
+                    $json = json_decode(trim($jsonScripts->item($i)->nodeValue));
+                    
+                    if (@$json->articleBody)
+                        return $json;
+                }
+            }
         }
+
+        return null;
     }
 
     /**

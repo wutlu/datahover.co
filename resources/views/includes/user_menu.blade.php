@@ -42,11 +42,18 @@
 			</li>
 		@else
 			<li>
-				<a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('user.gate') }}">
+				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('user.gate') }}">
 					<i class="material-icons">home</i>
 					Login
 				</a>
 			</li>
 		@endauth
+		<li class="dropdown-divider"></li>
+		<li>
+			<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('faq.index') }}">
+				<i class="material-icons">quiz</i>
+				F.A.Q.
+			</a>
+		</li>
 	</ul>
 </div>

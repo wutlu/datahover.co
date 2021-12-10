@@ -39,8 +39,7 @@ class HomeController extends Controller
     public function dashboard()
     {
         return view('dashboard', [
-            'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists(),
-            'emailAlerts' => auth()->user()->email_alerts,
+            'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists()
         ]);
     }
 

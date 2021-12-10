@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Http\Controllers\Server\CrawlerController as Crawler;
 
 class Test extends Command
 {
@@ -37,6 +38,10 @@ class Test extends Command
      */
     public function handle()
     {
-        print_r(posix_kill(46414, SIGINT));
+        $site = 'timeturk.com/spor/brezilyali-pele-tekrar-hastanede-pele-nin-hastaligi-ne-pele-kanser-mi/haber-1713293';
+        $source = Crawler::getPageSource($site);
+        $collect = Crawler::getArticleInHtml($source->html);
+
+        print_r($collect);
     }
 }

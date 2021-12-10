@@ -12,7 +12,19 @@ class LogController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->only([ 'list' ]);
+        $this->middleware('auth')->except([ 'create' ]);
+    }
+
+    /**
+     * Logs Dashboard
+     * 
+     * @return view
+     */
+    public function view()
+    {
+        return view('logs', [
+            'emailAlerts' => auth()->user()->email_alerts,
+        ]);
     }
 
     /**

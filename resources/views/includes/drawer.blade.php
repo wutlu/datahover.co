@@ -51,9 +51,9 @@ $subscription = auth()->user()->subscription();
 				<i class="material-icons">search</i>
 				Search Api
 			</a>
-			<a href="{{ route('faq.index') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
-				<i class="material-icons">quiz</i>
-				FAQ
+			<a href="{{ route('logs') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<i class="material-icons">logo_dev</i>
+				Log Console
 			</a>
 		</div>
 		@if (auth()->user()->is_root)
@@ -96,5 +96,9 @@ $subscription = auth()->user()->subscription();
 				@endforeach
 			</div>
 		@endif
+		<div class="card-body">
+			<small class="text-muted">© {{ date('Y') }} {{ config('app.name') }}<br />All rights reserved.</small><br />
+			<a href="{{ route('faq.index') }}" class="link-dark">F.A.Q.</a>
+		</div>
 	</div>
 </aside>
