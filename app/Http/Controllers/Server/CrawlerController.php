@@ -253,7 +253,12 @@ class CrawlerController extends Controller
                 $data->title = @$title[0] ?? ($saw->get('h1')->toText() ?? ($saw->get('title')->toText() ?? null));
 
             if (!$data->article)
-                $data->article = @$article[0] ?? null;
+            {
+                $paragraphs = $saw->get('article p')->toText();
+                $paragraphs = $paragraphs ?? (@$article[0] ?? null);
+
+                $data->article = trim($paragraphs);
+            }
 
             if (!$data->image)
                 $data->image = @$image[0] ?? null;

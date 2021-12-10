@@ -38,7 +38,7 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'timeturk.com/spor/brezilyali-pele-tekrar-hastanede-pele-nin-hastaligi-ne-pele-kanser-mi/haber-1713293';
+        $site = 'theguardian.com/sport/live/2021/dec/10/ashes-2021-22-day-3-three-cricket-australia-vs-england-first-test-live-score-card-aus-v-eng-start-time-latest-updates';
         $source = Crawler::getPageSource($site);
         $collect = Crawler::getArticleInHtml($source->html);
 
