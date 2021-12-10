@@ -38,9 +38,10 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'nbcnews.com';
+        $site = 'timeturk.com';
+        $site = 'timeturk.com/genel/mahkemeden-osman-kavala-karari/haber-1713514';
         $source = Crawler::getPageSource($site);
-        $collect = Crawler::getLinksInHtml($site, $source->html);
+        $collect = Crawler::getArticleInHtml($source->html);
 
         print_r($collect);
     }

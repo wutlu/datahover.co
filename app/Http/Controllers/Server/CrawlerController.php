@@ -224,7 +224,7 @@ class CrawlerController extends Controller
             $data->title = $schema->headline;
             $data->article = $schema->articleBody;
             $data->image = @$schema->image->url ?? null;
-            $data->created_at = @$schema->datePublished ?? null;
+            $data->created_at = @$schema->datePublished ? (new DT)->nowAt($schema->datePublished) : null;
         }
 
         if (!$data->title || !$data->article || !$data->created_at)
