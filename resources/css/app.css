@@ -140,6 +140,20 @@ a {
 }
 
 /**
+ * Card Coverage
+ */
+.card.card-coverage {
+  background-size: cover;
+  background-position: center;
+}
+.card.card-coverage > .card-body {
+  background-color: rgba(100, 100, 100, .8);
+}
+.card.card-coverage:hover > .card-body {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+/**
  * Hide Input Number Arrows
  */
 input.hide-arrows::-webkit-outer-spin-button,
@@ -247,6 +261,13 @@ nav.master {
  */
 .card {
   position: initial;
+}
+
+.card.card-wave {
+  background-image: url('../images/wave-dark.svg');
+  background-position: left bottom;
+  background-size: cover;
+  background-color: #1c1c28;
 }
 
 /**

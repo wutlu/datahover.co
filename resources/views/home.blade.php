@@ -132,6 +132,40 @@
 	@endcomponent
 
 	<div class="container">
+		<div class="row my-5">
+			<div class="col-6 col-xl-3">
+				<div class="card card-coverage border-0 rounded-0 mb-4 bg-transparent">
+					<div class="card-body h-200px d-flex flex-column justify-content-between bg-transparent">
+						<span class="h4 fw-bold mb-0">Best social data technology</span>
+						<small class="h6 fw-bold mb-0">{{ config('app.name') }}</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-xl-3">
+				<div class="card card-coverage rounded-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/news.jpg') }}');">
+					<div class="card-body h-200px d-flex flex-column justify-content-between">
+						<small class="h6 fw-bold text-white mb-0">NEWS</small>
+						<span class="h4 fw-bold text-white mb-0">Track news sites</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-xl-3">
+				<div class="card card-coverage rounded-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/social.jpg') }}');">
+					<div class="card-body h-200px d-flex flex-column justify-content-between">
+						<small class="h6 fw-bold text-white mb-0">SOCIAL</small>
+						<span class="h4 fw-bold text-white mb-0">We are working on more resources</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-xl-3">
+				<div class="card card-coverage rounded-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/stats.jpg') }}');">
+					<div class="card-body h-200px d-flex flex-column justify-content-between">
+						<small class="h6 fw-bold text-white mb-0">STATISTICS</small>
+						<span class="h4 fw-bold text-white mb-0">Big data for detailed statistics</span>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="card border-0 bg-transparent mw-1024px mx-auto">
 			<div class="card-body">
 				<h3 class="card-title fw-bold dotted-title py-4">What is Datahover</h3>
@@ -139,7 +173,7 @@
 				<div class="row mb-4">
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
 						<div class="p-4">
-							<span class="lead">You do not need to specify any details, whether it is Rss or API or not. You just need to specify the domain. <strong>We provide API output of news and blog sites.</strong></span>
+							<span class="lead">You do not need to specify any details, whether it is Rss or API or not. You just need to specify the domain. <strong class="fw-bold">We provide API output of news and blog sites.</strong></span>
 						</div>
 					</div>
 					<div class="col-12 col-sm-6 text-center text-sm-end">
@@ -149,7 +183,7 @@
 
 				<div class="row">
 					<div class="col-12 col-sm-6 d-flex flex-column align-items-center justify-content-center">
-						<div class="d-flex flex-wrap align-items-center justify-content-center gap-4">
+						<div class="d-flex flex-wrap align-items-center justify-content-center gap-4 mb-2">
 							@foreach (config('sources') as $key => $item)
 								<div class="bg-dark p-3 rounded-circle">
 									<img
@@ -162,6 +196,7 @@
 								</div>
 							@endforeach
 						</div>
+						<div class="mw-400px small text-center text-muted">We are working on more resources. You will receive free upgrades for all new resources.</div>
 					</div>
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
 						<div class="p-4">

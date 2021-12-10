@@ -244,8 +244,8 @@
                         <span class="text-end d-flex align-items-center justify-content-end gap-1">
                             <small data-name="valid"></small>
                         </span>
-                        <span class="text-end d-flex align-items-center justify-content-end gap-1 text-muted" title="Last 6 hours">
-                            <small data-col="total_data">0</small><small>+</small> <small>data in 6 hours</small>
+                        <span class="text-end d-flex align-items-center justify-content-end text-muted" title="Last 6 hours">
+                            <small data-col="total_data">0</small><small class="pe-2">+</small> <small>data in 6 hours</small>
                         </span>
                     </div>
                 </div>
