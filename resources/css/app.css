@@ -147,9 +147,6 @@ a {
   background-position: center;
 }
 .card.card-coverage > .card-body {
-  background-color: rgba(100, 100, 100, .8);
-}
-.card.card-coverage:hover > .card-body {
   background-color: rgba(0, 0, 0, .6);
 }
 

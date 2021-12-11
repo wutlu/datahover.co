@@ -4,6 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Http\Controllers\Server\CrawlerController as Crawler;
+use Alaouy\Youtube\Facades\Youtube;
+use App\Models\DataPool;
 
 class Test extends Command
 {
@@ -38,11 +40,37 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'timeturk.com';
-        $site = 'timeturk.com/genel/mahkemeden-osman-kavala-karari/haber-1713514';
-        $source = Crawler::getPageSource($site);
-        $collect = Crawler::getArticleInHtml($source->html);
+        (new DataPool)->putIndexMapping(
+            [
+                'parent_id' => [
+                    'type' => 'keyword'
+                ]
+            ]
+        );
 
-        print_r($collect);
+        exit;
+        $videoList = Youtube::paginateResults([
+            'q' => 'biden',
+            'type' => 'video',
+            'part' => 'id, snippet',
+            'maxResults' => 50
+        ]);
+
+        print_r($videoList);
+        exit;
+
+        foreach ($videoList as $video)
+        {
+            $commentThreads = Youtube::getCommentThreadsByVideoId($video->id->videoId);
+
+            print_r($commentThreads);
+            exit;
+        }
+        // $site = 'timeturk.com';
+        // $site = 'timeturk.com/genel/mahkemeden-osman-kavala-karari/haber-1713514';
+        // $source = Crawler::getPageSource($site);
+        // $collect = Crawler::getArticleInHtml($source->html);
+
+        // print_r($collect);
     }
 }

@@ -3,6 +3,7 @@ $ php artisan queue:work --queue=notifications
 $ php artisan queue:work --queue=twitter
 $ php artisan queue:work --queue=newsDetector
 $ php artisan queue:work --queue=newsTaker
+$ php artisan queue:work --queue=youtubeTaker
 $ php artisan queue:work --queue=paymentCheck
 
 sudo apt-get update

@@ -101,6 +101,21 @@ class Kernel extends ConsoleKernel
 
 
 
+        # YouTube Trigger
+        $schedule->command('youtube:trigger')
+                 ->everyMinute()
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('youtube.status', true) == 'on' ? false : true; });
+        # YouTube Minuter
+        $schedule->command('youtube:minuter')
+                 ->everyTenMinutes()
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('youtube.status', true) == 'on' ? false : true; });
+
+
+
         # Elasticsearch Check
         $schedule->command('elasticsearch:check')
                  ->everyTenMinutes()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Crawlers\News;
+namespace App\Console\Commands\Crawlers\YouTube;
 
 use Illuminate\Console\Command;
 
@@ -16,14 +16,14 @@ class Minuter extends Command
      *
      * @var string
      */
-    protected $signature = 'news:minuter';
+    protected $signature = 'youtube:minuter';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'It determines the interval at which it will go to news sites.';
+    protected $description = 'It determines the interval at which it will go to youtube tracks.';
 
     /**
      * Create a new command instance.
@@ -46,8 +46,8 @@ class Minuter extends Command
                 $query->orWhere('valid', true);
                 $query->orWhereNull('valid');
             })
-            ->where('source', 'news')
-            ->where('type', 'page')
+            ->where('source', 'youtube')
+            ->where('type', 'keyword')
             ->orderBy('id', 'asc')
             ->get();
 
@@ -64,7 +64,13 @@ class Minuter extends Command
                             'bool' => [
                                 'must' => [
                                     [ 'match' => [ 'status' => 'ok' ] ],
-                                    [ 'match' => [ 'site' => explode('/', $track->value)[0] ] ]
+                                    [ 'match' => [ 'site' => 'youtube.com' ] ],
+			                        [
+			                            'query_string' => [
+			                                'query' => $track->value,
+			                                'default_operator' => 'AND'
+			                            ]
+			                        ]
                                 ],
                                 'filter' => [
                                     [

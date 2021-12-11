@@ -182,6 +182,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Alaouy\Youtube\YoutubeServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -246,6 +247,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Package Service Providers...
+         */
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
     ],
 
 ];
