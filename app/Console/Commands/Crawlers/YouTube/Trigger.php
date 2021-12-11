@@ -66,7 +66,7 @@ class Trigger extends Command
                     $track->request_at = (new DT)->nowAt();
                     $track->request_hit = $track->request_hit + 1;
                     $track->valid = true;
-                    //$track->save();
+                    $track->save();
                 }
                 else
                     $this->error('This track does not belong to a current account.');
