@@ -42,18 +42,29 @@ class EmailAlerts extends Command
      */
     public function handle()
     {
-        $logs = Logs::where('email_sent', false)->get();
+        $logs = Logs::where('email_sent', false)
+            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime('-30 minutes')))
+            ->get();
 
-        foreach ($logs as $log)
+        if (count($logs))
         {
-            $this->info($log->user->name.': '.$log->message);
+            foreach ($logs as $log)
+            {
+                $this->info($log->user->name.': '.$log->message);
 
-            if ($log->user->email_alerts)
-                Notification::send($log->user, (new SimpleEmail($log->message))->onQueue('notifications'));
-            else
-                $this->error('Email notifications are turned off');
+                if ($log->user->email_alerts)
+                {
+                    Notification::send($log->user, (new SimpleEmail($log->message))->onQueue('notifications'));
 
-            $log->update([ 'email_sent' => true ]);
+                    $this->info($log->id.' - E-mail sent');
+                }
+                else
+                    $this->error('E-mail notifications are turned off');
+
+                $log->update([ 'email_sent' => true ]);
+            }
         }
+        else
+            $this->info('E-mail area clean');
     }
 }
