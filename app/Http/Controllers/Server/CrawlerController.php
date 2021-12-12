@@ -118,7 +118,7 @@ class CrawlerController extends Controller
             $link = Str::beforeLast($link, '#');
             $link = Str::beforeLast($link, '?');
             $link_without_protocol = str_replace([ 'https://', 'http://', 'www.' ], '', $link);
-            $clean_link = str_replace('//', '/', Str::start($link_without_protocol, $site));
+            $clean_link = preg_replace('/(\/+)/', '/', Str::start($link_without_protocol, $site));
             $clean_link_ending_without_slash = Str::replaceLast('/', '', str_replace('//', '/', Str::start($clean_link, $site)));
             $segments = explode('/', $clean_link_ending_without_slash);
             $slug_length = strlen(str_replace($site, '', $clean_link));
