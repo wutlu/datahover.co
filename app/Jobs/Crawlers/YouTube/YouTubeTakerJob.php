@@ -43,12 +43,19 @@ class YouTubeTakerJob implements ShouldQueue
 
         $this->line('Connect: '.$this->track->value);
 
-        $search = Youtube::paginateResults([
-            'q' => $this->track->value,
-            'type' => 'video',
-            'part' => 'id, snippet',
-            'maxResults' => 50
-        ]);
+        try
+        {
+            $search = Youtube::paginateResults([
+                'q' => $this->track->value,
+                'type' => 'video',
+                'part' => 'id, snippet',
+                'maxResults' => 50
+            ]);
+        }
+        catch (\Exception $e)
+        {
+            $search = [];
+        }
 
         if ($videos = @$search['results'])
         {
@@ -123,7 +130,7 @@ class YouTubeTakerJob implements ShouldQueue
                                 'called_at' => (new DT)->nowAt(),
                             ], 'create');
 
-                            $this->line($comment->id);
+                            // $this->line($comment->id);
                         }
 
                         // Take replies
@@ -156,7 +163,7 @@ class YouTubeTakerJob implements ShouldQueue
                                     'called_at' => (new DT)->nowAt(),
                                 ], 'create');
 
-                                $this->line($reply->id);
+                                // $this->line($reply->id);
                             }
                         }
                     }

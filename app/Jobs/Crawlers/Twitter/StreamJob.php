@@ -51,28 +51,28 @@ class StreamJob implements ShouldQueue
     {
         $client = $this->client();
 
+        $start = (new DT)->nowAt();
+        $now = $start;
+
         try
         {
             $token = $this->token();
 
             if (($token->status == 'start' || $token->status == 'restart') && $token->value)
             {
-                $token->error_reason = null;
-                $token->error_hit = 0;
-                $token->status = 'working';
-                $token->pid = getmypid();
-                $token->save();
-
                 $response = $client->post('statuses/filter.json', [
                     'form_params' => [
                         'track' => $token->value
                     ]
                 ]);
 
-                $stream = $response->getBody();
+                $token->error_reason = null;
+                $token->error_hit = 0;
+                $token->status = 'working';
+                $token->pid = getmypid();
+                $token->save();
 
-                $start = (new DT)->nowAt();
-                $now = $start;
+                $stream = $response->getBody();
 
                 while (!$stream->eof())
                 {
