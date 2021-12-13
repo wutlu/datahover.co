@@ -41,7 +41,7 @@ class Test extends Command
     public function handle()
     {
         $site = 'timeturk.com/genel/mahkemeden-osman-kavala-karari/haber-1713514';
-        $site = 'hurriyet.com.tr/';
+        $site = 'msn.com/';
         $source = Crawler::getPageSource($site);
         $collect = Crawler::getLinksInHtml($site, $source->html);
 

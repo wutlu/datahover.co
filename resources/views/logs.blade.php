@@ -22,7 +22,10 @@
 		<div class="card-body">
 			<div class="d-flex flex-column flex-lg-row">
 				<div class="d-flex gap-2 me-auto mb-1">
-					<span class="card-title text-uppercase h6 fw-bold mb-0">Log Console</span>
+					<span class="card-title mb-0">
+						<span class="text-uppercase h6 fw-bold">Log Console</span>
+						<small class="text-muted">You can view what's happening in your account here</small>
+					</span>
 				</div>
 				<div class="d-flex gap-1">
 					<input
@@ -36,10 +39,6 @@
 						placeholder="Search" />
 				</div>
 			</div>
-		</div>
-		<div class="alert alert-info rounded-0 shadow-sm d-flex align-items-center gap-2 border-start-0 border-end-0 mb-0">
-			<i class="material-icons">info</i>
-			The negative results that occur while processing the tracks you define are listed here.
 		</div>
 		<ul
 			id="items"
