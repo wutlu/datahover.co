@@ -156,16 +156,16 @@
                     </td>
                     <td valign="top">
                         @if ($status = $invoice->status)
-                            <h4 class="text-uppercase {{ $status == 'Due' ? 'cool-red' : 'cool-green' }}">
+                            <h4 class="text-uppercase {{ $status == 'Due' ? 'cool-red' : 'cool-gray' }}">
                                 <strong>{{ $status }}</strong>
                             </h4>
                         @endif
 
                         <table class="table table-sm">
-                            <tr>
+                          {{--   <tr>
                                 <td>{{ __('invoices::invoice.serial') }}</td>
                                 <td align="right"><strong>{{ $invoice->getSerialNumber() }}</strong></td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td>{{ __('invoices::invoice.date') }}</td>
                                 <td align="right"><strong>{{ $invoice->getDate() }}</strong></td>
@@ -379,7 +379,8 @@
         @endif
 
         <script type="text/php">
-            if (isset($pdf) && $PAGE_COUNT > 1) {
+            if (isset($pdf) && $PAGE_COUNT > 1)
+            {
                 $text = "Page {PAGE_NUM} / {PAGE_COUNT}";
                 $size = 10;
                 $font = $fontMetrics->getFont("Verdana");
