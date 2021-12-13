@@ -142,7 +142,7 @@
 				<div class="row mb-4">
 					<div class="col-12 col-sm-6 text-center text-sm-start d-flex align-items-center">
 						<div class="p-4">
-							<span class="lead">You do not need to specify any details, whether it is Rss or API or not. You just need to specify the domain. <strong class="fw-bold">We provide API output of news and blog sites.</strong></span>
+							<span class="lead">You do not need to specify any details, whether it is RSS or API or not. You just need to specify the domain. <strong class="fw-bold">We provide API output of news and blog sites.</strong></span>
 						</div>
 					</div>
 					<div class="col-12 col-sm-6 text-center text-sm-end">
