@@ -149,7 +149,7 @@ class Trigger extends Command
                 }
                 else
                 {
-                    if ($token->status != 'restart')
+                    if ($token->status != 'restart' || $start == false)
                     {
                         $token->tmp_key = null;
                         $token->value = null;

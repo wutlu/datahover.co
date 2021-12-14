@@ -74,6 +74,7 @@ class Kernel extends ConsoleKernel
                  ->runInBackground();
 
 
+
         # News Detector
         $schedule->command('news:detector')
                  ->everyMinute()
