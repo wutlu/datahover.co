@@ -75,7 +75,7 @@ class Stream extends Command
 
         if ($token)
         {
-            $this->info('Token found: '.$token->id);
+            $this->info((new DT)->nowAt().' Token found: '.$token->id);
 
             /**
              * PROCESS
@@ -87,7 +87,7 @@ class Stream extends Command
             {
                 if (($token->status == 'start' || $token->status == 'restart') && $token->value)
                 {
-                    $this->info('Token running: '.$token->id);
+                    $this->info((new DT)->nowAt().' Token running: '.$token->id);
 
                     $response = $client->post('statuses/filter.json', [
                         'form_params' => [
@@ -132,7 +132,7 @@ class Stream extends Command
                                 $token->pid = getmypid();
                                 $token->save();
 
-                                $this->info('Token updated: '.$token->id);
+                                $this->info((new DT)->nowAt().' Token updated: '.$token->id);
 
                                 $this->now_at = (new DT)->nowAt();
                             }
