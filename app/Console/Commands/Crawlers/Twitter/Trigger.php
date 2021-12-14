@@ -3,10 +3,10 @@
 namespace App\Console\Commands\Crawlers\Twitter;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 use App\Models\TwitterToken;
 use App\Models\Option;
-use App\Jobs\Crawlers\Twitter\StreamJob;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -138,7 +138,7 @@ class Trigger extends Command
             {
                 if ($stop !== true)
                 {
-                    posix_kill($stop, SIGINT);
+                    Artisan::call('nohup "twitter:stream --token_id='.$token->id.'" --type=kill');
 
                     $this->info('Posix kill! #12');
                 }
@@ -165,7 +165,7 @@ class Trigger extends Command
             {
                 $token->status = 'start';
 
-                StreamJob::dispatch($token->id)->onQueue('twitter')->delay(now()->addSeconds(5));
+                Artisan::call('nohup "twitter:stream --token_id='.$token->id.'" --type=start');
 
                 $this->info('Start token! #15');
             }
