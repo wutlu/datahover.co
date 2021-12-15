@@ -66,4 +66,8 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
+    'jivo' => [
+        'code' => env('JIVO_CODE'),
+    ],
 ];

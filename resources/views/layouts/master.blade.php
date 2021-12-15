@@ -96,5 +96,9 @@
     </script>
 
     @stack('footer')
+
+    @if ($code = config('services.jivo.code'))
+        <script src="//code-eu1.jivosite.com/widget/{{ $code }}" async></script>
+    @endif
 </body>
 </html>
