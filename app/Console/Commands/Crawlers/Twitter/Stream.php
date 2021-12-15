@@ -137,12 +137,12 @@ class Stream extends Command
                                 $this->now_at = (new DT)->nowAt();
                             }
 
-                            // if ($this->start_at <= (new DT)->nowAt('-60 minutes'))
-                            // {
-                            //     $this->line('The token had been working for 60 minutes. Restarting to refresh: '.$token->id);
+                            if ($this->start_at <= (new DT)->nowAt('-60 minutes'))
+                            {
+                                $this->line('The token had been working for 60 minutes. Restarting to refresh: '.$token->id);
 
-                            //     break;
-                            // }
+                                break;
+                            }
                         }
                     }
                 }
