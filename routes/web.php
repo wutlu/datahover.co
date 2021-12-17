@@ -29,12 +29,12 @@ Route::prefix('subscription')->group(function() {
 	Route::post('start', 'SubscriptionController@start')->name('subscription.start');
 });
 
-Route::prefix('payment')->group(function() {
+Route::prefix('payments')->group(function() {
+	Route::get('/', 'PaymentController@payments')->name('payments');
+	Route::post('/', 'PaymentController@paymentsData');
+	Route::get('status/{status?}', 'PaymentController@payment')->name('payment')->where('status', '(success|cancel)');
 	Route::post('order', 'PaymentController@order')->name('payment.order')->withoutMiddleware([ VerifyCsrfToken::class ]);
 	Route::get('invoice/{key}.pdf', 'PaymentController@invoice')->name('invoice');
-	Route::get('payment/{status?}', 'PaymentController@payment')->name('payment')->where('status', '(success|cancel)');
-	Route::get('payment-history', 'PaymentController@paymentHistory')->name('payment.history');
-	Route::post('payment-history', 'PaymentController@paymentHistoryData');
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');

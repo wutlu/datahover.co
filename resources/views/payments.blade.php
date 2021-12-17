@@ -1,12 +1,12 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'Payment History',
+        'title' => 'Payments',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Manage Subscription' => route('subscription.index'),
-            'Payment History' => '#'
+            'Payments' => '#'
         ]
     ]
 )
@@ -89,7 +89,7 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
-                    <span class="card-title text-uppercase h6 fw-bold mb-0">Payment History</span>
+                    <span class="card-title text-uppercase h6 fw-bold mb-0">Payments</span>
                     <small class="text-muted">
                         Total <span data-name="total-count">0</span>
                     </small>
@@ -102,7 +102,7 @@
         <div
             id="items"
             class="list-group list-group-flush load border-0"
-            data-action="{{ route('payment.history') }}"
+            data-action="{{ route('payments') }}"
             data-callback="__results"
             data-skip="0"
             data-take="10"

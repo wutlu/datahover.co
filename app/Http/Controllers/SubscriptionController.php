@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 use Etsetra\Library\DateTime as DT;
 
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 use App\Models\Track;
 use App\Models\Plan;
 
@@ -40,7 +40,7 @@ class SubscriptionController extends Controller
     {
         $user = $request->user();
 
-        $last_invoice = PaymentHistory::where('user_id', $user->id)
+        $last_invoice = Payments::where('user_id', $user->id)
             ->whereNotNull('session_id')
             ->where('status', true)
             ->orderBy('created_at', 'desc')
@@ -105,7 +105,7 @@ class SubscriptionController extends Controller
                         $user->id
                     );
 
-                    PaymentHistory::create(
+                    Payments::create(
                         [
                             'user_id' => $user->id,
                             'amount' => -$plan->price,
@@ -199,7 +199,7 @@ class SubscriptionController extends Controller
             $user->subscription_end_date = (new DT)->nowAt();
             $user->save();
 
-            PaymentHistory::create(
+            Payments::create(
                 [
                     'user_id' => $user->id,
                     'amount' => $refund,

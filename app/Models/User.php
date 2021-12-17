@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Cashier\Billable;
 
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -53,7 +53,7 @@ class User extends Authenticatable
      */
     public function balance()
     {
-        return PaymentHistory::where('user_id', $this->id)
+        return Payments::where('user_id', $this->id)
             ->where('status', true)
             ->sum('amount');
     }

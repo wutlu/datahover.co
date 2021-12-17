@@ -4,7 +4,7 @@ namespace App\Console\Commands\Stripe;
 
 use Illuminate\Console\Command;
 
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 use App\Models\User;
 
 use App\Jobs\PaymentCheckJob;
@@ -16,7 +16,7 @@ class CheckPayments extends Command
      *
      * @var string
      */
-    protected $signature = 'stripe:payment:check';
+    protected $signature = 'stripe:payments:check';
 
     /**
      * The console command description.
@@ -42,7 +42,7 @@ class CheckPayments extends Command
      */
     public function handle()
     {
-        $items = PaymentHistory::whereNotNull('session_id')
+        $items = Payments::whereNotNull('session_id')
             ->where('amount', '>', 0)
             ->whereNull('status')
             ->get();

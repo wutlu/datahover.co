@@ -4,7 +4,7 @@ $subscription = auth()->user()->subscription();
 
 @push('js')
 	let ds = '.drawer-subscription';
-	let ph = $(ds).children('.payment-history');
+	let ph = $(ds).children('.payments');
 
 	$(document).on('mouseover', ds, function() {
 		ph.slideDown(100)
@@ -36,7 +36,7 @@ $subscription = auth()->user()->subscription();
 
 			<div class="d-flex flex-column gap-1 drawer-subscription">
 				<a href="{{ route('subscription.index') }}" class="btn btn-sm btn-outline-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
-				<a href="{{ route('payment.history') }}" class="mx-auto small text-muted payment-history" style="display: none;">Payment History</a>
+				<a href="{{ route('payments') }}" class="mx-auto small text-muted payments" style="display: none;">Payments</a>
 			</div>
 		</div>
 		<div class="card-body">

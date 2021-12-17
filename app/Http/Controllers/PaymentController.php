@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 
 use App\Jobs\PaymentCheckJob;
 
@@ -65,9 +65,9 @@ class PaymentController extends Controller
 
         if ($session->url)
         {
-            $sequence = PaymentHistory::orderBy('sequence', 'desc')->value('sequence') + 1;
+            $sequence = Payments::orderBy('sequence', 'desc')->value('sequence') + 1;
 
-            PaymentHistory::create(
+            Payments::create(
                 [
                     'user_id' => $request->user()->id,
                     'session_id' => $session->id,
@@ -128,21 +128,21 @@ class PaymentController extends Controller
     }
 
     /**
-     * Payment History View
+     * Payments View
      * 
      * @return view
      */
-    public function paymentHistory()
+    public function payments()
     {
-        return view('payment_history');
+        return view('payments');
     }
 
     /**
-     * Payment History Data
+     * Payments Data
      * 
      * @return object
      */
-    public function paymentHistoryData(Request $request)
+    public function paymentsData(Request $request)
     {
         $request->validate([
             'search' => 'nullable|string|max:1000',
@@ -150,7 +150,7 @@ class PaymentController extends Controller
             'take' => 'required|integer|max:1000',
         ]);
 
-        $data = PaymentHistory::where('user_id', $request->user()->id)
+        $data = Payments::where('user_id', $request->user()->id)
             ->skip($request->skip)
             ->take($request->take)
             ->orderBy('created_at', 'desc')
@@ -160,7 +160,7 @@ class PaymentController extends Controller
             'success' => 'ok',
             'data' => $data,
             'stats' => [
-                'total' => PaymentHistory::where('user_id', $request->user()->id)->count()
+                'total' => Payments::where('user_id', $request->user()->id)->count()
             ]
         ];
     }
@@ -172,7 +172,7 @@ class PaymentController extends Controller
      */
     public function invoice(string $key)
     {
-        $payment = PaymentHistory::where('session_id', $key)->firstOrFail();
+        $payment = Payments::where('session_id', $key)->firstOrFail();
 
         $customer = new Party([
             'name' => $payment->meta['name'],
@@ -190,8 +190,8 @@ class PaymentController extends Controller
         else
         {
             $notes = implode('<br />', [
-                'To make payments or view your invoices, go to the payment history page.',
-                '<a href="'.route('payment.history').'">'.route('payment.history').'</a>',
+                'To make payments or view your invoices, go to the payments page.',
+                '<a href="'.route('payments').'">'.route('payments').'</a>',
             ]);
         }
 

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentHistory extends Model
+class Payments extends Model
 {
-    protected $table = 'payment_histories';
+    protected $table = 'payments';
 
     protected $fillable = [
         'user_id',

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 use App\Models\User;
 
 use Etsetra\Library\DateTime as DT;
@@ -39,7 +39,7 @@ class PaymentCheckJob implements ShouldQueue
      */
     public function handle()
     {
-        $histories = PaymentHistory::whereNotNull('session_id')
+        $histories = Payments::whereNotNull('session_id')
             ->where('amount', '>', 0)
             ->whereNull('status')
             ->where('user_id', $this->user->id)

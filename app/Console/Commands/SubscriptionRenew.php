@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 use App\Models\User;
 use App\Models\Plan;
-use App\Models\PaymentHistory;
+use App\Models\Payments;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -63,7 +63,7 @@ class SubscriptionRenew extends Command
                     $user->subscription_end_date = (new DT)->nowAt('+31 days');
                     $user->save();
 
-                    PaymentHistory::create(
+                    Payments::create(
                         [
                             'user_id' => $user->id,
                             'amount' => -$plan->price,
