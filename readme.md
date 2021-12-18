@@ -59,4 +59,6 @@ nano /etc/apache2/sites-available/datahover.co.conf
         Require all granted
     </Directory>
 </VirtualHost>
+
+sudo a2ensite datahover.co
 service apache2 reload
