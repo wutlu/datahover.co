@@ -6,7 +6,9 @@
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Root' => route('dashboard'),
-            'User Management' => '#'
+            'User Management' => [
+                'Sessions' => route('root.users.sessions'),
+            ],
         ]
     ]
 )

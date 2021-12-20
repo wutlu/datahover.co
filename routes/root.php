@@ -8,6 +8,9 @@ Route::prefix('user-management')->group(function() {
 	Route::post('update', 'UserController@update')->name('root.users.update');
 	Route::post('delete', 'UserController@delete')->name('root.users.delete');
 	Route::post('list', 'UserController@list')->name('root.users.list');
+
+	Route::get('sessions', 'UserController@sessions')->name('root.users.sessions');
+	Route::post('sessions', 'UserController@sessionList');
 });
 
 Route::prefix('track-management')->group(function() {

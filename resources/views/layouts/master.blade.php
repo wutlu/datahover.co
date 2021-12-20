@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    <title>{{ @$title ? $title.' - '.config('app.name') : config('app.name') }}</title>
+    <title>{{ $title = @$title ?? config('app.name') }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,10 +30,21 @@
                     <ul class="list-unstyled m-0 py-1 d-flex flex-wrap align-items-start align-items-sm-center gap-0 gap-sm-3 flex-column flex-sm-row">
                         @foreach ($breadcrumb as $name => $route)
                         <li>
-                            @if ($route == '#')
-                                <span class="small link-dark fw-bold text-white">{{ $name }}</span>
+                            @if (is_array($route))
+                                <span class="btn-group">
+                                    <a href="#" class="dropdown-toggle small link-dark fw-bold text-white" data-bs-toggle="dropdown">{{ $name }}</a>
+                                    <ul class="dropdown-menu shadow rounded-0 dropdown-menu-dark dropdown-menu-end border-0">
+                                        @foreach ($route as $n => $r)
+                                            <li><a href="{{ $r }}" class="dropdown-item">{{ $n }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </span>
                             @else
-                                <a class="small link-secondary" href="{{ $route }}">{{ $name }}</a>
+                                @if ($route == '#')
+                                    <span class="small link-dark fw-bold text-white">{{ $name }}</span>
+                                @else
+                                    <a class="small link-secondary" href="{{ $route }}">{{ $name }}</a>
+                                @endif
                             @endif
                         </li>
                         @endforeach

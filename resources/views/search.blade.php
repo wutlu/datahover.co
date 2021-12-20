@@ -48,7 +48,6 @@
             </div>
         </div>
         <div class="card-body">
-
             <div class="input-group input-group-lg d-flex flex-nowrap">
                 <input
                     type="text"
@@ -65,7 +64,6 @@
                 </button>
             </div>
             <small class="text-muted py-1 mb-2">Search within 24 hours data.</small>
-
         </div>
         <div
             id="items"

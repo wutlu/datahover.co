@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Plan;
+use App\Models\Session;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -104,6 +105,37 @@ class UserController extends Controller
                 'total' => User::count(),
                 'active' => User::where('subscription_end_date', '>=', (new DT)->nowAt())->count()
             ]
+        ];
+    }
+
+    public function sessions()
+    {
+        return view('root.sessions');
+    }
+
+    public function sessionList(Request $request)
+    {
+        $request->validate([
+            'skip' => 'required|integer|max:1000000',
+            'take' => 'required|integer|max:1000',
+        ]);
+
+        $data = Session::with('user')
+            ->skip($request->skip)
+            ->take($request->take)
+            ->orderBy('last_activity', 'desc')
+            ->get();
+
+        $ts = strtotime((new DT)->nowAt('-10 minutes'));
+
+        return [
+            'success' => 'ok',
+            'data' => $data,
+            'stats' => [
+                'total' => Session::count(),
+                'online' => Session::where('last_activity', '>=', $ts)->count()
+            ],
+            'ts' => $ts
         ];
     }
 }
