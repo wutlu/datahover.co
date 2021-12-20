@@ -111,5 +111,22 @@
     @if ($code = config('services.jivo.code'))
         <script src="//code-eu1.jivosite.com/widget/{{ $code }}" async></script>
     @endif
+
+    @if ($code = config('services.google_analytics.code'))
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $code }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag()
+            {
+                dataLayer.push(arguments)
+            }
+
+            gtag('js', new Date());
+
+            gtag('config', '{{ $code }}');
+        </script>
+    @endif
 </body>
 </html>
