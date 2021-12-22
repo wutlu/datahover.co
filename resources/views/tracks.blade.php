@@ -225,7 +225,7 @@
             data-take="10"
             data-include="search,sources"
             data-loading="#items->children(.loading)"
-            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
+            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Secret-Key": "{{ auth()->user()->api_secret }}"}'
             data-more="#itemsMore"
             data-each="#items">
             <div class="list-group-item border-0 d-flex justify-content-center loading">
