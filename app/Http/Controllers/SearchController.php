@@ -12,7 +12,7 @@ class SearchController extends Controller
 {
     public $search_rules;
     public $rate_minutes = 1;
-    public $rate_limit = 120;
+    public $rate_limit = 960;
 
     public function __construct()
     {

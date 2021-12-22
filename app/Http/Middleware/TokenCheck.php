@@ -24,7 +24,7 @@ class TokenCheck
     public function handle(Request $request, Closure $next)
     {
         $api_key = $request->header('X-Api-Key');
-        $api_secret = $request->header('X-Api-Secret');
+        $api_secret = $request->header('X-Secret-Key');
 
         $user = User::where([ 'api_key' => $api_key, 'api_secret' => $api_secret ])->first();
 

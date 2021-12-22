@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Http;
 
 use Etsetra\Library\DateTime as DT;
 
@@ -45,37 +46,18 @@ class HomeController extends Controller
 
     public function console()
     {
-        $query = (new DataPool)->find(
+        $response = Http::withHeaders(
             [
-                'bool' => [
-                    'must' => [
-                        [ 'match' => [ 'status' => 'ok' ] ],
-                        [
-                            'query_string' => [
-                                'query' => '_exists_:title',
-                            ]
-                        ]
-                    ],
-                    'filter' => [
-                        [
-                            'range' => [ 'created_at' => [ 'gte' => (new DT)->nowAt('-6 hours') ] ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                'from' => 0,
-                'size' => 25,
-                'sort' => [
-                    [ 'created_at' => 'desc' ]
-                ]
+                'X-Api-Key' => config('services.datahover.api_key'),
+                'X-Secret-Key' => config('services.datahover.secret_key'),
+                'Accept' => 'application/json'
             ]
-        );
+        )
+        ->post(config('services.datahover.base_uri').'/search', [
+            'search' => '_exists_:title'
+        ]);
 
-        return [
-            'success' => @$query->success ?? 'failed',
-            'data' => @$query->source
-        ];
+        return $response->body();
     }
 
     /**

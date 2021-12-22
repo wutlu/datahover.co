@@ -74,4 +74,10 @@ return [
     'jivo' => [
         'code' => env('JIVO_CODE'),
     ],
+
+    'datahover' => [
+        'api_key' => env('DATAHOVER_API_KEY'),
+        'secret_key' => env('DATAHOVER_SECRET_KEY'),
+        'base_uri' => env('DATAHOVER_BASE_URI', 'https://datahover.co/api/v1')
+    ]
 ];

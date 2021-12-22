@@ -16,14 +16,6 @@
 		max-width: 164px;
 	}
 
-	.bg-alternate {
-		background-image: url('{{ asset('images/wave-light.svg') }}');
-		background-repeat: no-repeat;
-		background-position: center bottom;
-		background-size: cover;
-		background-color: #1c1c28;
-	}
-
 	h1 {
 		font-size: 72px;
 	}
