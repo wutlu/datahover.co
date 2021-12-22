@@ -33,7 +33,7 @@
 		overflow: hidden;
 		scroll-behavior: smooth;
 	}
-	.console > .wrapper > p {
+	.console > .wrapper > p > span {
 		font-size: 13px;
 		font-family: 'Courier', sans-serif;
 		letter-spacing: 1px;
@@ -81,12 +81,24 @@
 	window.consoleTimer = setInterval(function() {
 		if (items.length)
 		{
+			let item = $(items).get(-1);
+
 			consoleWrapper.append(
 				$(
 					'<p />',
 					{
-						'html': '<time>' + $(items).get(-1).created_at + '</time>: ' + $(items).get(-1).title,
-						'class': 'text-success px-4 mb-0'
+						'html': [
+							$(
+								'<img />',
+								{
+									'src': '//' + item.site + '/favicon.ico',
+									'class': 'w-16px h-16px',
+									'onerror': "this.onerror=null;this.src='{{ asset('favicon.ico') }}';"
+								}
+							),
+							$('<span />', { 'html': item.title })
+						],
+						'class': 'text-success mb-0 px-3 py-1 d-flex gap-2 align-items-start'
 					}
 				)
 				.hide()
@@ -121,8 +133,7 @@
 				id="items"
 				class="nav load"
 	            data-action="{{ route('index.console') }}"
-	            data-callback="__results"
-	            data-loop="10000">
+	            data-callback="__results">
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="#">Console</a>
 				</li>
