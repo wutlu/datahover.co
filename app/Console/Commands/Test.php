@@ -56,7 +56,7 @@ class Test extends Command
         try {
           // Get the \Facebook\GraphNodes\GraphUser object for the current user.
           // If you provided a 'default_access_token', the '{access-token}' is optional.
-          $response = $fb->get('/me', '{access-token}');
+          $response = $fb->get('/me', '0099a3695604c48d5ec47cf0dd15dd05');
         } catch(\Facebook\Exceptions\FacebookResponseException $e) {
           // When Graph returns an error
           echo 'Graph returned an error: ' . $e->getMessage();
