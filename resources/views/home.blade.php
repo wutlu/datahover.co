@@ -251,20 +251,7 @@
 				data-bs-toggle="modal"
 				data-bs-target="#trackInfoModal">What is track?</a>
 		</div>
-		<a href="#need-more-information" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
-			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
-		</a>
-	</section>
-
-	<section class="page-split position-relative" id="need-more-information">
-		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-1">Need more information?</h2>
-			<p class="lead mb-10 mw-768px">If you would like to get more details or have additional questions, there's probably an answer already on our <a class="link-dark fw-bold text-decoration-underline" href="{{ route('faq.index') }}">Frequently Asked Questions</a> page.</p>
-
-			<p class="lead mb-2">If you don't want to waste time</p>
-			<a href="{{ route(auth()->check() ? 'dashboard' : 'user.gate') }}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">Try it</a>
-		</div>
-		<a href="#pricing" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
+		<a href="#pricing" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
@@ -332,6 +319,16 @@
 					</div>
 				@endforeach
 			</div>
+		</div>
+	</section>
+
+	<section class="page-split position-relative" id="need-more-information">
+		<div class="container-fluid">
+			<h2 class="display-5 text-dark fw-bold mb-1">Need more information?</h2>
+			<p class="lead mb-10 mw-768px">If you would like to get more details or have additional questions, there's probably an answer already on our <a class="link-dark fw-bold text-decoration-underline" href="{{ route('faq.index') }}">Frequently Asked Questions</a> page.</p>
+
+			<p class="lead mb-2">If you don't want to waste time</p>
+			<a href="{{ route(auth()->check() ? 'dashboard' : 'user.gate') }}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">Try it</a>
 		</div>
 	</section>
 
