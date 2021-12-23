@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only('dashboard');
-        $this->middleware('GrahamCampbell\Throttle\Http\Middleware\ThrottleMiddleware:30,1')->only('search');
+        $this->middleware('\GrahamCampbell\Throttle\Http\Middleware\ThrottleMiddleware:30,1')->only('search');
     }
 
     /**
