@@ -7,7 +7,7 @@
 			<i class="material-icons">account_circle</i>
 		@endauth
 	</a>
-	<ul class="dropdown-menu shadow rounded-0 dropdown-menu-dark dropdown-menu-end border-0">
+	<ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg">
 		@auth
 			<li>
 				<span class="dropdown-header">{{ auth()->user()->email }}</span>
@@ -33,7 +33,12 @@
 					</div>
 				</a>
 			</li>
-			<li class="dropdown-divider"></li>
+			<li>
+				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('faq.index') }}">
+					<i class="material-icons icon-sm">quiz</i>
+					F.A.Q.
+				</a>
+			</li>
 			<li>
 				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('user.gate.exit') }}">
 					<i class="material-icons icon-sm">logout</i>
@@ -43,17 +48,10 @@
 		@else
 			<li>
 				<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('user.gate') }}">
-					<i class="material-icons">home</i>
+					<i class="material-icons icon-sm">home</i>
 					Login
 				</a>
 			</li>
 		@endauth
-		<li class="dropdown-divider"></li>
-		<li>
-			<a class="dropdown-item d-flex align-items-center gap-3" href="{{ route('faq.index') }}">
-				<i class="material-icons">quiz</i>
-				F.A.Q.
-			</a>
-		</li>
 	</ul>
 </div>

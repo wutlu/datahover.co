@@ -17,6 +17,14 @@ return [
 	// 	],
 	// 	'gains' => 'At the end of this job you store "Public Facebook Posts"',
 	// ],
+	'youtube' => [
+		'name' => 'YouTube',
+		'icon' => 'images/icons/youtube.png',
+		'tracks' => [
+			'keyword' => [ 'required', 'regex:/^[a-zA-Z0-9 ]{3,24}$/i' ],
+		],
+		'gains' => 'At the end of this job you store "Public YouTube Video Text Contents and Public Video Comments"'
+	],
 	'news' => [
 		'name' => 'News',
 		'icon' => 'images/icons/news.png',
@@ -25,12 +33,4 @@ return [
 		],
 		'gains' => 'At the end of this job you store "Public News"'
 	],
-	'youtube' => [
-		'name' => 'YouTube',
-		'icon' => 'images/icons/youtube.png',
-		'tracks' => [
-			'keyword' => [ 'required', 'regex:/^[a-zA-Z0-9 ]{3,24}$/i' ],
-		],
-		'gains' => 'At the end of this job you store "Public YouTube Video Text Contents and Public Video Comments"'
-	]
 ];

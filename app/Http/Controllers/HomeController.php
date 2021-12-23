@@ -18,6 +18,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only('dashboard');
+        $this->middleware('GrahamCampbell\Throttle\Http\Middleware\ThrottleMiddleware:30,1')->only('search');
     }
 
     /**
@@ -29,7 +30,7 @@ class HomeController extends Controller
     {
         $plans = Plan::whereIn('name', [ 'Basic', 'Enterprise', 'Company' ])->get();
 
-        return view('home', compact('plans'));
+        return view('home2', compact('plans'));
     }
 
     /**
@@ -44,8 +45,20 @@ class HomeController extends Controller
         ]);
     }
 
-    public function console()
+    /**
+     * Example Search
+     * 
+     * @param Illuminate\Http\Request $request
+     * @return object
+     */
+    public function search(Request $request)
     {
+        $request->validate(
+            [
+                'search' => 'required|string|max:64'
+            ]
+        );
+
         $response = Http::withHeaders(
             [
                 'X-Api-Key' => config('services.datahover.api_key'),
@@ -54,7 +67,8 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => '_exists_:title'
+            'search' => "site:foxnews.com ($request->search)",
+            'take' => 4
         ]);
 
         return $response->body();

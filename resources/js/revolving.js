@@ -66,7 +66,7 @@ var Circle = function()
   this.revolutionSpeed = 0.005;
   this.draw = function()
   {
-    ctx.fillStyle = 'rgba(97, 89, 246, .5)';
+    ctx.fillStyle = 'rgba(0, 0, 0, .5)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
     ctx.fill();
@@ -75,7 +75,7 @@ var Circle = function()
 
   this.update = function()
   {
-    this.radius = 0.4 + 4/this.rotationRadius;
+    this.radius = 0.4 + 4 / this.rotationRadius;
     this.draw();
     this.rotation += this.rotationSpeed;
     this.angle -= this.revolutionSpeed;
@@ -93,7 +93,7 @@ for(var i = 0; i < count; i++)
 
 function update()
 {
-  ctx.fillStyle = '#1c1c28';
+  ctx.fillStyle = '#fff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   // parent.draw();
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\VerifyCsrfToken;
 
 Route::get('/', 'HomeController@index')->name('index');
-Route::post('console', 'HomeController@console')->name('index.console');
+Route::post('search', 'HomeController@search')->name('index.search');
 
 Route::prefix('gate')->group(function() {
 	Route::get('/', 'UserController@gate')->name('user.gate');

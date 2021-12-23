@@ -780,6 +780,28 @@ $(document).on('click', '[data-class]', function() {
  */
 $(window).on('load', function() {
     toHtml()
+
+    $('[data-lazy-class]').each(function () {
+        $(this).addClass(__.data('lazy-class'))
+    })
+}).scroll(function () {
+    $('[data-lazy-class]').each(function () {
+        let __ = $(this);
+
+        let element = $(__.data('lazy-element')),
+            element_height = element.height();
+
+        let diff = element_height - __.height();
+
+        let element_offset_top = element.offset().top - (diff * 2),
+            element_offset_bottom = element.offset().top;
+        let window_top = $(window).scrollTop();
+
+        if (window_top >= element_offset_top && window_top <= element_offset_bottom)
+            __.addClass(__.data('lazy-class'))
+        else
+            __.removeClass(__.data('lazy-class'))
+    })
 })
 
 $(document)
@@ -805,6 +827,16 @@ $('.dropdown').on('show.bs.dropdown', function () {
     $('body').removeClass('drawer')
 })
 
+let nl2br = function(str, is_xhtml)
+{
+    if (typeof str === 'undefined' || str === null)
+        return '';
+
+    let breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br /><br />' : '<br>';
+
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
+
 let app = (function() {
     return {
         looper,
@@ -818,6 +850,7 @@ let app = (function() {
         increment,
         decrement,
         zIndexer,
+        nl2br,
     }
 })()
 

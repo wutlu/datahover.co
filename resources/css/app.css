@@ -1,14 +1,18 @@
 @import 'bootstrap';
 @import 'select2';
 @import 'select2-bootstrap-5-theme';
+@import 'animate.css';
+
+:root {
+  --animate-delay: 400ms;
+}
 
 html, body, * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Lexend Deca', sans-serif;
 }
 
 html, body {
   background-color: #eeeded;
-  font-size: 98%;
 }
 
 a {
@@ -105,12 +109,16 @@ a {
 .h-96px { height: 96px; }
 .w-128px { width: 128px; }
 .h-128px { height: 128px; }
+.w-100px { width: 100px; }
+.h-100px { height: 100px; }
 .w-200px { width: 200px; }
 .h-200px { height: 200px; }
 .w-256px { width: 256px; }
 .h-256px { height: 256px; }
 .w-300px { width: 300px; }
 .h-300px { height: 300px; }
+.w-400px { width: 400px; }
+.h-400px { height: 400px; }
 
 .mw-100px { max-width: 100px; }
 .mw-200px { max-width: 200px; }
@@ -119,13 +127,14 @@ a {
 .mw-768px { max-width: 768px; }
 .mw-1024px { max-width: 1024px; }
 
-.dotted-title {
-  background-image: url('../images/dotted-bg.svg');
-  background-position: center top;
-  background-size: 100% auto;
-  background-repeat: no-repeat;
-  text-align: center;
-}
+.mt-10 { margin-top: 6rem !important; }
+.mb-10 { margin-bottom: 6rem !important; }
+
+.mt-20 { margin-top: 12rem !important; }
+.mb-20 { margin-bottom: 12rem !important; }
+
+.mt-30 { margin-top: 24rem !important; }
+.mb-30 { margin-bottom: 24rem !important; }
 
 .unselectable {
   user-select: none;
@@ -137,6 +146,13 @@ a {
 
 .bg-dark {
   background-color: #1c1c28 !important;
+}
+
+[data-lazy-class] {
+  visibility: hidden;
+}
+[data-lazy-class].animate__animated {
+  visibility: visible;
 }
 
 /**
@@ -208,8 +224,12 @@ ul.dropdown-menu {
   z-index: 10000;
   transform: translate(0) !important;
 }
+ul.dropdown-menu > li > a {
+  font-size: 14px;
+}
 ul.dropdown-menu > li > a.dropdown-item:hover {
-  background-color: #18a0fb;
+  background-color: #0063b5;
+  color: #fff;
 }
 
 /**

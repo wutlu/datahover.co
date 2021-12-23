@@ -251,6 +251,7 @@ return [
          * Package Service Providers...
          */
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Throttle' => GrahamCampbell\Throttle\Facades\Throttle::class,
     ],
 
 ];
