@@ -154,12 +154,12 @@
 				</div>
 			</div>
 		</div>
-		<a href="#sample" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
+		<a href="#example" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
 
-	<section class="page-split position-relative" id="sample">
+	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-1">Example Search</h2>
 			<p class="lead text-dark mb-10">For testing, inquire at <strong class="fw-bold">foxnews.com</strong></p>
