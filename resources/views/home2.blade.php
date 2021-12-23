@@ -165,7 +165,7 @@
 
 	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-1">Example Search</h2>
+			<h2 class="display-5 text-dark fw-bold mb-1">Example Search API</h2>
 			<p class="lead text-dark mb-10">For testing, inquire at <strong class="fw-bold">foxnews.com</strong></p>
 
 			<div class="form-floating mb-4 mw-400px">
