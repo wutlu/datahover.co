@@ -12,13 +12,12 @@
 	}
 	header.master a.logo {}
 	header.master a.logo > .logo {
-		width: 30vw;
+		width: 40vw;
 		max-width: 200px;
 	}
 
 	.page-split {
 		width: calc(100% - 10vw);
-		min-height: 90vh;
 		margin: 5vh auto;
 		padding: 10vh 10vw;
 		border-radius: 1rem;
@@ -28,12 +27,17 @@
 		background-size: auto, cover;
 	}
 
-	section#how-does-it-work {
-		background-image: url('{{ asset('images/wave-light.svg') }}');
-		background-size: cover;
+	@media (max-width: 1024px)
+	{
+		.page-split {
+			width: 100%;
+			min-height: auto;
+			margin: 0;
+			border-radius: 0;
+		}
 	}
 
-	section#pricing {
+	section#how-does-it-work {
 		background-image: url('{{ asset('images/wave-light.svg') }}');
 		background-size: cover;
 	}
@@ -269,9 +273,10 @@
 		</a>
 	</section>
 
-	<section class="page-split shadow-lg position-relative" id="pricing">
+	<section class="page-split position-relative" id="pricing">
 		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-10">Pricing</h2>
+			<h2 class="display-5 text-dark fw-bold mb-1">Pricing</h2>
+			<p class="lead text-dark mb-10"><strong class="fw-bold">{{ config('app.name') }}</strong> is a price performance product</p>
 
 			<div class="row row-cols-1 row-cols-md-3 align-items-center">
 				@foreach ($plans as $key => $plan)
