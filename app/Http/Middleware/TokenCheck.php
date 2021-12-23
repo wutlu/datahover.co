@@ -24,7 +24,7 @@ class TokenCheck
     public function handle(Request $request, Closure $next)
     {
         $api_key = $request->header('X-Api-Key');
-        $api_secret = $request->header('X-Secret-Key');
+        $api_secret = $request->header('X-Api-Secret');
 
         $user = User::where([ 'api_key' => $api_key, 'api_secret' => $api_secret ])->first();
 
@@ -80,7 +80,7 @@ class TokenCheck
                 'success' => 'failed',
                 'alert' => [
                     'type' => 'danger',
-                    'message' => 'Invalid api or secret key'
+                    'message' => 'Invalid api key or secret'
                 ]
             ]);
         }

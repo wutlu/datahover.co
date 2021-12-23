@@ -38,7 +38,7 @@
 		<a href="{{ route('index') }}">
 			<img class="w-200px mb-4" alt="{{ config('app.name') }}" src="{{ asset('images/logo-white.svg') }}" />
 		</a>
-		<div class="mw-300px card border-0 rounded-0 shadow-sm mb-3">
+		<div class="mw-300px card shadow-sm mb-2">
 			<div class="card-body">
 				<div class="p-2">
 					<div class="d-flex align-items-center justify-content-center mb-4">
@@ -61,7 +61,7 @@
 							<a class="small" href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="text-dark text-decoration-none">Terms of Service</a>
 						</div>
 					@endif
-					<a href="{{ route('user.gate.redirect') }}" class="btn btn-outline-primary d-block shadow-sm rounded-0">Continue with GitHub</a>
+					<a href="{{ route('user.gate.redirect') }}" class="btn btn-outline-primary d-block shadow-sm">Continue with GitHub</a>
 				</div>
 			</div>
 		</div>

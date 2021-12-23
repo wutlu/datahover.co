@@ -46,15 +46,15 @@
 			<div>
 				<small class="text-muted">{{ __('validation.attributes.api_secret') }}</small>
 				<div class="d-flex align-items-center gap-2">
-					<input readonly data-copy="api_secret" data-copied="Secret Key Copied!" class="form-control shadow-sm rounded-0" type="text" id="api_secret" value="{{ auth()->user()->api_secret }}" />
+					<input readonly data-copy="api_secret" data-copied="Api Secret Copied!" class="form-control shadow-sm rounded-0" type="text" id="api_secret" value="{{ auth()->user()->api_secret }}" />
 					<a
 						href="#"
 						data-bs-toggle="tooltip"
 						data-bs-placement="left"
 						data-action="{{ route('user.api.secret_generator') }}"
 						data-callback="__secret_generated"
-						data-confirmation="Secret Key will change. Do you confirm?"
-						title="Regenerate Secret Key"
+						data-confirmation="Api Secret will change. Do you confirm?"
+						title="Regenerate Api Secret"
 						class="btn btn-outline-success rounded-0 shadow-sm">
 						<i class="material-icons">refresh</i>
 					</a>

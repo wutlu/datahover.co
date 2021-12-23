@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         $plans = Plan::whereIn('name', [ 'Basic', 'Enterprise', 'Company' ])->get();
 
-        return view('home2', compact('plans'));
+        return view('home', compact('plans'));
     }
 
     /**
@@ -62,7 +62,7 @@ class HomeController extends Controller
         $response = Http::withHeaders(
             [
                 'X-Api-Key' => config('services.datahover.api_key'),
-                'X-Secret-Key' => config('services.datahover.secret_key'),
+                'X-Api-Secret' => config('services.datahover.api_secret'),
                 'Accept' => 'application/json'
             ]
         )

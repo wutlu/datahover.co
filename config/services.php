@@ -77,7 +77,7 @@ return [
 
     'datahover' => [
         'api_key' => env('DATAHOVER_API_KEY'),
-        'secret_key' => env('DATAHOVER_SECRET_KEY'),
+        'api_secret' => env('DATAHOVER_API_SECRET'),
         'base_uri' => env('DATAHOVER_BASE_URI', 'https://datahover.co/api/v1')
     ]
 ];

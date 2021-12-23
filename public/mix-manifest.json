@@ -1,8 +1,8 @@
 {
     "/js/app.min.js": "/js/app.min.js",
     "/js/revolving.min.js": "/js/revolving.min.js",
-    "/css/app.min.css": "/css/app.min.css",
-    "/images/glow.svg": "/images/glow.svg",
+    "/images/create-track.png": "/images/create-track.png",
+    "/images/dotted-bg.svg": "/images/dotted-bg.svg",
     "/images/header-bg.webp": "/images/header-bg.webp",
     "/images/header-overlay.png": "/images/header-overlay.png",
     "/images/header-overlay.svg": "/images/header-overlay.svg",
@@ -23,5 +23,9 @@
     "/images/stripe.svg": "/images/stripe.svg",
     "/images/visa.svg": "/images/visa.svg",
     "/images/wave-dark.svg": "/images/wave-dark.svg",
-    "/images/wave-light.svg": "/images/wave-light.svg"
+    "/images/wave-light.svg": "/images/wave-light.svg",
+    "/css/app.min.css": "/css/app.min.css",
+    "/images/gold-bg.jpg": "/images/gold-bg.jpg",
+    "/images/gold-bg.webp": "/images/gold-bg.webp",
+    "/images/glow.svg": "/images/glow.svg"
 }

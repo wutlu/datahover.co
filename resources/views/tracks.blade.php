@@ -225,7 +225,7 @@
             data-take="10"
             data-include="search,sources"
             data-loading="#items->children(.loading)"
-            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Secret-Key": "{{ auth()->user()->api_secret }}"}'
+            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
             data-more="#itemsMore"
             data-each="#items">
             <div class="list-group-item border-0 d-flex justify-content-center loading">
@@ -298,7 +298,7 @@
                                 <label>{{ auth()->user()->api_key }}</label>
                             </li>
                             <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                <small class="text-muted">X-Secret-Key</small>
+                                <small class="text-muted">X-Api-Secret</small>
                                 <label>{{ auth()->user()->api_secret }}</label>
                             </li>
                             <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">

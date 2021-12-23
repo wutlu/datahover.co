@@ -73,7 +73,7 @@
             data-skip="0"
             data-take="10"
             data-include="search"
-            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Secret-Key": "{{ auth()->user()->api_secret }}"}'
+            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
             data-more="#itemsMore"
             data-each="#items">
             <pre class="list-group-item list-group-item-action border-0 each-model mb-0"></pre>
@@ -115,7 +115,7 @@
                                 <label>{{ auth()->user()->api_key }}</label>
                             </li>
                             <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
-                                <small class="text-muted">X-Secret-Key</small>
+                                <small class="text-muted">X-Api-Secret</small>
                                 <label>{{ auth()->user()->api_secret }}</label>
                             </li>
                             <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">

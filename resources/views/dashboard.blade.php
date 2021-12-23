@@ -73,7 +73,7 @@
 @endpush
 
 @section('content')
-	<div class="card rounded-0 shadow-sm mb-4">
+	<div class="card bg-transparent border-0 rounded-0 mb-4">
 		<div id="greetingCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">
 			<div class="carousel-indicators">
 				<button class="active" type="button" data-bs-target="#greetingCarousel" data-bs-slide-to="0"></button>
@@ -110,5 +110,38 @@
 			</button>
 		</div>
 	</div>
-	@include('includes.tiny_cards')
+	<div class="row">
+		<div class="col-6 col-xl-3">
+			<div class="card card-coverage border-0 mb-4 bg-transparent">
+				<div class="card-body h-200px d-flex rounded flex-column justify-content-between bg-transparent">
+					<span class="h4 fw-bold mb-0">Best social data technology</span>
+					<small class="h6 fw-bold mb-0">{{ config('app.name') }}</small>
+				</div>
+			</div>
+		</div>
+		<div class="col-6 col-xl-3">
+			<div class="card card-coverage border-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/news.jpg') }}');">
+				<div class="card-body h-200px d-flex rounded flex-column justify-content-between">
+					<small class="h6 fw-bold text-white mb-0">NEWS</small>
+					<span class="h4 fw-bold text-white mb-0">Track news sites</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-6 col-xl-3">
+			<div class="card card-coverage border-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/social.jpg') }}');">
+				<div class="card-body h-200px d-flex rounded flex-column justify-content-between">
+					<small class="h6 fw-bold text-white mb-0">SOCIAL</small>
+					<span class="h4 fw-bold text-white mb-0">We are working on more resources</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-6 col-xl-3">
+			<div class="card card-coverage border-0 shadow-sm mb-4" style="background-image: url('{{ asset('images/stats.jpg') }}');">
+				<div class="card-body h-200px d-flex rounded flex-column justify-content-between">
+					<small class="h6 fw-bold text-white mb-0">STATISTICS</small>
+					<span class="h4 fw-bold text-white mb-0">Big data for detailed statistics</span>
+				</div>
+			</div>
+		</div>
+	</div>
 @endsection
