@@ -56,11 +56,11 @@ class CrawlerController extends Controller
 
         try
         {
-            $request = $client->get("//$page", $params);
+            $request = $client->get("//$page/", $params);
 
             return (object) [
                 'success' => 'ok',
-                'html' => "".$request->getBody().""
+                'html' => (string) $request->getBody()
             ];
         }
         catch (\Exception $e)
@@ -104,73 +104,57 @@ class CrawlerController extends Controller
      */
     public static function getLinksInHtml(string $site, string $html)
     {
-        $chunks = [];
+        $site = Str::before($site, '/');
+        $not_contains = [
+            '?',
+            '#',
+            '/javascript',
+            '/cdn',
+            '/Object',
+            '/ ',
+            '//',
+            '\\',
+        ];
 
         $saw = new Nokogiri($html);
 
         $links = Arr::pluck($saw->get('a[href]')->toArray(), 'href');
-        $links = array_unique($links);
-
-        foreach ($links as $link)
-        {
-            $append = false;
-
+        $links = array_map(function($link) use($site) {
             $link = Str::beforeLast($link, '#');
             $link = Str::beforeLast($link, '?');
-            $link_without_protocol = str_replace([ 'https://', 'http://', 'www.' ], '', $link);
-            $clean_link = preg_replace('/(\/+)/', '/', Str::start($link_without_protocol, $site));
-            $clean_link_ending_without_slash = Str::replaceLast('/', '', str_replace('//', '/', Str::start($clean_link, $site)));
-            $segments = explode('/', $clean_link_ending_without_slash);
-            $slug_length = strlen(str_replace($site, '', $clean_link));
+            $link = str_replace([ 'https://', 'http://', 'www.' ], '', $link);
+            $link = (string) Str::of($link)->replaceFirst('//', '');
 
-            $check_local = Str::startsWith($link, 'http') ? Str::startsWith($link_without_protocol, $site) : true;
-            $check_length = $slug_length >= 20;
-            $check_not_contains = !Str::contains(
-                $clean_link,
-                [
-                    '?',
-                    '#',
-                    '/javascript',
-                    '/cdn',
-                    '/Object',
-                    '/ ',
-                    '//',
-                    '\\',
-                ]
-            );
-            $check_contains = count($segments) == 2 ? Str::contains(
-                $clean_link,
-                [
-                    '-',
-                    '_',
-                ]
-            ) : true;
-            $check_segment = count($segments) == 2 ? strlen($segments[1]) >= 24 : true;
+            $segments = array_filter(explode('/', $link));
 
-            if ($check_local && $check_length && $check_not_contains && $check_contains && $check_segment)
-                $chunks[preg_replace('/(-+)/', '-', preg_replace('/[a-z0-9.]+/i', '-', $clean_link))][] = $clean_link;
-        }
+            if (count($segments) >= 2)
+            {
+                $first = reset($segments);
 
-        $collect = [
-            'alloweds' => [],
-            'deleteds' => [],
-        ];
+                if (Str::contains($first, $site))
+                    $first = str_replace($site, $site.'/', $first);
+                else
+                {
+                    if (Str::contains($first, '.'))
+                        return null; // external link
+                    else
+                        array_unshift($segments, $site); // local link
+                }
 
-        foreach ($chunks as $chunk)
-        {
-            if (count($chunk) >= 8)
-                $collect['alloweds'][] = $chunk;
+                $link = preg_replace('/(\/+)/', '/', implode('/', $segments));
+
+                return $link;
+            }
             else
-                $collect['deleteds'][] = $chunk;
-        }
-
-        $collect = Arr::flatten($collect['alloweds']);
-        $collect = array_unique($collect);
-        $collect = array_values($collect);
+                return null;
+        }, $links);
+        $links = array_unique($links);
+        $links = array_filter($links);
+        $links = array_values($links);
 
         return (object) [
             'success' => 'ok',
-            'links' => $collect
+            'links' => $links
         ];
     }
 
