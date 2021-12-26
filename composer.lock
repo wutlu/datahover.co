@@ -1180,16 +1180,16 @@
         },
         {
             "name": "etsetra/elasticsearch",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/etsetra/Elasticsearch.git",
-                "reference": "c56d54004ebad0e1db2d7a0fe5d79b91d6e98323"
+                "reference": "1ca10c4705a6a856c010d6c5e18508d123eb128a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/etsetra/Elasticsearch/zipball/c56d54004ebad0e1db2d7a0fe5d79b91d6e98323",
-                "reference": "c56d54004ebad0e1db2d7a0fe5d79b91d6e98323",
+                "url": "https://api.github.com/repos/etsetra/Elasticsearch/zipball/1ca10c4705a6a856c010d6c5e18508d123eb128a",
+                "reference": "1ca10c4705a6a856c010d6c5e18508d123eb128a",
                 "shasum": ""
             },
             "require": {
@@ -1223,9 +1223,9 @@
             ],
             "support": {
                 "issues": "https://github.com/etsetra/Elasticsearch/issues",
-                "source": "https://github.com/etsetra/Elasticsearch/tree/1.0.4"
+                "source": "https://github.com/etsetra/Elasticsearch/tree/1.0.5"
             },
-            "time": "2021-12-11T00:38:00+00:00"
+            "time": "2021-12-26T20:58:17+00:00"
         },
         {
             "name": "etsetra/library",
@@ -8795,16 +8795,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.10",
+            "version": "9.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "c814a05837f2edb0d1471d6e3f4ab3501ca3899a"
+                "reference": "2406855036db1102126125537adb1406f7242fdd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c814a05837f2edb0d1471d6e3f4ab3501ca3899a",
-                "reference": "c814a05837f2edb0d1471d6e3f4ab3501ca3899a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2406855036db1102126125537adb1406f7242fdd",
+                "reference": "2406855036db1102126125537adb1406f7242fdd",
                 "shasum": ""
             },
             "require": {
@@ -8882,11 +8882,11 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.10"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.11"
             },
             "funding": [
                 {
-                    "url": "https://phpunit.de/donate.html",
+                    "url": "https://phpunit.de/sponsors.html",
                     "type": "custom"
                 },
                 {
@@ -8894,7 +8894,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-09-25T07:38:51+00:00"
+            "time": "2021-12-25T07:07:57+00:00"
         },
         {
             "name": "sebastian/cli-parser",

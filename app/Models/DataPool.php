@@ -6,5 +6,5 @@ use Etsetra\Elasticsearch\Model;
 
 class DataPool extends Model
 {
-    protected $index = 'etsetra_data_pool';
+    protected $index = 'data_pool';
 }
