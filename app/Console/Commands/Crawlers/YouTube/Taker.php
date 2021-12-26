@@ -1,35 +1,81 @@
 <?php
 
-namespace App\Jobs\Crawlers\YouTube;
+namespace App\Console\Commands\Crawlers\YouTube;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Console\Command;
+
+use App\Jobs\Crawlers\YouTube\YouTubeTakerJob;
 
 use App\Models\Track;
+use Etsetra\Library\DateTime as DT;
+use Etsetra\Elasticsearch\Console\BulkApi;
+use DB;
 
 use Alaouy\Youtube\Facades\Youtube;
 use LanguageDetection\Language;
-use Etsetra\Library\DateTime as DT;
-use Etsetra\Elasticsearch\Console\BulkApi;
 
-class YouTubeTakerJob implements ShouldQueue
+class Taker extends Command
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    protected $track;
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'youtube:taker';
 
     /**
-     * Create a new job instance.
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Initiates YouTube tracking.';
+
+    /**
+     * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Track $track)
+    public function __construct()
     {
-        $this->track = $track;
+        parent::__construct();
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return int
+     */
+    public function handle()
+    {
+        $tracks = Track::where(function($query) {
+                $query->orWhere('valid', true);
+                $query->orWhereNull('valid');
+            })
+            ->where('source', 'youtube')
+            ->where('type', 'keyword')
+            ->where('request_at', '<=', DB::raw("NOW() - INTERVAL '1 minutes' * request_frequency"))
+            ->orderBy('id', 'asc')
+            ->get();
+
+        if (count($tracks))
+        {
+            foreach ($tracks as $track)
+            {
+                $this->info("Call: $track->value");
+
+                if ($track->subscriptionEndDate() >= date('Y-m-d'))
+                {
+                    $this->track($track);
+
+                    $track->request_at = (new DT)->nowAt();
+                    $track->request_hit = $track->request_hit + 1;
+                    $track->valid = true;
+                    $track->save();
+                }
+                else
+                    $this->error('This track does not belong to a current account.');
+            }
+        }
     }
 
     /**
@@ -37,16 +83,16 @@ class YouTubeTakerJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function track(Track $track)
     {
-        echo PHP_EOL;
+        $this->newLine();
 
-        $this->line('Connect: '.$this->track->value);
+        $this->line('Connect: '.$track->value);
 
         try
         {
             $search = Youtube::paginateResults([
-                'q' => $this->track->value,
+                'q' => $track->value,
                 'type' => 'video',
                 'part' => 'id, snippet',
                 'maxResults' => 50
@@ -54,6 +100,8 @@ class YouTubeTakerJob implements ShouldQueue
         }
         catch (\Exception $e)
         {
+            echo $e->getMessage();
+            exit;
             $search = [];
         }
 
@@ -173,17 +221,6 @@ class YouTubeTakerJob implements ShouldQueue
         else
             $this->line('No videos found');
 
-        echo PHP_EOL;
-    }
-
-    /**
-     * Echo console line
-     * 
-     * @param string $text
-     * @return string
-     */
-    private function line(string $text)
-    {
-        echo date('H:i:s').': '.$text.PHP_EOL;
+        $this->newLine();
     }
 }

@@ -103,7 +103,7 @@ class Kernel extends ConsoleKernel
 
 
         # YouTube Trigger
-        $schedule->command('youtube:trigger')
+        $schedule->command('youtube:taker')
                  ->everyMinute()
                  ->withoutOverlapping()
                  ->runInBackground()
