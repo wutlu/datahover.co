@@ -38,6 +38,13 @@ class Kernel extends ConsoleKernel
                  ->runInBackground();
 
 
+        # Clear Old Datas
+        $schedule->command('data:clear')
+                 ->dailyAt('00:00')
+                 ->timezone(config('app.timezone'))
+                 ->withoutOverlapping()
+                 ->runInBackground();
+
 
         # Subscription Auto Renew
         $schedule->command('subscription:renew')
