@@ -176,7 +176,7 @@
                     data-action="true"
                     data-action-target="#items" />
 				<label for="search">Search news</label>
-				<small class="text-muted">4/<span data-name="total">0</span> data found in the last 24 hours</small>
+				<small class="text-muted"><span data-name="total">0</span> data found in the last 24 hours</small>
 			</div>
 
 	        <div

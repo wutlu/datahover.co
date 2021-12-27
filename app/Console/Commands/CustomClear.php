@@ -3,26 +3,26 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Server\CrawlerController as Crawler;
-use Alaouy\Youtube\Facades\Youtube;
-use App\Models\DataPool;
-use Illuminate\Support\Str;
 
-class Test extends Command
+use App\Models\DataPool;
+
+use Etsetra\Library\DateTime as DT;
+
+class CustomClear extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'test';
+    protected $signature = 'custom:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Deletes old data';
 
     /**
      * Create a new command instance.
@@ -41,11 +41,17 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'foxnews.com';
+        $query = (new DataPool)->deleteByQuery(
+            [
+                'bool' => [
+                    'must' => [
+                        [ 'match' => [ 'site' => 'foxnews.com' ] ],
+                        [ 'match' => [ 'status' => 'err' ] ],
+                    ]
+                ]
+            ]
+        );
 
-        $source = (new Crawler)->getPageSource($site);
-        $links = (new Crawler)->getLinksInHtml($site, $source->html);
-
-        print_r($links);
+        print_r($query);
     }
 }
