@@ -127,25 +127,30 @@ class CrawlerController extends Controller
             $link = str_replace([ 'https://', 'http://', 'www.' ], '', $link);
             $link = (string) Str::of($link)->replaceFirst('//', '');
 
-            $segments = array_filter(explode('/', $link));
+            $segments = array_values(array_filter(explode('/', $link)));
 
             if (count($segments) >= 2)
             {
-                $first = reset($segments);
-
-                if (Str::contains($first, $site))
-                    $first = str_replace($site, $site.'/', $first);
+                if (count($segments) == 2 && strlen($segments[1]) <= 22)
+                    return null;
                 else
                 {
-                    if (Str::contains($first, '.'))
-                        return null; // external link
+                    $first = reset($segments);
+
+                    if (Str::contains($first, $site))
+                        $first = str_replace($site, $site.'/', $first);
                     else
-                        array_unshift($segments, $site); // local link
+                    {
+                        if (Str::contains($first, '.'))
+                            return null; // external link
+                        else
+                            array_unshift($segments, $site); // local link
+                    }
+
+                    $link = preg_replace('/(\/+)/', '/', implode('/', $segments));
+
+                    return $link;
                 }
-
-                $link = preg_replace('/(\/+)/', '/', implode('/', $segments));
-
-                return $link;
             }
             else
                 return null;

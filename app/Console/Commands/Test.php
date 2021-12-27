@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Http\Controllers\Server\CrawlerController as Crawler;
 use Alaouy\Youtube\Facades\Youtube;
 use App\Models\DataPool;
+use Illuminate\Support\Str;
 
 class Test extends Command
 {
@@ -40,16 +41,11 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'hurriyet.com.tr/';
-        $link = 'foxnews.com/us/1619-project-founder-says-shes-not-a-professional-educator-despite-being-college-faculty-member';
+        $site = 'hurriyet.com.tr';
 
-        $source = (new Crawler)->getPageSource($link);
-        //$links = (new Crawler)->getLinksInHtml($site, $source->html);
+        $source = (new Crawler)->getPageSource($site);
+        $links = (new Crawler)->getLinksInHtml($site, $source->html);
 
-        print_r($source);
-        exit;
-
-        $news = (new Crawler)->getArticleInHtml($source->html);
-        print_r($news);
+        print_r($links);
     }
 }
