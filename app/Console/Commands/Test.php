@@ -40,11 +40,16 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'nytimes.com/';
+        $site = 'hurriyet.com.tr/';
+        $link = 'foxnews.com/us/1619-project-founder-says-shes-not-a-professional-educator-despite-being-college-faculty-member';
 
-        $source = (new Crawler)->getPageSource($site);
-        $links = (new Crawler)->getLinksInHtml($site, $source->html);
+        $source = (new Crawler)->getPageSource($link);
+        //$links = (new Crawler)->getLinksInHtml($site, $source->html);
 
-        print_r($links);
+        print_r($source);
+        exit;
+
+        $news = (new Crawler)->getArticleInHtml($source->html);
+        print_r($news);
     }
 }

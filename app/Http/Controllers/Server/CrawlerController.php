@@ -56,11 +56,13 @@ class CrawlerController extends Controller
 
         try
         {
-            $request = $client->get("//$page/", $params);
+            $request = $client->get("//$page", $params);
+
+            $html = '<?xml version="1.0" encoding="utf-8"?>'.PHP_EOL.$request->getBody();
 
             return (object) [
                 'success' => 'ok',
-                'html' => (string) $request->getBody()
+                'html' => (string) $html
             ];
         }
         catch (\Exception $e)
@@ -164,9 +166,12 @@ class CrawlerController extends Controller
      */
     public static function getSchemaInHtml(string $html)
     {
-        $dom  = new \DOMDocument();
         libxml_use_internal_errors(1);
+
+        $dom  = new \DOMDocument('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = true;
         $dom->loadHTML($html);
+
         $xpath = new \DOMXpath($dom);
         $jsonScripts = $xpath->query('//script[@type="application/ld+json"]');
 
@@ -174,12 +179,12 @@ class CrawlerController extends Controller
         {
             for ($i = 0; $i <= 5; $i++)
             {
-                $item = $jsonScripts->item($i);
+                $item = @$jsonScripts->item($i)->nodeValue;
 
                 if ($item)
                 {
-                    $json = json_decode(trim($jsonScripts->item($i)->nodeValue));
-                    
+                    $json = json_decode(preg_replace('/[\x00-\x1F]/', '', $item));
+
                     if (@$json->articleBody)
                         return $json;
                 }
