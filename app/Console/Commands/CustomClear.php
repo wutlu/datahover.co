@@ -46,7 +46,6 @@ class CustomClear extends Command
                 'bool' => [
                     'must' => [
                         [ 'match' => [ 'site' => 'foxnews.com' ] ],
-                        [ 'match' => [ 'status' => 'err' ] ],
                     ]
                 ]
             ]

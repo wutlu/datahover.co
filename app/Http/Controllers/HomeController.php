@@ -67,7 +67,7 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => "site:foxnews.com ($request->search)",
+            'search' => "site:foxnews.com -title:\"fox news\" ($request->search)",
             'take' => 4
         ]);
 

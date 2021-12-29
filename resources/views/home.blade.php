@@ -145,7 +145,7 @@
 					<div>
 						<h3 class="display-6 d-table w-64px h-64px shadow-lg bg-dark text-white fw-bold d-flex align-items-center justify-content-center rounded-circle mb-2">3</h3>
 						<p class="lead mb-0">We collect the data we find in a common database</p>
-						<small class="text-muted">You have 24 hours to receive the data</small>
+						<small class="text-muted">You have 7 days to receive the data</small>
 					</div>
 				</div>
 				<div>
@@ -176,7 +176,7 @@
                     data-action="true"
                     data-action-target="#items" />
 				<label for="search">Search news</label>
-				<small class="text-muted"><span data-name="total">0</span> data found in the last 24 hours</small>
+				<small class="text-muted"><span data-name="total">0</span> data found in the last 7 days</small>
 			</div>
 
 	        <div

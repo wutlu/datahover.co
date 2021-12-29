@@ -66,7 +66,7 @@ class SearchController extends Controller
                     ],
                     'filter' => [
                         [
-                            'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-24 hours') ] ]
+                            'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-7 days') ] ]
                         ]
                     ]
                 ]
@@ -75,7 +75,7 @@ class SearchController extends Controller
                 'from' => $request->skip ?? 0,
                 'size' => $take,
                 'sort' => [
-                    [ 'called_at' => 'desc' ]
+                    [ 'created_at' => 'desc' ]
                 ]
             ]
         );

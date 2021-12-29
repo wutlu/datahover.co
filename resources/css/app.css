@@ -68,6 +68,7 @@ a {
 }
 .bg-grey { background-color: #ced4da; }
 .bg-dark-2 { background-color: #15171a; }
+.bg-dark { background-color: #1c1c28 !important; }
 
 .tooltip-inner {
   border-radius: 0;
@@ -142,10 +143,6 @@ a {
 
 .grayscale {
   filter: grayscale(1);
-}
-
-.bg-dark {
-  background-color: #1c1c28 !important;
 }
 
 [data-lazy-class] {

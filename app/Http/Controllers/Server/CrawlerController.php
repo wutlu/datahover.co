@@ -40,7 +40,7 @@ class CrawlerController extends Controller
                 'User-Agent' => config('crawler.user_agents')[array_rand(config('crawler.user_agents'))],
             ],
             'curl' => [
-                CURLOPT_REFERER => 'https://www.google.com/search?q=site%3A'.$page.'&source=hp&uact=5',
+                CURLOPT_REFERER => "https://www.google.com/search?q=site%3A$page&source=hp&uact=5",
                 CURLOPT_COOKIE => 'AspxAutoDetectCookieSupport=1'
             ],
             'verify' => false,

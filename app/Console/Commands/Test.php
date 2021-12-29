@@ -42,10 +42,12 @@ class Test extends Command
     public function handle()
     {
         $site = 'foxnews.com';
+        $article = 'foxnews.com/politics/ron-klain-bidens-chief-of-staff-retweets-column-calling-2021-not-all-bad';
 
-        $source = (new Crawler)->getPageSource($site);
-        $links = (new Crawler)->getLinksInHtml($site, $source->html);
+        $source = (new Crawler)->getPageSource($article);
+        //$links = (new Crawler)->getLinksInHtml($site, $source->html);
+        $article = (new Crawler)->getArticleInHtml($source->html);
 
-        print_r($links);
+        print_r($article);
     }
 }
