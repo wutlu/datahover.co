@@ -66,7 +66,7 @@ class SearchController extends Controller
                     ],
                     'filter' => [
                         [
-                            'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-7 days') ] ]
+                            'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-1 days') ] ]
                         ]
                     ]
                 ]
