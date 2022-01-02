@@ -32,14 +32,25 @@
         drop.addClass('d-none').removeClass(obj.data.length ? 'd-none' : '')
         create.addClass('d-none').removeClass(obj.track.total < obj.track.limit ? 'd-none' : '')
 
-        if (obj.track.total < obj.track.limit)
+        if (obj.track.total == 0)
         {
-            app.info('track.create', function() {
+            driver.highlight({
+                element: '[data-name=create]',
+                popover: {
+                    title: 'First, create the criteria you want to track',
+                    position: 'left',
+                    showButtons: false,
+                }
+            })
+        }
+        else
+        {
+            app.info('track.list', function() {
                 driver.highlight({
-                    element: '[data-name=create]',
+                    element: '.accordion-header',
                     popover: {
-                        title: 'First, create the criteria you want to track',
-                        position: 'left',
+                        title: 'Api documents are below the cards',
+                        position: 'top',
                         showButtons: false,
                     }
                 })
@@ -93,6 +104,8 @@
 
         sourceUpdate()
 
+        driver.reset()
+    }).on('show.bs.collapse','#apiAccordion', function () {
         driver.reset()
     })
 @endpush

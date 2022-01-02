@@ -51,7 +51,7 @@ class UserController extends Controller
         $keys = [
             'search.api',
             'subscription.balance',
-            'track.create',
+            'track.list',
         ];
 
         $request->validate(

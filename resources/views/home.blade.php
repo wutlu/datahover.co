@@ -310,9 +310,9 @@
 									@endif
 								</ul>
 								@if ($plan->price > 0)
-									<a href="{{ route('user.gate') }}" class="btn btn-link">Choose Plan</a>
+									<a href="{{ route('user.gate') }}" class="btn btn-link shadow-none">Choose Plan</a>
 								@else
-									<a href="mailto:{{ config('etsetra.email') }}" class="btn btn-link">Contact Us</a>
+									<a href="mailto:{{ config('etsetra.email') }}" class="btn btn-link shadow-none">Contact Us</a>
 								@endif
 							</div>
 						</div>
