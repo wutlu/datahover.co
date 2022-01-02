@@ -20,6 +20,7 @@
         "animate.css": "^4.1.1",
         "block-ui": "^2.70.1",
         "bootstrap": "^5.1.0",
+        "driver.js": "^0.9.8",
         "jquery": "^3.6.0",
         "jquery.cookie": "^1.4.1",
         "laravel-echo": "^1.11.2",

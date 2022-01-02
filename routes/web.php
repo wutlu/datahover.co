@@ -17,7 +17,7 @@ Route::prefix('user')->group(function() {
 	Route::get('account', 'UserController@account')->name('user.account');
 	Route::post('api/secret-generator', 'UserController@apiSecretGenerator')->name('user.api.secret_generator');
 
-	Route::post('hide-info', 'UserController@hideInfo')->name('user.hide_info');
+	Route::post('info', 'UserController@info')->name('user.info');
 	Route::post('email-alerts', 'UserController@emailAlerts')->name('user.email_alerts');
 	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
 });

@@ -2,6 +2,7 @@
 @import 'select2';
 @import 'select2-bootstrap-5-theme';
 @import 'animate.css';
+@import 'driver.js/dist/driver.min.css';
 
 :root {
   --animate-delay: 400ms;
@@ -348,4 +349,13 @@ body.drawer a.drawer > .material-icons--before::before {
 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected,
 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
   background-color: #18a0fb !important;
+}
+
+/**
+ * DriverJs
+ */
+.driver-popover-title {
+  margin: 0 !important;
+  font-weight: normal !important;
+  font-size: 16px !important;
 }

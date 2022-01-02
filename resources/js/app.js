@@ -1,6 +1,7 @@
 import 'jquery.cookie';
 import 'block-ui';
 import 'select2';
+import Driver from 'driver.js';
 import Test from './components/test.js';
 
 global.cookie = require('jquery.cookie');
@@ -827,6 +828,30 @@ $('.dropdown').on('show.bs.dropdown', function () {
     $('body').removeClass('drawer')
 })
 
+let info_fn;
+let info = function(key, fn, save)
+{
+    etsetraAjax(
+        $(
+            '<div />',
+            {
+                'data-action': routes.info,
+                'data-callback': '__info_driver',
+                'data-save': save ? 'on' : '',
+                'data-key': key
+            }
+        )
+    )
+
+    info_fn = fn;
+}
+
+let __info_driver = function(__, obj)
+{
+    if (!obj.data.have)
+        eval(info_fn)()
+}
+
 let nl2br = function(str, is_xhtml)
 {
     if (typeof str === 'undefined' || str === null)
@@ -851,6 +876,8 @@ let app = (function() {
         decrement,
         zIndexer,
         nl2br,
+        Driver,
+        info,
     }
 })()
 

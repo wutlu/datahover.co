@@ -18,6 +18,8 @@
 @endpush
 
 @push('js')
+    const driver = new app.Driver();
+
 	function __subscription_details(__, obj)
 	{
 		let plan = obj.user.subscription.plan;
@@ -44,6 +46,20 @@
 		}
 
 		selectPlan()
+
+		if (!obj.user.balance)
+		{
+            app.info('subscription.balance', function() {
+                driver.highlight({
+                    element: '[data-name=recharge]',
+                    popover: {
+                        title: 'Load balance first',
+                        position: 'left',
+                        showButtons: false,
+                    }
+                })
+            })
+		}
 	}
 
 	function __items(__, o)
@@ -71,15 +87,15 @@
 		$(this).find('input[name=plan]').prop('checked', true)
 
 		selectPlan()
-	})
-
-    $(document).ready(function() {
+	}).ready(function() {
         $('select[name=country]').select2(
             {
                 dropdownParent: $('#recharge-modal'),
                 theme: 'bootstrap-5'
             }
         );
+    }).on('show.bs.modal','#recharge-modal', function () {
+        driver.reset()
     })
 @endpush
 
@@ -213,7 +229,8 @@
 									href="#"
 									class="btn btn-outline-success rounded-0 shadow-sm"
 									data-bs-toggle="modal"
-									data-bs-target="#recharge-modal">
+									data-bs-target="#recharge-modal"
+									data-name="recharge">
 									<i class="material-icons" data-bs-toggle="tooltip" data-bs-placement="left" title="Load Balance">add</i>
 								</a>
 							</div>

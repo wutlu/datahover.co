@@ -9,69 +9,6 @@
 	]
 )
 
-@push('js_hide')
-	$(document).ready(function() {
-		@if (!$greetingWelcome)
-			let modal = $('#greetingModal').modal('show');
-		@endif
-
-		$('#greetingCarousel').on('slide.bs.carousel', function (e) {
-			let trigger = $('[data-bs-target="#greetingCarousel"]');
-
-			if (e.to == 2)
-				trigger.addClass('d-none')
-			else
-				trigger.removeClass('d-none')
-		})
-	})
-@endpush
-
-@push('css')
-
-@endpush
-
-@push('footer')
-<!-- 	<div
-		id="greetingModal"
-		class="modal fade"
-		aria-hidden="true"
-		aria-labelledby="greetingModalLabel"
-		tabindex="-1"
-		data-bs-backdrop="static"
-		data-bs-keyboard="false">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content shadow border-0 rounded-0">
-				<div class="modal-header border-0">
-					<h5 class="modal-title unselectable">Welcome</h5>
-					<a
-						href="#"
-						class="link-dark"
-						data-bs-target="#greetingCarousel"
-						data-bs-slide="next">
-						<i class="material-icons">arrow_forward_ios</i>
-					</a>
-				</div>
-				<div class="modal-body">
-
-
-					<div class="d-flex justify-content-end">
-						<label class="form-check d-flex align-items-center gap-2 p-0">
-							<small>Don't show it again</small>
-							<input
-								class="form-check-input rounded-0 shadow-sm m-0"
-								autocomplete="off"
-								data-action="{{ route('user.hide_info') }}"
-								type="checkbox"
-								name="info_key"
-								value="greeting.welcome" />
-						</label>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-@endpush
-
 @section('content')
 	<div class="card bg-transparent border-0 rounded-0 mb-4">
 		<div id="greetingCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">

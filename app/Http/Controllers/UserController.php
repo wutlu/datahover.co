@@ -33,7 +33,7 @@ class UserController extends Controller
             [
                 'account',
                 'apiSecretGenerator',
-                'hideInfo',
+                'info',
                 'gateExit',
                 'emailAlerts',
             ]
@@ -41,35 +41,43 @@ class UserController extends Controller
     }
 
     /**
-     * User info modals
+     * User driver info
      * 
      * @param Illuminate\Http\Request $request
      * @return object
      */
-    public function hideInfo(Request $request)
+    public function info(Request $request)
     {
+        $keys = [
+            'search.api',
+            'subscription.balance',
+            'track.create',
+        ];
+
         $request->validate(
             [
-                'info_key' => 'nullable|string|in:greeting.welcome'
+                'key' => 'nullable|string|in:'.implode(',', $keys),
+                'save' => 'nullable|string|in:on'
             ]
         );
 
-        $info = HideInfo::where([ 'user_id' => $request->user()->id, 'key' => $request->info_key ])->first();
+        $exists = HideInfo::where([ 'user_id' => $request->user()->id, 'key' => $request->key ])->exists();
 
-        if ($info)
-            $info->delete();
-        else
+        if (!$exists && $request->save)
         {
             HideInfo::firstOrCreate(
                 [
                     'user_id' => $request->user()->id,
-                    'key' => $request->info_key
-                ]
+                    'key' => $request->key
+                ] 
             );
         }
 
         return [
-            'success' => 'ok'
+            'success' => 'ok',
+            'data' => [
+                'have' => $exists
+            ]
         ];
     }
 

@@ -98,7 +98,8 @@
         };
         let routes = {
             'base': '{{ config('app.url') }}',
-            'index': '{{ route('index') }}'
+            'index': '{{ route('index') }}',
+            'info': '{{ route('user.info') }}',
         };
     </script>
     <script src="{{ asset('js/app.min.js') }}"></script>

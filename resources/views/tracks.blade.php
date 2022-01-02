@@ -11,6 +11,8 @@
 )
 
 @push('js')
+    const driver = new app.Driver();
+
     let __items = function(__, o)
     {
         __.find('[data-name=valid]')
@@ -29,6 +31,20 @@
 
         drop.addClass('d-none').removeClass(obj.data.length ? 'd-none' : '')
         create.addClass('d-none').removeClass(obj.track.total < obj.track.limit ? 'd-none' : '')
+
+        if (obj.track.total < obj.track.limit)
+        {
+            app.info('track.create', function() {
+                driver.highlight({
+                    element: '[data-name=create]',
+                    popover: {
+                        title: 'First, create the criteria you want to track',
+                        position: 'left',
+                        showButtons: false,
+                    }
+                })
+            }, true)
+        }
     }
 
     let sourceUpdate = function()
@@ -76,6 +92,8 @@
             form[0].reset()
 
         sourceUpdate()
+
+        driver.reset()
     })
 @endpush
 

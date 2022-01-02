@@ -41,13 +41,12 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'foxnews.com';
-        $article = 'foxnews.com/politics/ron-klain-bidens-chief-of-staff-retweets-column-calling-2021-not-all-bad';
+        $site = 'economist.com/science-and-technology/2022/01/01/omicron-causes-a-less-severe-illness-than-earlier-variants';
 
-        $source = (new Crawler)->getPageSource($article);
-        //$links = (new Crawler)->getLinksInHtml($site, $source->html);
-        $article = (new Crawler)->getArticleInHtml($source->html);
+        $source = (new Crawler)->getPageSource($site);
+        // $xxx = (new Crawler)->getLinksInHtml($site, $source->html);
+        $xxx = (new Crawler)->getArticleInHtml($source->html);
 
-        print_r($article);
+        print_r($xxx);
     }
 }

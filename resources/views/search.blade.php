@@ -20,6 +20,23 @@
 	{
 		__.html(JSON.stringify(o, null, 2))
 	}
+
+    const driver = new app.Driver();
+
+    app.info('search.api', function() {
+        driver.highlight({
+            element: '.accordion-header',
+            popover: {
+                title: 'Api documents are below the cards',
+                position: 'top',
+                showButtons: false,
+            }
+        })
+    }, true)
+
+    $(document).on('show.bs.collapse','#apiAccordion', function () {
+        driver.reset()
+    })
 @endpush
 
 @push('footer')
