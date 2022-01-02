@@ -39,5 +39,5 @@
 		<h1 class="text-center text-white fw-bold mb-0">{{ $title }}</h1>
 		{{ $slot }}
 	</div>
-	<svg xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="none" viewBox="0 0 1680 40" class="position-absolute width-full z-1" style="bottom: -1px;"><path d="M0 40h1680V30S1340 0 840 0 0 30 0 30z" fill="#eeeded"></path></svg>
+	<svg xmlns="http://www.w3.org/2000/svg" fill="none" preserveAspectRatio="none" viewBox="0 0 1680 40" class="position-absolute width-full z-1" style="bottom: -1px;"><path d="M0 40h1680V30S1340 0 840 0 0 30 0 30z" fill="#f8f9fa"></path></svg>
 </header>
