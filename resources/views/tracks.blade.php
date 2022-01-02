@@ -10,6 +10,21 @@
     ]
 )
 
+@push('css')
+    .source-selectors > .btn {
+        border-width: 0 0 2px 0;
+        box-shadow: none !important;
+    }
+    .source-selectors > .btn:hover {
+        border-color: #6c757d;
+    }
+    .source-selectors > .btn-check:checked + .btn,
+    source-selectors > .btn-check:active + .btn {
+        border-color: #6c757d;
+        background-color: #f8f9fa;
+    }
+@endpush
+
 @push('js')
     const driver = new app.Driver();
 
@@ -171,20 +186,6 @@
     </div>
 @endpush
 
-@push('css')
-    .source-selectors > .btn {
-        border-width: 0 0 2px 0;
-        box-shadow: none !important;
-    }
-    .source-selectors > .btn:hover {
-        border-color: #6c757d;
-    }
-    .source-selectors > .btn-check:checked + .btn,
-    source-selectors > .btn-check:active + .btn {
-        border-color: #6c757d;
-    }
-@endpush
-
 @section('content')
     <div class="card rounded-0 shadow-sm" id="masterCard">
         <div class="card-body">
@@ -233,6 +234,7 @@
                     type="checkbox"
                     class="btn-check"
                     name="sources"
+                    checked
                     data-alias="source"
                     data-multiple="true"
                     data-blockui="#masterCard"

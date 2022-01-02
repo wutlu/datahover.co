@@ -204,13 +204,15 @@ input[type=number].hide-arrows {
   z-index: 99990;
 }
 .toast-wrapper > .toast {
+  border-radius: 0;
   transition: all 200ms cubic-bezier(.4, .0, .2, 1);
 }
 
 @media (min-width: 576px) {
   .toast-wrapper > .toast {
     max-width: 340px;
-    margin-bottom: 1rem;
+    margin-bottom: .5rem;
+    border-radius: .25rem;
     opacity: .8;
   }
 }

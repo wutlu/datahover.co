@@ -638,9 +638,10 @@ let toast = function(message, type)
     let toast = toast_wrapper.children('#' + id);
     let tmp = $('<div />', {
         'id': id,
-        'class': 'toast w-100 shadow-sm border-0 rounded-0 text-white bg-' + type,
+        'class': 'toast w-100 shadow-sm border-0 text-white bg-' + type,
         'role': 'alert',
-        'data-bs-autohide': 'false',
+        'data-bs-autohide': 'true',
+        'data-bs-delay': '3000',
         'aria-live': 'assertive',
         'aria-atomic': 'true',
         'html': $('<div />', {
