@@ -1,4 +1,10 @@
-@extends('layouts.master')
+@extends(
+	'layouts.master',
+	[
+		'description' => 'Datahover, provides data to those who need social media and news data.',
+		'keywords' => 'social media and news data, make website API, fetch news sites, API builder, API for website, webpage to API, website to API, domain to API'
+	]
+)
 
 @push('css')
 	header.master {
