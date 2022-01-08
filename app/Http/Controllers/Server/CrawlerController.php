@@ -215,7 +215,7 @@ class CrawlerController extends Controller
 
         if (@$schema->headline && @$schema->articleBody)
         {
-            $data->title = $schema->headline;
+            // $data->title = $schema->headline;
             $data->article = $schema->articleBody;
             $data->image = @$schema->image->url ?? null;
             $data->created_at = @$schema->datePublished ? (new DT)->nowAt($schema->datePublished) : null;
