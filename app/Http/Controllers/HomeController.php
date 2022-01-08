@@ -40,8 +40,21 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
+        $sc = new SearchController;
+
+        $apis = [
+            'searchApi' => [
+                'name' => 'Search APi',
+                'method' => 'POST',
+                'route' => route('api.search'),
+                'params' => $sc->search_rules,
+            ],
+        ];
+
         return view('dashboard', [
-            'greetingWelcome' => HideInfo::where([ 'user_id' => auth()->user()->id, 'key' => 'greeting.welcome' ])->exists()
+            'rate_minutes' => $sc->rate_minutes,
+            'rate_limit' => $sc->rate_limit,
+            'apis' => $apis,
         ]);
     }
 
@@ -67,8 +80,8 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => "site:foxnews.com -title:\"fox news\" ($request->search)",
-            'take' => 4
+            'search' => "(site:foxnews.com OR site:nytimes.com) ($request->search)",
+            'take' => 9
         ]);
 
         return $response->body();

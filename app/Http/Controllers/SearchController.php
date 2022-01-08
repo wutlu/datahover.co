@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 use App\Models\DataPool;
 
@@ -23,24 +24,6 @@ class SearchController extends Controller
             'skip' => 'nullable|integer|max:1000000',
             'take' => 'nullable|integer|max:1000'
         ];
-    }
-
-    public function dashboard()
-    {
-        $apis = [
-            'searchApi' => [
-                'name' => 'Search APi',
-                'method' => 'POST',
-                'route' => route('api.search'),
-                'params' => $this->search_rules,
-            ],
-        ];
-
-        return view('search', [
-            'rate_minutes' => $this->rate_minutes,
-            'rate_limit' => $this->rate_limit,
-            'apis' => $apis,
-        ]);
     }
 
     public function searchApi(Request $request)

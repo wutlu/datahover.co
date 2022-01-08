@@ -168,7 +168,7 @@
 	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-1">Example Search API</h2>
-			<p class="lead text-dark mb-10">For testing, inquire at <strong class="fw-bold">foxnews.com</strong></p>
+			<p class="lead text-dark mb-10">For testing, inquire at <strong class="fw-bold">foxnews.com</strong> and <strong class="fw-bold">nytimes.com</strong></p>
 
 			<div class="form-floating mb-4 mw-400px">
 				<input
@@ -194,20 +194,23 @@
 	            data-take="10"
 	            data-include="search"
 	            data-each="#items">
-	            <div class="col-12 col-lg-6 each-model">
-					<div class="card shadow-sm mb-4">
+	            <div class="col-12 col-lg-6 col-xl-4 each-model pb-4">
+					<div class="card shadow-sm mb-4 h-100">
+						<img class="rounded-top img-fluid" data-col="image" alt="Image" />
 						<div class="card-body">
-							<div class="row">
-								<div class="col-12 col-sm-4 col-md-5">
-									<img class="img-fluid rounded shadow-sm mb-2" data-col="image" alt="Image" />
-								</div>
-								<div class="col-12 col-sm-8 col-md-7">
-									<h5 class="card-title">
-										<a href="#" data-col="title" class="link-dark" target="_blank"></a>
-									</h5>
-								</div>
-							</div>
-							<small data-name="text" class="d-block h-100px overflow-auto mb-2"></small>
+							<h6 class="card-title mb-0" data-col="title"></h6>
+						</div>
+						<div class="card-footer d-flex justify-content-between align-items-center">
+							<a href="#" target="_blank" data-name="link" class="link-dark d-flex align-items-center gap-1">
+								<i class="material-icons">travel_explore</i>
+								<small data-col="site"></small>
+							</a>
+							<a href="#" t class="link-dark" data-bs-toggle="collapse">
+								<i class="material-icons icon-rotate">expand_more</i>
+							</a>
+						</div>
+						<div class="collapse">
+							<div class="card-body small h-200px overflow-auto" data-col="text"></div>
 						</div>
 					</div>
 				</div>
@@ -351,6 +354,8 @@
 	function __items(__, o)
 	{
 		__.find('[data-name=text]').html(app.nl2br(o.text))
-		__.find('[data-col=title]').attr('href', '//' + o.link)
+		__.find('[data-name=link]').attr('href', '//' + o.link)
+		__.find('[data-bs-toggle=collapse]').attr('href', '#collapse-' + o.id)
+		__.find('.collapse').attr('id', 'collapse-' + o.id)
 	}
 @endpush

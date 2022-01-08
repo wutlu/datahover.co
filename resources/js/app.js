@@ -2,6 +2,7 @@ import 'jquery.cookie';
 import 'block-ui';
 import 'select2';
 import Driver from 'driver.js';
+
 import Test from './components/test.js';
 
 global.cookie = require('jquery.cookie');

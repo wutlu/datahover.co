@@ -47,10 +47,6 @@ $subscription = auth()->user()->subscription();
 				<i class="material-icons">scatter_plot</i>
 				Track List
 			</a>
-			<a href="{{ route('search.dashboard') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
-				<i class="material-icons">search</i>
-				Search Api
-			</a>
 			<a href="{{ route('logs') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">logo_dev</i>
 				Log Console

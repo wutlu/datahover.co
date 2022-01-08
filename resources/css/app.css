@@ -49,6 +49,13 @@ a {
 .material-icons.icon-md { font-size: 32px; }
 .material-icons.icon-lg { font-size: 48px; }
 
+[data-bs-toggle=collapse] > i.material-icons.icon-rotate {
+  transition: all 200ms cubic-bezier(.4, .0, .2, 1);
+}
+[data-bs-toggle=collapse][aria-expanded=true] > i.material-icons.icon-rotate {
+  transform: rotate(180deg);
+}
+
 /**
  * Helpers
  */
@@ -122,6 +129,7 @@ a {
 .w-400px { width: 400px; }
 .h-400px { height: 400px; }
 
+.mw-64px { max-width: 64px; }
 .mw-100px { max-width: 100px; }
 .mw-200px { max-width: 200px; }
 .mw-300px { max-width: 300px; }

@@ -40,7 +40,6 @@ Route::prefix('payments')->group(function() {
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 Route::get('log-console', 'LogController@view')->name('logs');
 Route::get('track-list', 'TrackController@dashboard')->name('track.dashboard');
-Route::get('search', 'SearchController@dashboard')->name('search.dashboard');
 
 Route::get('faq', 'FaqController@view')->name('faq.index');
 Route::post('faq', 'FaqController@list')->name('faq.list');
