@@ -79,5 +79,9 @@ return [
         'api_key' => env('DATAHOVER_API_KEY'),
         'api_secret' => env('DATAHOVER_API_SECRET'),
         'base_uri' => env('DATAHOVER_BASE_URI', 'https://datahover.co/api/v1')
+    ],
+
+    'smartlook' => [
+        'project_key' => env('SMARTLOOK_PROJECT_KEY'),
     ]
 ];
