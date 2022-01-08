@@ -237,7 +237,7 @@ class CrawlerController extends Controller
                     if ((@$meta['property'] == 'og:title' || @$meta['name'] == 'twitter:title' || @$meta['name'] == 'title') && @$meta['content'])
                         $title[] = $meta['content'];
                     elseif ((@$meta['property'] == 'og:description' || @$meta['name'] == 'twitter:description' || @$meta['name'] == 'description') && @$meta['content'])
-                        $article[] = $meta['content'];
+                        $article[strlen($meta['content'])] = $meta['content'];
                     elseif ((@$meta['property'] == 'og:image' || @$meta['name'] == 'twitter:image') && @$meta['content'])
                         $image[] = $meta['content'];
                 }
@@ -249,7 +249,18 @@ class CrawlerController extends Controller
             if (!$data->article)
             {
                 $paragraphs = $saw->get('article p')->toText();
-                $paragraphs = $paragraphs ?? (@$article[0] ?? null);
+
+                if (!$paragraphs)
+                {
+                    if (count($article))
+                    {
+                        krsort($article);
+
+                        $article = array_values($article);
+
+                        $paragraphs = $article[0];
+                    }
+                }
 
                 $data->article = trim($paragraphs);
             }
@@ -259,7 +270,8 @@ class CrawlerController extends Controller
 
             if (!$data->created_at)
             {
-                preg_match('/\d{4}.\d{1,2}.\d{1,2}.\d{1,2}:\d{1,2}:\d{1,2}/', $html, $created_at);
+                $years = implode('|', range(intval(date('Y', strtotime('-1 years'))), intval(date('Y', strtotime('+1 years')))));
+                preg_match('/('.($years).').\d{1,2}.\d{1,2}.\d{1,2}:\d{1,2}:\d{1,2}/', $html, $created_at);
 
                 $data->created_at = @$created_at[0] ? (new DT)->nowAt($created_at[0]) : null;
             }
