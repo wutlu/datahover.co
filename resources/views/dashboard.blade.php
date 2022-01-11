@@ -172,7 +172,7 @@
         driver.highlight({
             element: '.accordion-header',
             popover: {
-                title: 'Api documents are below the cards',
+                title: 'Click here for API document',
                 position: 'top',
                 showButtons: false,
             }
