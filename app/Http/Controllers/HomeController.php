@@ -28,7 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $plans = Plan::whereIn('name', [ 'Basic', 'Enterprise', 'Company' ])->orderBy('id', 'desc')->get();
+        $plans = Plan::whereIn('name', [ 'Basic', 'Enterprise', 'Company' ])->orderBy('id', 'asc')->get();
 
         return view('home', compact('plans'));
     }
