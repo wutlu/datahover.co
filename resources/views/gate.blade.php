@@ -55,7 +55,7 @@
 					@if (Session::has('error'))
 						<p class="alert text-danger border-0 text-center">{{ Session::get('error') }}</p>
 					@else
-						<p class="mb-3 text-muted small">{{ config('app.name') }} is a technical system that only concerns developers. Therefore, you can only sign up or login with GitHub. Click the button below and if you are not registered with Etsetra, we will create an account for you using your GitHub information. All users who go beyond this stage are deemed to have read and accepted the following rule pages.</p>
+						<p class="mb-3 text-muted small">{{ config('app.name') }} is a technical system that only concerns developers. Therefore, you can only sign up or login with GitHub. Click the button below and if you are not registered with {{ config('app.name') }}, we will create an account for you using your GitHub information. All users who go beyond this stage are deemed to have read and accepted the following rule pages.</p>
 						<div class="d-flex flex-column mb-3">
 							<a class="small" href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="text-dark text-decoration-none">Privacy Policy</a>
 							<a class="small" href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="text-dark text-decoration-none">Terms of Service</a>

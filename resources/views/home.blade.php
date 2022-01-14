@@ -151,7 +151,7 @@
 					<div>
 						<h3 class="display-6 d-table w-64px h-64px shadow-lg bg-dark text-white fw-bold d-flex align-items-center justify-content-center rounded-circle mb-2">3</h3>
 						<p class="lead mb-0">We collect the data we find in a common database</p>
-						<small class="text-muted">You have 1 days to receive the data</small>
+						<small class="text-muted">You have 1 day to receive the data</small>
 					</div>
 				</div>
 				<div>
@@ -182,7 +182,7 @@
                     data-action="true"
                     data-action-target="#items" />
 				<label for="search">Search news</label>
-				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 days</small>
+				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 day</small>
 			</div>
 
 	        <div
@@ -304,7 +304,7 @@
 									</li>
 									<li class="d-inline-flex align-items-center gap-2">
 										<i class="material-icons text-success">check</i>
-										<span class="h6 mb-0">Limitless filterable query</span>
+										<span class="h6 mb-0">Limitless filterable query and data</span>
 									</li>
 									@if ($plan->price > 0)
 										<li class="d-inline-flex align-items-center gap-2">
