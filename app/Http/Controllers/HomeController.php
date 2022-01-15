@@ -68,7 +68,7 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'search' => 'required|string|max:64'
+                'search' => 'required|string|max:32'
             ]
         );
 
@@ -80,7 +80,7 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => "biden",
+            'search' => $request->search,
             'take' => 10
         ]);
 
