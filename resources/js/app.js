@@ -504,7 +504,7 @@ let etsetraAjax = function(__)
                                     else if (x.is('img'))
                                         x.attr('src', value)
                                     else
-                                        x.text(value)
+                                        x.html(value)
                                 })
 
                                 eval('__' + each.attr('id'))(model, o, obj)

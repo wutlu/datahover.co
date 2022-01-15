@@ -80,8 +80,8 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => "(site:foxnews.com OR site:nytimes.com) ($request->search)",
-            'take' => 9
+            'search' => "biden",
+            'take' => 10
         ]);
 
         return $response->body();

@@ -167,24 +167,22 @@
 
 	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-1">Example Search API</h2>
-			<p class="lead text-dark mb-10">For testing, inquire at <strong class="fw-bold">foxnews.com</strong> and <strong class="fw-bold">nytimes.com</strong></p>
+			<h2 class="display-5 text-dark fw-bold mb-5">Example Search API</h2>
 
-			<div class="form-floating mb-4 mw-400px">
+			<div class="form-group mb-4 mw-400px">
+				<label for="search">Search query</label>
 				<input
 					type="text"
-					class="form-control shadow-sm"
+					class="form-control shadow-sm load"
 					name="search"
 					id="search"
-					value="biden"
-                    data-blockui="html"
+					value="biden lang:en"
                     data-reset="true"
-                    data-action="true"
-                    data-action-target="#items" />
-				<label for="search">Search news</label>
+                    data-action="{{ route('index.search') }}"
+                    data-callback="__results" />
 				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 day</small>
 			</div>
-
+{{-- 
 	        <div
 	            id="items"
 	            class="load row"
@@ -214,7 +212,7 @@
 						</div>
 					</div>
 				</div>
-	        </div>
+	        </div> --}}
 	        <small class="text-muted">API Response</small>
 			<pre class="mb-0 bg-grey rounded border border-1 p-2 shadow-sm h-400px overflow-auto" data-name="json"></pre>
 		</div>
