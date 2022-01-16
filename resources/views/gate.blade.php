@@ -46,9 +46,9 @@
 							<i class="material-icons icon-lg">person</i>
 						</div>
 						<span class="line constant"></span>
-						<div class="w-32px h-32px bg-danger text-white rounded-circle d-flex align-items-center justify-content-center mx-1">
+						<a href="{{ route('index') }}" class="w-32px h-32px bg-danger text-white rounded-circle d-flex align-items-center justify-content-center mx-1">
 							<i class="material-icons">clear</i>
-						</div>
+						</a>
 						<span class="line dashed"></span>
 						<img alt="GitHub" src="{{ asset('images/icons/github.png') }}" width="64" height="64" class="github-icon" />
 					</div>
