@@ -266,7 +266,7 @@
 	<section class="page-split position-relative" id="pricing">
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-1">Pricing</h2>
-			<p class="lead text-dark mb-10"><strong class="fw-bold">{{ config('app.name') }}</strong> is a price performance product</p>
+			<p class="lead text-dark mb-10"><strong class="fw-bold">{{ config('app.name') }}</strong> is a budget saver product</p>
 
 			<div class="row row-cols-1 row-cols-md-3 align-items-center">
 				@foreach ($plans as $key => $plan)
@@ -281,9 +281,12 @@
 
 								@if ($plan->price > 0)
 									<div class="d-flex align-items-end gap-2">
-										<span class="price fw-bold display-4">
-											{{ config('cashier.currency_symbol') }}<span data-name="price">{{ intval($plan->price) }}</span>
-										</span>
+										<div class="d-flex flex-column">
+											<span class="text-primary">For a short time</span>
+											<span class="price fw-bold display-4">
+												{{ config('cashier.currency_symbol') }}<span data-name="price">{{ intval($plan->price) }}</span>
+											</span>
+										</div>
 										<small class="text-muted h4">/Month</small>
 									</div>
 								@else

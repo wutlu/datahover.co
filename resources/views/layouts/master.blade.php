@@ -49,7 +49,7 @@
                             @if (is_array($route))
                                 <span class="btn-group">
                                     <a href="#" class="dropdown-toggle small link-dark fw-bold text-white" data-bs-toggle="dropdown">{{ $name }}</a>
-                                    <ul class="dropdown-menu shadow rounded-0 dropdown-menu-dark dropdown-menu-end border-0">
+                                    <ul class="dropdown-menu shadow dropdown-menu-end border-0">
                                         @foreach ($route as $n => $r)
                                             <li><a href="{{ $r }}" class="dropdown-item">{{ $n }}</a></li>
                                         @endforeach
