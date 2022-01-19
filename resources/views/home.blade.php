@@ -72,7 +72,9 @@
 				@auth
 					<a href="{{ route('dashboard') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Dashboard</a>
 				@else
-					<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start a free trial</a>
+					<div class="d-flex flex-wrap gap-2">
+						<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start a free trial</a>
+					</div>
 				@endif
 			</div>
 		</div>
@@ -169,50 +171,33 @@
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-5">Example Search API</h2>
 
-			<div class="form-group mb-4 mw-400px">
+			<div class="form-group">
 				<label for="search">Search query</label>
-				<input
+				<textarea
+					autocomplete="off" 
 					type="text"
-					class="form-control shadow-sm load"
+					class="form-control shadow-sm load h-100px"
 					name="search"
 					id="search"
-					value="biden lang:en"
                     data-reset="true"
                     data-action="{{ route('index.search') }}"
-                    data-callback="__results" />
+                    data-callback="__results">biden AND lang:en AND (!site:twitter.com OR !site:youtube.com OR site:nytimes.com)</textarea>
 				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 day</small>
 			</div>
-{{-- 
-	        <div
-	            id="items"
-	            class="load row"
-	            data-action="{{ route('index.search') }}"
-	            data-callback="__results"
-	            data-skip="0"
-	            data-take="10"
-	            data-include="search"
-	            data-each="#items">
-	            <div class="col-12 col-lg-6 col-xl-4 each-model pb-4">
-					<div class="card shadow-sm mb-4 h-100">
-						<img class="rounded-top img-fluid" data-col="image" alt="Image" />
-						<div class="card-body">
-							<h6 class="card-title mb-0" data-col="title"></h6>
-						</div>
-						<div class="card-footer d-flex justify-content-between align-items-center">
-							<a href="#" target="_blank" data-name="link" class="link-dark d-flex align-items-center gap-1">
-								<i class="material-icons">travel_explore</i>
-								<small data-col="site"></small>
-							</a>
-							<a href="#" t class="link-dark" data-bs-toggle="collapse">
-								<i class="material-icons icon-rotate">expand_more</i>
-							</a>
-						</div>
-						<div class="collapse">
-							<div class="card-body small h-200px overflow-auto" data-col="text"></div>
-						</div>
-					</div>
-				</div>
-	        </div> --}}
+			<div class="d-flex flex-wrap gap-2 mb-4">
+				<label class="d-flex align-items-center gap-2 unselectable">
+                    <input autocomplete="off"  class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:twitter.com" />
+                    twitter.com
+                </label>
+                <label class="d-flex align-items-center gap-2 unselectable">
+                    <input autocomplete="off"  class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:youtube.com" />
+                    youtube.com
+                </label>
+                <label class="d-flex align-items-center gap-2 unselectable">
+                    <input autocomplete="off"  checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:nytimes.com" />
+                    nytimes.com
+                </label>
+            </div>
 	        <small class="text-muted">API Response</small>
 			<pre class="mb-0 bg-grey rounded border border-1 p-2 shadow-sm h-400px overflow-auto" data-name="json"></pre>
 		</div>
@@ -359,4 +344,16 @@
 		__.find('[data-bs-toggle=collapse]').attr('href', '#collapse-' + o.id)
 		__.find('.collapse').attr('id', 'collapse-' + o.id)
 	}
+
+	$(document).on('change', 'input[name=domain]', function() {
+		let __ = $(this);
+		let search_input = $('textarea[name=search]');
+			search_input.text(
+				__.is(':checked') ?
+					search_input.text().replace('!' + __.val(), __.val()) :
+					search_input.text().replace(__.val(), '!' + __.val())
+			)
+
+		app.etsetraAjax(search_input)
+	})
 @endpush

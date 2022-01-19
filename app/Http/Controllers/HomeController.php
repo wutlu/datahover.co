@@ -68,7 +68,7 @@ class HomeController extends Controller
     {
         $request->validate(
             [
-                'search' => 'required|string|max:32'
+                'search' => 'required|string|max:128'
             ]
         );
 
