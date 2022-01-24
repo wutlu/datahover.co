@@ -48,7 +48,7 @@ class Minuter extends Command
             })
             ->where('source', 'instagram')
             ->where('type', 'hashtag')
-            ->where('created_at', '<=', (new DT)->nowAt('-6 hours'))
+            ->where('created_at', '<=', (new DT)->nowAt('-1 hours'))
             ->orderBy('id', 'asc')
             ->get();
 
