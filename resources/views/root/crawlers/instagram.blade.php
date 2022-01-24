@@ -261,12 +261,12 @@
                         </div>
                     </div>
                 </div>
+                <p class="text-danger bg-danger shadow-sm mb-0 px-2 small bg-opacity-25" data-col="error_reason"></p>
                 <div class="d-flex flex-column align-items-center justify-content-center gap-sm-3 gap-1 flex-sm-row bg-light shadow-sm">
                     <small class="text-muted"><small class="text-dark" data-col="error_hit">0</small> error</small>
                     <small class="text-muted"><small class="text-dark" data-col="request_hit">0</small> request</small>
                     <small class="text-muted"><small class="text-dark" data-col="request_at">0</small> request at</small>
                 </div>
-                <p class="text-danger mb-0" data-col="error_reason"></p>
             </label>
         </div>
         <a
