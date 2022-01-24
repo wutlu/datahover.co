@@ -197,7 +197,7 @@ class Taker extends Command
 			                        'user' => [
 			                            'id' => $item['media']['caption']['user']['pk'],
 			                            'name' => $item['media']['caption']['user']['username'],
-			                            'title' => $item['media']['caption']['user']['full_name'],
+			                            'title' => @$item['media']['caption']['user']['full_name'],
 			                            'image' => $item['media']['caption']['user']['profile_pic_url'],
 			                        ],
 			                        'created_at' => (new DT)->nowAt('@'.$item['media']['caption']['created_at_utc']),
@@ -255,7 +255,7 @@ class Taker extends Command
 			                            'user' => [
 			                                'id' => $comment['user']['pk'],
 			                                'name' => $comment['user']['username'],
-			                                'title' => $comment['user']['full_name'],
+			                                'title' => @$comment['user']['full_name'],
 			                                'image' => $comment['user']['profile_pic_url'],
 			                            ],
 			                            'created_at' => (new DT)->nowAt('@'.$comment['created_at_utc']),
