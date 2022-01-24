@@ -48,6 +48,7 @@ class Minuter extends Command
             })
             ->where('source', 'news')
             ->where('type', 'page')
+            ->where('created_at', '<=', (new DT)->nowAt('-6 hours'))
             ->orderBy('id', 'asc')
             ->get();
 

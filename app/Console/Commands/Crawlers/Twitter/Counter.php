@@ -48,6 +48,7 @@ class Counter extends Command
             })
             ->where('source', 'twitter')
             ->where('type', 'keyword')
+            ->where('created_at', '<=', (new DT)->nowAt('-10 minutes'))
             ->orderBy('id', 'asc')
             ->get();
 
