@@ -98,7 +98,7 @@ class Taker extends Command
     public function track(Track $track)
     {
         $account = InstagramAccount::where('status', 'normal')
-	        ->orderBy('request_at', 'asc')
+	        ->orderBy('request_hit', 'asc')
 	        ->first();
 
         if ($account)
