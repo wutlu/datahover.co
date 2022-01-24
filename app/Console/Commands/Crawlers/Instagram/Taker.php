@@ -84,7 +84,7 @@ class Taker extends Command
                 }
                 else
                     $this->error('This track does not belong to a current account.');
-            }
+            } 
         }
         else
             $this->info('The track to be tracked could not be found.');
@@ -98,7 +98,6 @@ class Taker extends Command
     public function track(Track $track)
     {
         $account = InstagramAccount::where('status', 'normal')
-        	->where('request_at', '<=', (new DT)->nowAt('-4 seconds'))
 	        ->orderBy('request_at', 'asc')
 	        ->first();
 
