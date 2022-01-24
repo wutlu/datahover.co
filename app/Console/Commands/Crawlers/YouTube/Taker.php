@@ -63,12 +63,12 @@ class Taker extends Command
 
                 if ($track->subscriptionEndDate() >= date('Y-m-d'))
                 {
-                    $this->track($track);
-
                     $track->request_at = (new DT)->nowAt();
                     $track->request_hit = $track->request_hit + 1;
                     $track->valid = true;
                     $track->save();
+
+                    $this->track($track);
                 }
                 else
                     $this->error('This track does not belong to a current account.');
