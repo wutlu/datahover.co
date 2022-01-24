@@ -1,8 +1,9 @@
 @extends(
 	'layouts.master',
 	[
-		'description' => 'Datahover, provides data to those who need social media and news data.',
-		'keywords' => 'social media and news data, make website API, fetch news sites, API builder, API for website, webpage to API, website to API, domain to API'
+		'description' => 'Get reliable real-time data from Social Media Search APIs for Twitter, YouTube, and News Sites',
+		'keywords' => 'api social media, social media apis, social media api, api for social media, social media monitoring api, social media search api, social media data api, list of social media apis, social network api, social media scraping api, datahover, datahover.co, data hover',
+		'title' => 'Datahover - Social Media APIs are reliable solutions for social media monitoring that provide you with accurate data from social networks',
 	]
 )
 
@@ -73,7 +74,8 @@
 					<a href="{{ route('dashboard') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Dashboard</a>
 				@else
 					<div class="d-flex flex-wrap gap-2">
-						<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start a free trial</a>
+						<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start free trial</a>
+						<a href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Try it</a>
 					</div>
 				@endif
 			</div>
@@ -169,7 +171,8 @@
 
 	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-5">Example Search API</h2>
+			<h2 class="display-5 text-dark fw-bold mb-0">Try Search API</h2>
+			<h4 class="text-muted fw-bold mb-5">SO EASY</h4>
 
 			<div class="form-group">
 				<label for="search">Search query</label>
@@ -200,6 +203,7 @@
             </div>
 	        <small class="text-muted">API Response</small>
 			<pre class="mb-0 bg-grey rounded border border-1 p-2 shadow-sm h-400px overflow-auto" data-name="json"></pre>
+			<small class="text-muted">10 data is displayed for trial purposes.</small>
 		</div>
 		<a href="#apis" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
@@ -239,7 +243,7 @@
 			</div>
 			<a
 				href="#"
-				class="btn btn-light shadow-sm px-4 rounded-pill"
+				class="btn btn-outline-info shadow-sm px-4 rounded-pill"
 				data-bs-toggle="modal"
 				data-bs-target="#trackInfoModal">What is track?</a>
 		</div>

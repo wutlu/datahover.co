@@ -15,20 +15,21 @@
     <link rel="canonical" href="{{ url()->current() }}" />
 
     @isset($description)
-    <meta name="description" content="{{ $description }}" />
+        <meta name="description" content="{{ $description }}" />
     @endisset
 
     @isset($keywords)
-    <meta name="keywords" content="{{ $keywords }}" />
+        <meta name="keywords" content="{{ $keywords }}" />
     @endisset
 
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}"/>
 
     @isset($description)
-    <meta property="og:description" content="{{ $description }}" />
+        <meta property="og:description" content="{{ $description }}" />
     @endisset
 
-    <meta property="og:image" content="{{ asset('images/logo.svg') }}" />
+    <meta property="og:image" content="{{ asset('images/home-preview.jpg') }}" />
 
     @stack('head')
 

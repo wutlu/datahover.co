@@ -33,4 +33,12 @@ return [
 		],
 		'gains' => 'At the end of this job you store "Public News"'
 	],
+	'instagram' => [
+		'name' => 'Instagram',
+		'icon' => 'images/icons/instagram.png',
+		'tracks' => [
+			'hashtag' => [ 'required', 'regex:/^[a-zA-Z0-9]{3,24}$/i' ],
+		],
+		'gains' => 'At the end of this job you store "Public Instagram Text Contents and Public Instagram Comments"'
+	],
 ];

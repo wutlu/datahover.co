@@ -58,6 +58,14 @@ Route::prefix('crawlers')->namespace('Crawlers')->group(function() {
 		Route::post('tokens/delete', 'TwitterController@deleteToken')->name('crawlers.twitter.tokens.delete');
 	});
 
+	Route::prefix('instagram')->group(function() {
+		Route::get('/', 'InstagramController@view')->name('crawlers.instagram');
+		Route::post('accounts', 'InstagramController@accounts')->name('crawlers.instagram.accounts');
+		Route::post('accounts/action', 'InstagramController@actionAccount')->name('crawlers.instagram.accounts.action');
+		Route::post('accounts/get', 'InstagramController@getAccount')->name('crawlers.instagram.accounts.get');
+		Route::post('accounts/delete', 'InstagramController@deleteAccount')->name('crawlers.instagram.accounts.delete');
+	});
+
 	Route::prefix('facebook')->group(function() {
 		Route::get('/', 'FacebookController@view')->name('crawlers.facebook');
 	});

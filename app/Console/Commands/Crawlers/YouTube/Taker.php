@@ -4,8 +4,6 @@ namespace App\Console\Commands\Crawlers\YouTube;
 
 use Illuminate\Console\Command;
 
-use App\Jobs\Crawlers\YouTube\YouTubeTakerJob;
-
 use App\Models\Track;
 use Etsetra\Library\DateTime as DT;
 use Etsetra\Elasticsearch\Console\BulkApi;

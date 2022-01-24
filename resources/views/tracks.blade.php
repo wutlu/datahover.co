@@ -170,7 +170,13 @@
                         <div class="form-floating mb-2">
                             <input disabled type="text" class="form-control shadow-sm rounded-0" name="value" id="value" />
                             <label for="value">{{ __('validation.attributes.value') }}</label>
-                            <small class="text-muted">Keyword, domain, profile url etc. (Value differs depending on the source.)</small>
+                            <small class="text-muted">Accepted value properties:</small>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item text-muted p-0 small d-flex align-items-center gap-2 border-0"><i class="material-icons icon-sm">info</i> <span>Keyword, domain, profile, hashtag, url etc.</span></li>
+                                <li class="list-group-item text-muted p-0 small d-flex align-items-center gap-2 border-0"><i class="material-icons icon-sm">info</i> <span>Value differs depending on the source.</span></li>
+                                <li class="list-group-item text-muted p-0 small d-flex align-items-center gap-2 border-0"><i class="material-icons icon-sm">info</i> <span>For <strong>hashtag</strong> type, do not put a square at the beginning.</span></li>
+                                <li class="list-group-item text-muted p-0 small d-flex align-items-center gap-2 border-0"><i class="material-icons icon-sm">info</i> <span>Specify only the <strong>domain</strong> for the news site.</span></li>
+                            </ul>
                         </div>
                         <div class="alert alert-warning rounded-0 shadow-sm mb-4 d-flex align-items-center gap-3">
                             <i class="material-icons icon-md">warning</i>

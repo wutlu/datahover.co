@@ -124,6 +124,21 @@ class Kernel extends ConsoleKernel
 
 
 
+        # Instagram Trigger
+        $schedule->command('instagram:taker')
+                 ->everyMinute()
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('instagram.status', true) == 'on' ? false : true; });
+        # Instagram Minuter
+        $schedule->command('instagram:minuter')
+                 ->everyTenMinutes()
+                 ->withoutOverlapping()
+                 ->runInBackground()
+                 ->skip(function() { return (new Option)->get('instagram.status', true) == 'on' ? false : true; });
+
+
+
         # Elasticsearch Check
         $schedule->command('elasticsearch:check')
                  ->everyTenMinutes()

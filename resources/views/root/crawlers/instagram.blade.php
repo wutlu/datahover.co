@@ -1,12 +1,12 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'Twitter Settings',
+        'title' => 'Instagram Settings',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
             'Root' => route('dashboard'),
-            'Twitter Settings' => '#',
+            'Instagram Settings' => '#',
         ]
     ]
 )
@@ -14,18 +14,16 @@
 @push('js')
     let __items = function(__, o)
     {
-        let status = __.find('[data-name=status]').removeClass('text-success text-muted text-danger text-info text-warning');
-            status.html(o.status)
+        let status = __.find('[data-col=status]').removeClass('text-success text-danger text-warning');
 
         switch (o.status)
         {
-            case 'working': status.addClass('text-success'); break;
-            case 'not_working': status.addClass('text-muted'); break;
+            case 'normal': status.addClass('text-success'); break;
+            case 'authenticate': status.addClass('text-warning'); break;
             case 'error': status.addClass('text-danger'); break;
-            case 'restart': status.addClass('text-info'); break;
-            case 'stop': status.addClass('text-danger'); break;
-            case 'start': status.addClass('text-warning'); break;
         }
+
+        __.find('[data-name=edit]').data('id', o.id)
     }
 
     let __results = function(__, obj)
@@ -37,9 +35,11 @@
         drop.addClass('d-none').removeClass(obj.data.length ? 'd-none' : '')
     }
 
-    let __create = function(__, obj)
+    let __action = function(__, obj)
     {
-        $('#createModal').modal('hide')
+        $('#actionModal').modal('hide')
+
+        app.etsetraAjax($('#items').data('skip', 0))
     }
 
     let __status = function(__, obj)
@@ -55,20 +55,40 @@
 
         app.etsetraAjax($('#items').data('skip', 0))
     }
+
+    let __edit = function(__, obj)
+    {
+        let modal = $('#actionModal');
+            modal.find('.modal-title').html('Edit Account')
+            modal.find('input[name=id]').val(obj.data.id)
+            modal.find('input[name=email]').val(obj.data.email)
+            modal.find('input[name=password]').val(obj.data.password)
+            modal.find('input[name=sessionid]').val(obj.data.sessionid)
+            modal.find('button[type=submit]').html('Update')
+            modal.modal('show')
+    }
+
+    $(document).on('click', '[data-name=action]', function() {
+        let modal = $('#actionModal');
+            modal.find('form')[0].reset()
+            modal.find('.modal-title').html('Add Account')
+            modal.find('button[type=submit]').html('Add')
+            modal.modal('show')
+    })
 @endpush
 
 @push('footer')
     <div
-        id="createModal"
+        id="actionModal"
         class="modal"
         data-bs-backdrop="static"
         aria-hidden="true"
-        aria-labelledby="createModalLabel"
+        aria-labelledby="actionModalLabel"
         tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content shadow border-0 rounded-0">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title">Create Token</h5>
+                    <h5 class="modal-title"></h5>
                     <button
                         type="button"
                         class="btn-close rounded-circle"
@@ -77,25 +97,28 @@
                 </div>
                 <div class="modal-body">
                     <form
-                        id="createForm"
+                        id="actionForm"
                         autocomplete="off"
                         method="post"
                         action="#"
-                        data-blockui="#createModal->find(.modal-content)"
-                        data-callback="__create"
-                        data-action="{{ route('crawlers.twitter.tokens.create') }}">
-
+                        data-blockui="#actionModal->find(.modal-content)"
+                        data-callback="__action"
+                        data-action="{{ route('crawlers.instagram.accounts.action') }}">
+                        <input type="hidden" name="id" />
 					    <div class="form-floating mb-2">
-					    	<input type="text" class="form-control rounded-0" name="screen_name" id="screen_name" />
-					    	<label for="screen_name">Screen Name</label>
+					    	<input type="text" class="form-control rounded-0" name="email" id="email" />
+					    	<label for="email">E-mail</label>
 					    </div>
-					    <div class="form-floating mb-2">
-					    	<input type="password" class="form-control rounded-0" name="password" id="password" />
-					    	<label for="password">Password</label>
-					    </div>
-				    	<small class="text-muted mb-4 d-block">Connect to your Twitter account. There may be several accounts that appear to be linked in your account. Please do not turn them off.</small>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control rounded-0" name="password" id="password" autocomplete="off" />
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control rounded-0" name="sessionid" id="sessionid" />
+                            <label for="sessionid">Session Id</label>
+                        </div>
 
-                        <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0 w-100">Connect and Create</button>
+                        <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0 w-100"></button>
                     </form>
                 </div>
             </div>
@@ -125,7 +148,7 @@
                         autocomplete="off"
                         method="post"
                         action="#"
-                        data-key="twitter.status"
+                        data-key="instagram.status"
                         data-blockui="#statusModal->find(.modal-content)"
                         data-callback="__status"
                         data-action="{{ route('option.update') }}">
@@ -153,7 +176,7 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
-                    <span class="card-title text-uppercase h6 fw-bold mb-0">Twitter Tokens</span>
+                    <span class="card-title text-uppercase h6 fw-bold mb-0">Instagram Accounts</span>
                     <small class="text-muted">
                         Total <span data-name="total">0</span>
                     </small>
@@ -167,13 +190,11 @@
                         data-reset="true"
                         data-action="true"
                         data-action-target="#items"
-                        placeholder="Screen Name" />
+                        placeholder="Search" />
                     <a
                         href="#"
                         class="btn btn-outline-success btn-sm shadow-sm rounded-0"
-                        data-name="create"
-                        data-bs-toggle="modal"
-                        data-bs-target="#createModal">
+                        data-name="action">
                         <i class="material-icons icon-sm">add</i>
                     </a>
                     <a
@@ -181,7 +202,7 @@
                         class="btn btn-outline-danger btn-sm shadow-sm rounded-0 d-none"
                         data-name="drop"
                         data-include="id"
-                        data-action="{{ route('crawlers.twitter.tokens.delete') }}"
+                        data-action="{{ route('crawlers.instagram.accounts.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
                         data-confirmation="Do you want to delete the selected records?">
@@ -201,7 +222,7 @@
         <div
             id="items"
             class="list-group list-group-flush load border-0"
-            data-action="{{ route('crawlers.twitter.tokens') }}"
+            data-action="{{ route('crawlers.instagram.accounts') }}"
             data-callback="__results"
             data-skip="0"
             data-take="10"
@@ -223,27 +244,27 @@
                             value="0"
                             data-col="id" />
                     </div>
-                    <div class="d-flex flex-column">
-                        <span>
-                            <span class="text-muted">User</span>
-                            <span data-col="screen_name" class="fw-bold"></span>
-                            <small class="text-muted">
-                                (<span data-col="device"></span>)
-                            </small>
-                        </span>
-                        <span>
-                            <span class="text-muted">Pass</span>
-                            <span data-col="password" class="blur-2 blur-hover"></span>
-                        </span>
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between">
+                            <small class="text-muted">E-mail</small>
+                            <small data-col="status"></small>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span data-col="email" class="fw-bold"></span>
+                            <a
+                                href="#"
+                                class="link-dark"
+                                data-name="edit"
+                                data-callback="__edit"
+                                data-blockui="#masterCard"
+                                data-action="{{ route('crawlers.instagram.accounts.get') }}">Edit</a>
+                        </div>
                     </div>
-                    <div class="ms-auto">
-                        <small class="text-end d-block text-muted">
-                            <span data-col="error_hit"></span>
-                            error
-                        </small>
-                        <small class="text-end d-block text-muted" data-col="type"></small>
-                        <small class="text-end d-block" data-name="status"></small>
-                    </div>
+                </div>
+                <div class="d-flex flex-column align-items-center justify-content-center gap-sm-3 gap-1 flex-sm-row bg-light shadow-sm">
+                    <small class="text-muted"><small class="text-dark" data-col="error_hit">0</small> error</small>
+                    <small class="text-muted"><small class="text-dark" data-col="request_hit">0</small> request</small>
+                    <small class="text-muted"><small class="text-dark" data-col="request_at">0</small> request at</small>
                 </div>
                 <p class="text-danger mb-0" data-col="error_reason"></p>
             </label>

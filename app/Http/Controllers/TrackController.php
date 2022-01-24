@@ -104,7 +104,7 @@ class TrackController extends Controller
 
             preg_match($pattern, $request->value, $match);
 
-            if ($request->type != 'keyword')
+            if ($request->type != 'keyword' && $request->type != 'hashtag')
                 $request->value = Str::of($match[0])->finish('/');
 
             $track = Track::where(

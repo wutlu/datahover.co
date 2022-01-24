@@ -27,6 +27,7 @@ class OptionTableSeeder extends Seeder
             'twitter.status' => 'off',
             'news.status' => 'off',
             'youtube.status' => 'off',
+            'instagram.status' => 'off',
         ];
 
         foreach ($options as $key => $value)

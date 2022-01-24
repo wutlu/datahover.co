@@ -101,7 +101,7 @@ class TwitterController extends Controller
         if (@$access)
             $return['log'] = $access;
 
-        return $return;;
+        return $return;
     }
 
     public function deleteToken(Request $request)

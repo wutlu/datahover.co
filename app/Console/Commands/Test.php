@@ -7,6 +7,9 @@ use App\Http\Controllers\Server\CrawlerController as Crawler;
 use Alaouy\Youtube\Facades\Youtube;
 use App\Models\DataPool;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use LanguageDetection\Language;
+use Etsetra\Library\DateTime as DT;
 
 class Test extends Command
 {
@@ -41,12 +44,28 @@ class Test extends Command
      */
     public function handle()
     {
-        $site = 'economist.com/science-and-technology/2022/01/01/omicron-causes-a-less-severe-illness-than-earlier-variants';
+        $http = Http::withOptions(
+            [
+                'proxy' => 'MyFxB6:qHMowG@45.57.180.218:8000'
+            ]
+        )
+        ->withHeaders(
+            [
+                'Cookie' => 'sessionid=3540610834%3AAB8OfCPovfDu9h%3A12'
+            ]
+        )
+        ->get('https://www.instagram.com/explore/tags/ankara/?__a=1');
 
-        $source = (new Crawler)->getPageSource($site);
-        // $xxx = (new Crawler)->getLinksInHtml($site, $source->html);
-        $xxx = (new Crawler)->getArticleInHtml($source->html);
+        if ($http->successful())
+        {
+            if ($obj = @$http->json()['data'])
+            {
 
-        print_r($xxx);
+
+                print_r($items);
+
+                echo count($items);
+            }
+        }
     }
 }
