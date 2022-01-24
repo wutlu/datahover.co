@@ -94,7 +94,7 @@
 			<div class="d-flex flex-wrap align-items-center gap-4 mb-4">
 				@foreach (config('sources') as $key => $item)
 				<div class="d-flex flex-column align-items-center gap-2">
-					<img alt="{{ $item['name'] }}" src="{{ asset($item['icon']) }}" width="48" height="48" />
+					<img alt="{{ $item['name'] }}" src="{{ asset($item['icon']) }}" width="32" height="32" />
 					<small>{{ $item['name'] }}</small>
 				</div>
 				@endforeach
@@ -184,20 +184,24 @@
 					id="search"
                     data-reset="true"
                     data-action="{{ route('index.search') }}"
-                    data-callback="__results">biden AND lang:en AND (!site:twitter.com OR !site:youtube.com OR site:nytimes.com)</textarea>
+                    data-callback="__results">biden AND lang:en AND (!site:twitter.com OR !site:youtube.com OR site:instagram.com OR site:nytimes.com)</textarea>
 				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 day</small>
 			</div>
 			<div class="d-flex flex-wrap gap-2 mb-4">
 				<label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off"  class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:twitter.com" />
+                    <input autocomplete="off" class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:twitter.com" />
                     twitter.com
                 </label>
                 <label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off"  class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:youtube.com" />
+                    <input autocomplete="off" class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:youtube.com" />
                     youtube.com
                 </label>
                 <label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off"  checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:nytimes.com" />
+                    <input autocomplete="off" checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:instagram.com" />
+                    instagram.com
+                </label>
+                <label class="d-flex align-items-center gap-2 unselectable">
+                    <input autocomplete="off" checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:nytimes.com" />
                     nytimes.com
                 </label>
             </div>
