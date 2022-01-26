@@ -58,7 +58,7 @@ class Taker extends Command
 			->where('source', 'instagram')
 			->where('type', 'hashtag')
 			->where('request_at', '<=', DB::raw("NOW() - INTERVAL '1 minutes' * request_frequency"))
-			->orderBy('id', 'asc')
+			->orderBy('request_at', 'asc')
 			->get();
 
 		if (count($tracks))
