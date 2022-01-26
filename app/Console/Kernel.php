@@ -126,7 +126,7 @@ class Kernel extends ConsoleKernel
 
         # Instagram Trigger
         $schedule->command('instagram:taker')
-                 ->everyMinute()
+                 ->everyFiveMinutes()
                  ->withoutOverlapping()
                  ->runInBackground()
                  ->skip(function() { return (new Option)->get('instagram.status', true) == 'on' ? false : true; });
@@ -149,6 +149,14 @@ class Kernel extends ConsoleKernel
                  ->everyMinute()
                  ->runInBackground()
                  ->withoutOverlapping();
+
+
+
+        # Generate Feed Files
+        $schedule->command('feeds:generate')
+                 ->everyFifteenMinutes()
+                 ->withoutOverlapping()
+                 ->runInBackground();
 
 
 

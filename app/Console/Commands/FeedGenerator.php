@@ -16,7 +16,7 @@ class FeedGenerator extends Command
      *
      * @var string
      */
-    protected $signature = 'feed:generate';
+    protected $signature = 'feeds:generate';
 
     /**
      * The console command description.
