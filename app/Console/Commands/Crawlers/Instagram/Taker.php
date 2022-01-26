@@ -76,7 +76,7 @@ class Taker extends Command
 
 					$this->track($track);
 
-					if ($sleep = rand(5, 10))
+					if ($sleep = rand(60, 120))
 					{
 						$this->info("Wait $sleep sec");
 						sleep($sleep);
@@ -98,7 +98,7 @@ class Taker extends Command
 	public function track(Track $track)
 	{
 		$account = InstagramAccount::where('status', 'normal')
-        	->where('request_at', '<=', (new DT)->nowAt('-1 minutes'))
+        	->where('request_at', '<=', (new DT)->nowAt('-60 seconds'))
 			->orderBy('request_at', 'asc')
 			->first();
 
