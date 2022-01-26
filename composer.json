@@ -13,7 +13,7 @@
         "doctrine/dbal": "^3.2",
         "elasticsearch/elasticsearch": "^7.14",
         "etsetra/elasticsearch": "^1.0",
-        "etsetra/library": "^1.0.0",
+        "etsetra/library": "^1.0",
         "facebook/graph-sdk": "^5.1",
         "fruitcake/laravel-cors": "^2.0",
         "graham-campbell/throttle": "^8.1",

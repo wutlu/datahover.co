@@ -98,7 +98,8 @@ class Taker extends Command
 	public function track(Track $track)
 	{
 		$account = InstagramAccount::where('status', 'normal')
-			->orderBy('request_hit', 'asc')
+        	->where('request_at', '<=', (new DT)->nowAt('-1 minutes'))
+			->orderBy('request_at', 'asc')
 			->first();
 
 		if ($account)
@@ -347,13 +348,13 @@ class Taker extends Command
 			$message = 'The number of Instagram accounts defined in the system is insufficient. Please increase the number.';
 			$this->error($message);
 
-			Notification::send(
-				User::where('is_root', true)->get(),
-				(
-					new ServerAlert($message)
-				)
-				->onQueue('notifications')
-			);
+			// Notification::send(
+			// 	User::where('is_root', true)->get(),
+			// 	(
+			// 		new ServerAlert($message)
+			// 	)
+			// 	->onQueue('notifications')
+			// );
 		}
 
 		$this->newLine();

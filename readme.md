@@ -4,6 +4,7 @@ $ php artisan queue:work --queue=twitter
 $ php artisan queue:work --queue=newsDetector
 $ php artisan queue:work --queue=newsTaker
 $ php artisan queue:work --queue=paymentCheck
+$ php artisan queue:work --queue=feeds
 
 sudo apt-get update
 sudo apt-get upgrade

@@ -42,6 +42,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'feeds' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/feeds'),
+            'url' => env('APP_URL').'/storage/feeds',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

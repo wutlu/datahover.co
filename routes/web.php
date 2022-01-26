@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\VerifyCsrfToken;
 
 Route::get('/', 'HomeController@index')->name('index');
-Route::post('search', 'HomeController@search')->name('index.search');
+Route::post('try-search', 'HomeController@search')->name('index.search');
+
+Route::get('search', 'SearchController@view')->name('search');
 
 Route::prefix('gate')->group(function() {
 	Route::get('/', 'UserController@gate')->name('user.gate');
@@ -20,6 +22,14 @@ Route::prefix('user')->group(function() {
 	Route::post('info', 'UserController@info')->name('user.info');
 	Route::post('email-alerts', 'UserController@emailAlerts')->name('user.email_alerts');
 	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
+});
+
+Route::prefix('feed')->group(function() {
+	Route::get('/', 'FeedController@view')->name('feed.index');
+	Route::post('create', 'FeedController@create')->name('feed.create');
+	Route::post('read', 'FeedController@read')->name('feed.read');
+	Route::post('delete', 'FeedController@delete')->name('feed.delete');
+	Route::post('list', 'FeedController@list')->name('feed.list');
 });
 
 Route::prefix('subscription')->group(function() {

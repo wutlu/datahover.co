@@ -9,21 +9,6 @@
 	]
 )
 
-@push('footer')
-	@include('includes.modals.help', [
-		'name' => 'searchQueries',
-		'title' => 'Search Tips',
-		'lines' => [
-			'To do a casual search, just type the word you want to search for.',
-			'Use <b>"double quotes"</b> to search for sentences.',
-			'You can use <b>OR</b> and <b>AND</b> between words. Or you can group words with <b>(parentheses)</b>.',
-			'You can add <b>-hyphens</b> for words, groups or sentences you don\'t want.',
-			'By typing <b>site:twitter.com</b> or <b>site:bbc.com</b>, you can only see the content of those sites. For the site you don\'t want, use <b>-site:hyphens.com</b>.',
-			'You can filter with parameters such as <b>title:Hello</b>, <b>device:Web</b> and <b>lang:en</b>.',
-		]
-	])
-@endpush
-
 @section('content')
 {{-- 	<div class="card bg-transparent border-0 rounded-0 mb-4">
 		<div id="greetingCarousel" class="carousel carousel-dark" data-bs-ride="carousel" data-bs-wrap="false" data-bs-interval="false">
@@ -99,87 +84,4 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="card rounded-0 shadow-sm" id="masterCard">
-        <div class="card-body">
-            <div class="d-flex gap-2">
-                <span class="card-title text-uppercase h6 fw-bold mb-0">Try Search Api</span>
-                <small class="text-muted">
-                    <span data-name="total">0</span> results found!
-                </small>
-            </div>
-        </div>
-        @component('includes.api')
-        	@slot('apis', $apis)
-        	@slot('rate_limit', $rate_limit)
-        	@slot('rate_minutes', $rate_minutes)
-        @endcomponent
-        <div class="input-group input-group-lg d-flex flex-nowrap">
-            <input
-                type="text"
-                class="form-control border shadow-sm border-start-0 rounded-0 text-success bg-success bg-opacity-10"
-                placeholder="Write something"
-                name="search"
-                id="search"
-                value="site:foxnews.com"
-                data-blockui="#masterCard"
-                data-reset="true"
-                data-action="true"
-                data-action-target="#items" />
-            <button data-bs-toggle="modal" data-bs-target="#searchQueries-modal" class="btn btn-light border border-1 border-end-0 rounded-0 shadow-sm" type="button">
-                <i class="material-icons text-muted">info</i>
-            </button>
-        </div>
-        <div
-            id="items"
-            class="list-group list-group-flush border-0 load"
-            data-action="{{ route('api.search') }}"
-            data-callback="__results"
-            data-skip="0"
-            data-take="10"
-            data-include="search"
-            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
-            data-more="#itemsMore"
-            data-each="#items">
-            <pre class="list-group-item border-0 each-model"></pre>
-        </div>
-        <a
-            href="#"
-            id="itemsMore"
-            class="d-none py-1"
-            data-blockui="#masterCard"
-            data-action="true"
-            data-action-target="#items">
-            <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
-        </a>
-	</div>
 @endsection
-
-@push('js')
-	function __results(__, obj)
-	{
-		$('[data-name=total]').html(obj.stats.total)
-	}
-
-	function __items(__, o)
-	{
-		__.html(JSON.stringify(o, null, 2))
-	}
-
-    const driver = new app.Driver();
-
-    app.info('search.api', function() {
-        driver.highlight({
-            element: '.accordion-header',
-            popover: {
-                title: 'Click here for API document',
-                position: 'top',
-                showButtons: false,
-            }
-        })
-    }, true)
-
-    $(document).on('show.bs.collapse','#apiAccordion', function () {
-        driver.reset()
-    })
-@endpush

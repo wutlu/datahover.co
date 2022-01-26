@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
-use Etsetra\Library\DateTime as DT;
-
-use App\Models\Logs;
-use App\Models\DataPool;
-use App\Models\HideInfo;
 use App\Models\Plan;
 
 class HomeController extends Controller
@@ -40,22 +35,7 @@ class HomeController extends Controller
      */
     public function dashboard()
     {
-        $sc = new SearchController;
-
-        $apis = [
-            'searchApi' => [
-                'name' => 'Search APi',
-                'method' => 'POST',
-                'route' => route('api.search'),
-                'params' => $sc->search_rules,
-            ],
-        ];
-
-        return view('dashboard', [
-            'rate_minutes' => $sc->rate_minutes,
-            'rate_limit' => $sc->rate_limit,
-            'apis' => $apis,
-        ]);
+        return view('dashboard');
     }
 
     /**

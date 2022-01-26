@@ -300,6 +300,10 @@
 										<i class="material-icons text-success">check</i>
 										<span class="h6 mb-0">Limitless filterable query and data</span>
 									</li>
+									<li class="d-inline-flex align-items-center gap-2">
+										<i class="material-icons text-success">check</i>
+										<span class="h6 mb-0">Limitless xml or json feed</span>
+									</li>
 									@if ($plan->price > 0)
 										<li class="d-inline-flex align-items-center gap-2">
 											<i class="material-icons text-success">check</i>

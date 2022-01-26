@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use LanguageDetection\Language;
 use Etsetra\Library\DateTime as DT;
+use App\Http\Controllers\SearchController;
 
 class Test extends Command
 {
@@ -44,28 +45,8 @@ class Test extends Command
      */
     public function handle()
     {
-        $http = Http::withOptions(
-            [
-                'proxy' => 'MyFxB6:qHMowG@45.57.180.218:8000'
-            ]
-        )
-        ->withHeaders(
-            [
-                'Cookie' => 'sessionid=3540610834%3AAB8OfCPovfDu9h%3A12'
-            ]
-        )
-        ->get('https://www.instagram.com/explore/tags/ankara/?__a=1');
+        $q = (new SearchController)->save('site:haberturk.com OR site:instagram.com', 'test');
 
-        if ($http->successful())
-        {
-            if ($obj = @$http->json()['data'])
-            {
-
-
-                print_r($items);
-
-                echo count($items);
-            }
-        }
+        print_r($q);
     }
 }

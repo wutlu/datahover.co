@@ -1,107 +1,25 @@
 @extends(
     'layouts.master',
     [
-        'title' => 'Track API\'s',
+        'title' => 'Feeds',
         'master' => true,
         'breadcrumb' => [
             'Dashboard' => route('dashboard'),
-            'Track API\'s' => '#'
+            'Feeds' => '#'
         ]
     ]
 )
 
-@push('css')
-    .source-selectors > .btn {
-        border-width: 0 0 2px 0;
-        box-shadow: none !important;
-    }
-    .source-selectors > .btn:hover {
-        border-color: #6c757d;
-    }
-    .source-selectors > .btn-check:checked + .btn,
-    source-selectors > .btn-check:active + .btn {
-        border-color: #6c757d;
-        background-color: #f8f9fa;
-    }
-@endpush
-
 @push('js')
-    const driver = new app.Driver();
-
     let __items = function(__, o)
     {
-        __.find('[data-name=valid]')
-            .removeClass('text-danger text-success text-warning')
-            .addClass(o.valid === true ? 'text-success' : o.valid === false ? 'text-danger' : 'text-info')
-            .html(o.valid === true ? 'Valid' : o.valid === false ? 'Invalid' : 'Pending')
+        __.find('[data-name=json]').attr('href', '{{ url('/') }}/storage/feeds/' + o.key + '/file.json')
+        __.find('[data-name=xml]').attr('href', '{{ url('/') }}/storage/feeds/' + o.key + '/file.xml')
     }
 
     let __results = function(__, obj)
     {
-        $('[data-name=track-total]').text(app.numberFormat(obj.track.total))
-        $('[data-name=track-limit]').text(app.numberFormat(obj.track.limit))
-
-        let drop = $('[data-name=drop]');
-        let create = $('[data-name=create]');
-
-        drop.addClass('d-none').removeClass(obj.data.length ? 'd-none' : '')
-        create.addClass('d-none').removeClass(obj.track.total < obj.track.limit ? 'd-none' : '')
-
-        if (obj.track.total == 0)
-        {
-            driver.highlight({
-                element: '[data-name=create]',
-                popover: {
-                    title: 'First, create the criteria you want to track',
-                    position: 'left',
-                    showButtons: false,
-                }
-            })
-        }
-        else
-        {
-            app.info('track.list', function() {
-                driver.highlight({
-                    element: '.accordion-header',
-                    popover: {
-                        title: 'Click here for API document',
-                        position: 'top',
-                        showButtons: false,
-                    }
-                })
-            }, true)
-        }
-    }
-
-    let sourceUpdate = function()
-    {
-        let form = $('#createForm');
-        let source = form.find('select[name=source]');
-        let type = form.find('select[name=type]');
-            type.html('')
-        let value = form.find('input[name=value]');
-
-        type.append($('<option />', { 'value': '', 'text': 'Choose' }))
-
-        $.each(source.children('option:selected').data('types'), function(k, value) {
-            type.append($('<option />', { 'value': value, 'text': value }))
-        })
-
-            type.removeAttr('disabled')
-            value.removeAttr('disabled')
-    }
-
-    $(window).on('load', sourceUpdate)
-    $(document).on('change', 'select[name=source]', sourceUpdate)
-
-    let __create = function(__, obj)
-    {
-        $('#createModal').modal('hide')
-
-        let items = $('#items');
-            items.find('.tmp').remove();
-
-        app.etsetraAjax(items.data('skip', 0))
+        $('[data-name=track-total]').text(app.numberFormat(obj.stats.total))
     }
 
     let __delete = function(__, obj)
@@ -112,17 +30,6 @@
 
         app.etsetraAjax($('#items').data('skip', 0))
     }
-
-    $(document).on('show.bs.modal','#createModal', function () {
-        let form = $(this).find('form');
-            form[0].reset()
-
-        sourceUpdate()
-
-        driver.reset()
-    }).on('show.bs.collapse','#apiAccordion', function () {
-        driver.reset()
-    })
 @endpush
 
 @push('footer')
@@ -197,9 +104,9 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-lg-row">
                 <div class="d-flex gap-2 me-auto mb-1">
-                    <span class="card-title text-uppercase h6 fw-bold mb-0">Track API's</span>
+                    <span class="card-title text-uppercase h6 fw-bold mb-0">Feeds</span>
                     <small class="text-muted">
-                        Current <span data-name="track-total">0</span> / Limit <span data-name="track-limit">0</span>
+                        Total <span data-name="track-total">0</span>
                     </small>
                 </div>
                 <div class="d-flex gap-1">
@@ -214,18 +121,10 @@
                         placeholder="Search" />
                     <a
                         href="#"
-                        class="btn btn-outline-success btn-sm shadow-sm rounded-0 d-none"
-                        data-name="create"
-                        data-bs-toggle="modal"
-                        data-bs-target="#createModal">
-                        <i class="material-icons icon-sm">add</i>
-                    </a>
-                    <a
-                        href="#"
-                        class="btn btn-outline-danger btn-sm shadow-sm rounded-0 d-none"
+                        class="btn btn-outline-danger btn-sm shadow-sm rounded-0"
                         data-name="drop"
                         data-include="id"
-                        data-action="{{ route('api.track.delete') }}"
+                        data-action="{{ route('feed.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
                         data-confirmation="Do you want to delete the selected records?">
@@ -234,37 +133,15 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-start btn-group source-selectors gap-1"> 
-            @foreach (config('sources') as $key => $item)
-                <input
-                    type="checkbox"
-                    class="btn-check"
-                    name="sources"
-                    checked
-                    data-alias="source"
-                    data-multiple="true"
-                    data-blockui="#masterCard"
-                    data-reset="true"
-                    data-action="true"
-                    data-action-target="#items"
-                    id="{{ $key }}"
-                    value="{{ $key }}">
-                <label class="btn rounded-0 mx-0 d-flex flex-column flex-md-row align-items-center justify-content-center gap-0 gap-md-2 py-2" for="{{ $key }}">
-                    <img alt="{{ $key }}" src="{{ asset($item['icon']) }}" class="w-24px h-24px" />
-                    <small>{{ $item['name'] }}</small>
-                </label>
-            @endforeach
-        </div>
         <div
             id="items"
             class="list-group list-group-flush load border-0"
-            data-action="{{ route('api.track.list') }}"
+            data-action="{{ route('feed.list') }}"
             data-callback="__results"
             data-skip="0"
             data-take="10"
-            data-include="search,sources"
+            data-include="search"
             data-loading="#items->children(.loading)"
-            data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
             data-more="#itemsMore"
             data-each="#items">
             <div class="list-group-item border-0 d-flex justify-content-center loading">
@@ -281,23 +158,14 @@
                             value="0"
                             data-col="id" />
                     </div>
-                    <div class="d-flex flex-column">
-                        <small class="d-flex gap-1">
-                            <span data-col="source" class="fw-bold"></span>
-                            <span data-col="type" class="text-muted"></span>
-                        </small>
-                        <span data-col="value"></span>
-                    </div>
-                    <div class="ms-auto">
-                        <span class="text-end d-flex align-items-center justify-content-end gap-1">
-                            <small data-name="valid"></small>
-                        </span>
-                        <span class="text-end d-flex align-items-center justify-content-end text-muted" title="Last 6 hours">
-                            <small data-col="total_data">0</small><small class="pe-2">+</small> <small>data in 6 hours</small>
-                        </span>
+                    <div class="d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row flex-fill">
+                        <span data-col="name"></span>
+                        <div class="btn-group d-flex gap-2">
+                            <a href="#" class="link-success small" target="_blank" data-name="json">JSON</a>
+                            <a href="#" class="link-primary small" target="_blank" data-name="xml">XML</a>
+                        </div>
                     </div>
                 </div>
-                <p class="text-danger mb-0" data-col="error_reason"></p>
             </label>
         </div>
         <a
@@ -309,10 +177,9 @@
             data-action-target="#items">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
-        @component('includes.api')
-            @slot('apis', $apis)
-            @slot('rate_limit', $rate_limit)
-            @slot('rate_minutes', $rate_minutes)
-        @endcomponent
+    </div>
+    <div class="py-4 text-muted d-flex align-items-center justify-content-center gap-2">
+        <i class="material-icons">info</i>
+        <small>Feeds are updated every <strong>15 minutes</strong>, up to 1000 items are shown at a time.</small>
     </div>
 @endsection

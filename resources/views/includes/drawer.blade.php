@@ -45,7 +45,15 @@ $subscription = auth()->user()->subscription();
 		<div class="list-group list-group-flush rounded-0">
 			<a href="{{ route('track.dashboard') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">scatter_plot</i>
-				Track List
+				Track API's
+			</a>
+			<a href="{{ route('search') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<i class="material-icons">search</i>
+				Search API
+			</a>
+			<a href="{{ route('feed.index') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<i class="material-icons">rss_feed</i>
+				Feeds <mall class="badge bg-danger rounded-pill shadow-sm">New</mall>
 			</a>
 			<a href="{{ route('logs') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">logo_dev</i>

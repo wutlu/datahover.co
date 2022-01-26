@@ -639,26 +639,15 @@ let toast = function(message, type)
     let toast = toast_wrapper.children('#' + id);
     let tmp = $('<div />', {
         'id': id,
-        'class': 'toast w-100 shadow-sm border-0 text-white bg-' + type,
+        'class': 'toast w-100 shadow-sm border-0 text-white px-2 bg-' + type,
         'role': 'alert',
         'data-bs-autohide': 'true',
         'data-bs-delay': '3000',
         'aria-live': 'assertive',
         'aria-atomic': 'true',
         'html': $('<div />', {
-            'class': 'd-flex justify-content-between align-items-center px-2',
-            'html': [
-                $('<div />', {
-                    'class': 'toast-body',
-                    'html': message
-                }),
-                $('<button />', {
-                    'type': 'button',
-                    'class': 'btn-close btn-close-white rounded-circle',
-                    'data-bs-dismiss': 'toast',
-                    'aria-label': 'Close'
-                })
-            ]
+            'class': 'toast-body',
+            'html': message
         })
     })
 
@@ -864,6 +853,36 @@ let nl2br = function(str, is_xhtml)
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }
 
+let slug = function(str, splitter)
+{
+    str = str.toLowerCase();
+
+    var specialChars = [
+        ['ÄŸ', 'g'],
+        ['Ã¼', 'u'],
+        ['ÅŸ', 's'],
+        ['Ä±', 'i'],
+        ['Ã¶', 'o'],
+        ['Ã§', 'c'],
+        ['Äž', 'g'],
+        ['Ãœ', 'u'],
+        ['Åž', 's'],
+        ['Ä°', 'i'],
+        ['Ã–', 'o'],
+        ['Ã‡', 'c'],
+        ['-', ' ']
+    ];
+
+    for (var i = 0; i < specialChars.length; i++)
+    {
+        str = str.replace(eval('/' + specialChars[i][0] + '/ig'), specialChars[i][1]);
+    }
+
+    str = $.trim(str);
+
+    return str.replace(/\s\s+/g, ' ').replace(/[^a-z0-9-\s]/gi, '').replace(/[^\w]/ig, splitter);
+}
+
 let app = (function() {
     return {
         looper,
@@ -880,6 +899,7 @@ let app = (function() {
         nl2br,
         Driver,
         info,
+        slug,
     }
 })()
 

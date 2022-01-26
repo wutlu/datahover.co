@@ -183,6 +183,10 @@ return [
         'amount' => 'Amount',
         'tracks' => 'Tracks',
         'user_id' => 'User',
+        'response' => 'Response',
+        'xml_url' => 'XML URL',
+        'json_url' => 'JSON URL',
+        'csv_url' => 'CSV URL',
     ],
 
 ];

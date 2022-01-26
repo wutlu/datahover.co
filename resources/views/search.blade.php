@@ -37,6 +37,18 @@
     $(document).on('show.bs.collapse','#apiAccordion', function () {
         driver.reset()
     })
+
+    let __save = function(__, obj)
+    {
+        let save_modal = $('#save-modal');
+            save_modal.find('form').find('input[name=name]').val('')
+            save_modal.modal('hide')
+
+        let created_modal = $('#created-modal');
+            created_modal.find('input[name=xml_url]').val(obj.data.xml)
+            created_modal.find('input[name=json_url]').val(obj.data.json)
+            created_modal.modal('show')
+    }
 @endpush
 
 @push('footer')
@@ -52,11 +64,64 @@
 			'You can filter with parameters such as <b>title:Hello</b>, <b>device:Web</b> and <b>lang:en</b>.',
 		]
 	])
+
+    @component('includes.modals.modal', [
+        'name' => 'save',
+        'title' => 'Save as Feed'
+    ])
+        <form
+            id="saveForm"
+            autocomplete="off"
+            method="post"
+            action="#"
+            data-blockui="#save-modal->find(.modal-content)"
+            data-include="search"
+            data-callback="__save"
+            data-action="{{ route('feed.create') }}">
+
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control shadow-sm rounded-0" name="name" id="name" />
+                <label for="name">{{ __('validation.attributes.name') }}</label>
+            </div>
+
+            <div class="alert alert-info rounded-0 shadow-sm mb-4 d-flex align-items-center gap-3">
+                <i class="material-icons">info</i>
+                <small>Feed creation for those who don't want to use API. After you create it, you can edit it from the <strong>Feeds</strong> menu.</small>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0">Save</button>
+            </div>
+        </form>
+    @endcomponent
+
+    @component('includes.modals.modal', [
+        'name' => 'created',
+        'title' => 'Feed created'
+    ])
+        <div class="form-floating mb-4">
+            <input readonly data-copy="json_url" data-copied="Feed JSON url Copied!" class="form-control shadow-sm rounded-0" type="text" name="json_url" id="json_url" />
+            <label for="json_url">{{ __('validation.attributes.json_url') }}</label>
+        </div>
+        <div class="form-floating mb-4">
+            <input readonly data-copy="xml_url" data-copied="Feed XML url Copied!" class="form-control shadow-sm rounded-0" type="text" name="xml_url" id="xml_url" />
+            <label for="xml_url">{{ __('validation.attributes.xml_url') }}</label>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-end gap-3">
+            <a href="{{ route('feed.index') }}" class="d-flex align-items-center gap-2 link-warning">
+                <i class="material-icons">rss_feed</i>
+                Go Feeds
+            </a>
+            <small class="text-muted">or</small>
+            <button type="submit" class="btn btn-outline-secondary shadow-sm rounded-0" data-bs-dismiss="modal">Close</button>
+        </div>
+    @endcomponent
 @endpush
 
 @section('content')
 	<div class="card rounded-0 shadow-sm" id="masterCard">
-        <div class="card-body">
+        <div class="card-body bg-light border-bottom">
             <div class="d-flex gap-2">
                 <span class="card-title text-uppercase h6 fw-bold mb-0">Search Api</span>
                 <small class="text-muted">
@@ -65,11 +130,11 @@
             </div>
         </div>
         <div class="card-body">
+            <small class="text-muted">Search</small>
             <div class="input-group input-group-lg d-flex flex-nowrap">
                 <input
                     type="text"
                     class="form-control bg-light border shadow-sm rounded-0"
-                    placeholder="Write something"
                     name="search"
                     id="search"
                     data-blockui="#masterCard"
@@ -80,7 +145,12 @@
                     <i class="material-icons text-muted">info</i>
                 </button>
             </div>
-            <small class="text-muted py-1 mb-2">Search within 24 hours data.</small>
+            <div class="d-flex justify-content-between py-1 mb-2">
+                <small class="text-muted">Results of last 24 hours</small>
+                <a href="#" class="small" data-bs-toggle="modal" data-bs-target="#save-modal">
+                    <span data-bs-toggle="tooltip" data-bs-placement="left" title="You can convert your search to Feed here">Save as Feed</span>
+                </a>
+            </div>
         </div>
         <div
             id="items"

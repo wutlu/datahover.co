@@ -261,6 +261,10 @@
 						</li>
 						<li class="d-inline-flex align-items-center gap-2">
 							<i class="material-icons text-success">check</i>
+							<span class="h6 mb-0">Limitless xml or json feed</span>
+						</li>
+						<li class="d-inline-flex align-items-center gap-2">
+							<i class="material-icons text-success">check</i>
 							<span class="h6 mb-0">E-mail support</span>
 						</li>
 					</ul>
