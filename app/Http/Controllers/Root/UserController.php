@@ -95,7 +95,7 @@ class UserController extends Controller
             })
             ->skip($request->skip)
             ->take($request->take)
-            ->orderBy('id', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return [
