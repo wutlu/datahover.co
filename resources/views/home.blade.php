@@ -173,9 +173,9 @@
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-0">Examples</h2>
 			<h4 class="text-muted fw-bold mb-5">Keyword: "Biden"</h4>
-			<h5 class="text-muted fw-bold mb-1">All platforms</h5>
+			<h5 class="text-muted fw-bold mb-1">API</h5>
 
-	        <small class="text-muted">API Response (only 100 data for testing)</small>
+	        <small class="text-muted">Response (only 100 data for testing)</small>
 			<pre
                 data-reset="true"
                 data-action="{{ route('index.search') }}"
