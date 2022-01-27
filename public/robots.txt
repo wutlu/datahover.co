@@ -1,2 +1,3 @@
 User-agent: *
-Disallow:
+Disallow: /storage/feeds/*/file.json
+Disallow: /storage/feeds/*/file.xml
