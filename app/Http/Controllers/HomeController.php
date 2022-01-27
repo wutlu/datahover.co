@@ -46,12 +46,6 @@ class HomeController extends Controller
      */
     public function search(Request $request)
     {
-        $request->validate(
-            [
-                'search' => 'required|string|max:128'
-            ]
-        );
-
         $response = Http::withHeaders(
             [
                 'X-Api-Key' => config('services.datahover.api_key'),
@@ -60,8 +54,8 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => $request->search,
-            'take' => 10
+            'search' => 'status:ok',
+            'take' => 100
         ]);
 
         return $response->body();

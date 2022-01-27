@@ -171,43 +171,76 @@
 
 	<section class="page-split position-relative" id="example">
 		<div class="container-fluid">
-			<h2 class="display-5 text-dark fw-bold mb-0">Try Search API</h2>
-			<h4 class="text-muted fw-bold mb-5">SO EASY</h4>
+			<h2 class="display-5 text-dark fw-bold mb-0">Examples</h2>
+			<h4 class="text-muted fw-bold mb-5">Keyword: "Biden"</h4>
+			<h5 class="text-muted fw-bold mb-1">All platforms</h5>
 
-			<div class="form-group">
-				<label for="search">Search query</label>
-				<textarea
-					autocomplete="off" 
-					type="text"
-					class="form-control shadow-sm load h-100px"
-					name="search"
-					id="search"
-                    data-reset="true"
-                    data-action="{{ route('index.search') }}"
-                    data-callback="__results">biden AND lang:en AND (!site:twitter.com OR !site:youtube.com OR site:instagram.com OR site:nytimes.com)</textarea>
-				<small class="text-muted"><span data-name="total">0</span> data found in the last 1 day</small>
-			</div>
-			<div class="d-flex flex-wrap gap-2 mb-4">
-				<label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off" class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:twitter.com" />
-                    twitter.com
-                </label>
-                <label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off" class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:youtube.com" />
-                    youtube.com
-                </label>
-                <label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off" checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:instagram.com" />
-                    instagram.com
-                </label>
-                <label class="d-flex align-items-center gap-2 unselectable">
-                    <input autocomplete="off" checked class="form-check-input shadow-sm" type="checkbox" name="domain" value="site:nytimes.com" />
-                    nytimes.com
-                </label>
-            </div>
-	        <small class="text-muted">API Response</small>
-			<pre class="mb-0 bg-grey rounded border border-1 p-2 shadow-sm h-400px overflow-auto" data-name="json"></pre>
-			<small class="text-muted">10 data is displayed for trial purposes.</small>
+	        <small class="text-muted">API Response (only 100 data for testing)</small>
+			<pre
+                data-reset="true"
+                data-action="{{ route('index.search') }}"
+                data-callback="__results"
+                data-name="json"
+                class="mb-0 bg-grey rounded border border-1 mb-5 p-2 shadow-sm h-400px overflow-auto load"></pre>
+			<h5 class="text-muted fw-bold mb-1">Feeds</h5>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
+					<span class="d-flex align-items-center gap-3 me-auto text-muted">
+						<img alt="Twitter" src="{{ asset('images/icons/twitter.png') }}" class="w-32px h-32px" />
+						Twitter
+					</span>
+					<a target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>JSON Example</small>
+					</a>
+					<a target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>XML Example</small>
+					</a>
+				</li>
+				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
+					<span class="d-flex align-items-center gap-3 me-auto text-muted">
+						<img alt="YouTube" src="{{ asset('images/icons/youtube.png') }}" class="w-32px h-32px" />
+						YouTube
+					</span>
+					<a target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>JSON Example</small>
+					</a>
+					<a target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>XML Example</small>
+					</a>
+				</li>
+				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
+					<span class="d-flex align-items-center gap-3 me-auto text-muted">
+						<img alt="Instagram" src="{{ asset('images/icons/instagram.png') }}" class="w-32px h-32px" />
+						Instagram
+					</span>
+					<a target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>JSON Example</small>
+					</a>
+					<a target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>XML Example</small>
+					</a>
+				</li>
+				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
+					<span class="d-flex align-items-center gap-3 me-auto text-muted">
+						<img alt="News" src="{{ asset('images/icons/news.png') }}" class="w-32px h-32px" />
+						News
+					</span>
+					<a target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>JSON Example</small>
+					</a>
+					<a target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+						<small>XML Example</small>
+					</a>
+				</li>
+			</ul>
 		</div>
 		<a href="#apis" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>

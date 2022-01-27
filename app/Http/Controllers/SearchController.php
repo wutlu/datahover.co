@@ -44,12 +44,7 @@ class SearchController extends Controller
                 'bool' => [
                     'must' => [
                         [ 'match' => [ 'status' => 'ok' ] ],
-                        [
-                            'query_string' => [
-                                'query' => $request->search,
-                                'default_operator' => 'AND'
-                            ]
-                        ]
+                        [ 'query_string' => [ 'query' => $request->search, 'default_operator' => 'AND' ] ]
                     ],
                     'filter' => [ [ 'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-24 hours') ] ] ] ]
                 ]
@@ -57,7 +52,7 @@ class SearchController extends Controller
             [
                 'from' => $request->skip ?? 0,
                 'size' => $take,
-                'sort' => [ [ 'created_at' => 'desc' ] ]
+                'sort' => [ [ 'called_at' => 'desc' ] ]
             ]
         );
 
@@ -107,12 +102,7 @@ class SearchController extends Controller
                 'bool' => [
                     'must' => [
                         [ 'match' => [ 'status' => 'ok' ] ],
-                        [
-                            'query_string' => [
-                                'query' => $query,
-                                'default_operator' => 'AND'
-                            ]
-                        ]
+                        [ 'query_string' => [ 'query' => $query, 'default_operator' => 'AND' ] ]
                     ],
                     'filter' => [ [ 'range' => [ 'called_at' => [ 'gte' => (new DT)->nowAt('-24 hours') ] ] ] ]
                 ]
@@ -120,7 +110,7 @@ class SearchController extends Controller
             [
                 'from' => 0,
                 'size' => 1000,
-                'sort' => [ [ 'created_at' => 'desc' ] ]
+                'sort' => [ [ 'called_at' => 'desc' ] ]
             ]
         );
 
