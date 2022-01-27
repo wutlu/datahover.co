@@ -55,10 +55,6 @@ $subscription = auth()->user()->subscription();
 				<i class="material-icons">rss_feed</i>
 				Feeds <mall class="badge bg-danger rounded-pill shadow-sm">New</mall>
 			</a>
-			<a href="{{ route('logs') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
-				<i class="material-icons">logo_dev</i>
-				Log Console
-			</a>
 		</div>
 		@if (auth()->user()->is_root)
 			<div class="card-body">

@@ -21,7 +21,7 @@
 	<div class="card rounded-0 shadow-sm mb-4" id="accountCard">
 		<div class="card-body">
 			<div class="card-title text-uppercase h6 fw-bold">Account</div>
-			<div class="d-flex align-items-center gap-3">
+			<div class="d-flex align-items-center gap-3 mb-2">
 				<div class="d-flex align-items-center gap-2">
 					<img alt="Avatar" src="{{ auth()->user()->avatar }}" class="w-48px h-48px rounded-circle" />
 					<div class="d-flex flex-column justify-content-center">
@@ -34,6 +34,17 @@
 					<small class="text-muted">Github {{ __('validation.attributes.email') }}</small>
 				</div>
 			</div>
+			<label class="form-check d-flex align-items-center gap-2 mb-0 px-0">
+				<input
+					class="form-check-input rounded-0 shadow-sm m-0"
+					autocomplete="off"
+					data-action="{{ route('user.email_alerts') }}"
+					type="checkbox"
+					name="email_alerts"
+					{{ $emailAlerts ? 'checked' : '' }}
+					value="on" />
+				<small class="text-muted">I want the logs to be sent by e-mail</small>
+			</label>
 		</div>
 	</div>
 	<div class="card rounded-0 shadow-sm" id="tokens_card">

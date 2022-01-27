@@ -84,7 +84,7 @@ class SubscriptionRenew extends Command
                     $this->error($message);
                 }
 
-                LogController::create(config('app.domain'), $message, $user->id);
+                LogController::create($message, $user->id);
             }
             else
                 $this->error('The payment day has not come.');

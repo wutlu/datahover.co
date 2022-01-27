@@ -21,7 +21,6 @@ Route::prefix('user')->group(function() {
 
 	Route::post('info', 'UserController@info')->name('user.info');
 	Route::post('email-alerts', 'UserController@emailAlerts')->name('user.email_alerts');
-	Route::post('logs/list', 'LogController@list')->name('user.logs.list');
 });
 
 Route::prefix('feed')->group(function() {
@@ -48,7 +47,6 @@ Route::prefix('payments')->group(function() {
 });
 
 Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
-Route::get('log-console', 'LogController@view')->name('logs');
 Route::get('track-list', 'TrackController@dashboard')->name('track.dashboard');
 
 Route::get('faq', 'FaqController@view')->name('faq.index');

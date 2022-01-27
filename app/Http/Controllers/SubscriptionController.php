@@ -72,7 +72,7 @@ class SubscriptionController extends Controller
         {
             $message = 'You are currently subscribed to the '.$subscription->plan->name.' plan. To start a new subscription, you need to cancel your current subscription.';
 
-            LogController::create(config('app.domain'), $message, $user->id);
+            LogController::create($message, $user->id);
 
             return [
                 'success' => 'failed',
@@ -100,7 +100,6 @@ class SubscriptionController extends Controller
                     $user->save();
 
                     LogController::create(
-                        config('app.domain'),
                         'Started subscription for plan '.$plan->name.'. '.config('cashier.currency_symbol').$plan->price.' has been deducted from your balance.',
                         $user->id
                     );
@@ -140,7 +139,7 @@ class SubscriptionController extends Controller
 
                         $deleted_count = count($current_tracks) - $plan->track_limit;
 
-                        LogController::create(config('app.domain'), "More than $deleted_count tracks were deleted.", $user->id);
+                        LogController::create("More than $deleted_count tracks were deleted.", $user->id);
                     }
 
                     return [
@@ -156,7 +155,7 @@ class SubscriptionController extends Controller
                 {
                     $message = 'Your balance is not sufficient for this subscription. Please add balance to your account above.';
 
-                    LogController::create(config('app.domain'), $message, $user->id);
+                    LogController::create($message, $user->id);
 
                     return [
                         'success' => 'failed',
@@ -210,7 +209,6 @@ class SubscriptionController extends Controller
             );
 
             LogController::create(
-                config('app.domain'),
                 $plan->name.' plan canceled. '.config('cashier.currency_symbol').$refund.' refunded to your account.',
                 $user->id
             );

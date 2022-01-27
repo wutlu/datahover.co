@@ -37,6 +37,8 @@ class FeedController extends Controller
         $q->user_id = $request->user()->id;
         $q->save();
 
+        LogController::create("$request->name feed generated.", $request->user()->id);
+
         return (new SearchController)->saveFeeds($request->search, $q->key);
     }
 
@@ -62,6 +64,8 @@ class FeedController extends Controller
         foreach ($items as $item)
         {
             Storage::disk('feeds')->deleteDirectory($item->key);
+
+            LogController::create("$item->name feed deleted.", $request->user()->id);
 
             $item->delete();
         }

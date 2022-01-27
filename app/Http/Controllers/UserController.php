@@ -105,7 +105,7 @@ class UserController extends Controller
      */
     public function account()
     {
-        return view('account');
+        return view('account', [ 'emailAlerts' => auth()->user()->email_alerts ]);
     }
 
     /**
@@ -123,7 +123,7 @@ class UserController extends Controller
 
         $message = 'Api Secret Regenerated';
 
-        LogController::create(config('app.domain'), $message, $user->id);
+        LogController::create($message, $user->id);
 
         return [
             'success' => 'ok',
@@ -192,7 +192,7 @@ class UserController extends Controller
                 $user->api_secret = Str::random(64);
                 $user->save();
 
-                LogController::create(config('app.domain'), 'Welcome to Etsetra', $user->id);
+                LogController::create('Welcome to Etsetra', $user->id);
 
                 $roots = User::where('is_root', true)->get();
 
@@ -204,7 +204,7 @@ class UserController extends Controller
 
         $message = 'You are logged into the Dashboard';
 
-        LogController::create(config('app.domain'), $message, $user->id);
+        LogController::create($message, $user->id);
 
         return redirect()->route('dashboard');
     }
@@ -218,7 +218,7 @@ class UserController extends Controller
     {
         $message = 'You are logged out of Dashboard';
 
-        LogController::create(config('app.domain'), $message, auth()->user()->id);
+        LogController::create($message, auth()->user()->id);
 
         Auth::logout();
 

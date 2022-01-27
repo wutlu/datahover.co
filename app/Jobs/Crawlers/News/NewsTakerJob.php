@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use App\Http\Controllers\Server\CrawlerController as Crawler;
-use App\Http\Controllers\LogController as Log;
+use App\Http\Controllers\LogController;
 
 use Etsetra\Elasticsearch\Console\BulkApi;
 use Etsetra\Library\DateTime as DT;
@@ -94,7 +94,7 @@ class NewsTakerJob implements ShouldQueue
 
                 foreach ($users as $user)
                 {
-                    //Log::create($site, $source->alert->message, $user->id);
+                    //LogController::create($source->alert->message, $user->id);
                 }
             }
 

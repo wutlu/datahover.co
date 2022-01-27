@@ -53,21 +53,9 @@ class PaymentCheckJob implements ShouldQueue
                 $payment->status = $session->status == 'complete' ? true : false;
 
                 if ($session->status == 'complete')
-                {
-                    LogController::create(
-                        config('app.domain'),
-                        'Your '.config('cashier.currency_symbol').$payment->amount.' payment has been defined to your account.',
-                        $this->user->id
-                    );
-                }
+                    LogController::create('Your '.config('cashier.currency_symbol').$payment->amount.' payment has been defined to your account.', $this->user->id);
                 else
-                {
-                    LogController::create(
-                        config('app.domain'),
-                        'Your payment could not be received',
-                        $this->user->id
-                    );
-                }
+                    LogController::create('Your payment could not be received', $this->user->id);
             }
             else
                 $payment->status = false;
