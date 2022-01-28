@@ -74,7 +74,7 @@
 				@else
 					<div class="d-flex flex-wrap gap-2">
 						<a title="Start free trial" href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start free trial</a>
-						<a title="Examples" href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Examples</a>
+						<a title="Examples" href="#examples" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Examples</a>
 					</div>
 				@endif
 			</div>
