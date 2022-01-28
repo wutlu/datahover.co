@@ -1,9 +1,9 @@
 @extends(
 	'layouts.master',
 	[
-		'description' => 'Get reliable real-time data from Social Media Search APIs for Twitter, YouTube, and News Sites',
+		'title' => 'Datahover - Provides data from Social Media and News Sites',
+		'description' => 'Provides data from Social Media and News Sites. It offers large volume and very easy API services for Twitter, YouTube, Instagram and News Sites.',
 		'keywords' => 'api social media, social media apis, social media api, api for social media, social media monitoring api, social media search api, social media data api, list of social media apis, social network api, social media scraping api, datahover, datahover.co, data hover',
-		'title' => 'Datahover - Social Media APIs are reliable solutions for social media monitoring that provide you with accurate data from social networks',
 	]
 )
 
@@ -66,8 +66,8 @@
 				@include('includes.user_menu')
 			</nav>
 
-			<h1 class="display-4 text-white fw-bold mb-1 animate__animated animate__fadeInDown animate__faster">Voluminous and quite simple</h1>
-			<p class="lead text-white mb-10">Access open source internet data in a simple way with <strong class="fw-bold">{{ config('app.name') }}</strong></p>
+			<h1 class="display-6 text-white fw-bold mb-1 animate__animated animate__fadeInDown animate__faster">Provides data from <u class="fw-bold">Social Media</u> and <u class="fw-bold">News Sites</u></h1>
+			<p class="lead text-white mb-10">High volume database, very easy api services</p>
 
 			<div class="mb-5">
 				@auth
@@ -75,7 +75,7 @@
 				@else
 					<div class="d-flex flex-wrap gap-2">
 						<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start free trial</a>
-						<a href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Try it</a>
+						<a href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Examples</a>
 					</div>
 				@endif
 			</div>
