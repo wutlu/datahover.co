@@ -160,6 +160,14 @@ class Kernel extends ConsoleKernel
 
 
 
+        # Generate Sitemap
+        $schedule->command('sitemap:generate')
+            ->daily()
+            ->withoutOverlapping()
+            ->runInBackground();
+
+
+
         # Run failed jobs
         $schedule->command('queue:failed')
                  ->everyTenMinutes()

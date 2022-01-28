@@ -1,3 +1,8 @@
 User-agent: *
 Disallow: /storage/feeds/*/file.json
 Disallow: /storage/feeds/*/file.xml
+Disallow: /gate
+Disallow: /gate/*
+Disallow: /dashboard
+
+Sitemap: https://datahover.co/sitemap.xml
