@@ -188,11 +188,11 @@
 						<img alt="Twitter" src="{{ asset('images/icons/twitter.png') }}" class="w-32px h-32px" />
 						Twitter
 					</span>
-					<a target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>JSON Example</small>
 					</a>
-					<a target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>XML Example</small>
 					</a>
@@ -202,11 +202,11 @@
 						<img alt="YouTube" src="{{ asset('images/icons/youtube.png') }}" class="w-32px h-32px" />
 						YouTube
 					</span>
-					<a target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>JSON Example</small>
 					</a>
-					<a target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>XML Example</small>
 					</a>
@@ -216,11 +216,11 @@
 						<img alt="Instagram" src="{{ asset('images/icons/instagram.png') }}" class="w-32px h-32px" />
 						Instagram
 					</span>
-					<a target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>JSON Example</small>
 					</a>
-					<a target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>XML Example</small>
 					</a>
@@ -230,18 +230,18 @@
 						<img alt="News" src="{{ asset('images/icons/news.png') }}" class="w-32px h-32px" />
 						News
 					</span>
-					<a target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>JSON Example</small>
 					</a>
-					<a target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
+					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
 						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
 						<small>XML Example</small>
 					</a>
 				</li>
 			</ul>
 		</div>
-		<a href="#apis" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
+		<a title="Down" href="#apis" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
@@ -281,9 +281,10 @@
 				href="#"
 				class="btn btn-outline-info shadow-sm px-4 rounded-pill"
 				data-bs-toggle="modal"
-				data-bs-target="#trackInfoModal">What is track?</a>
+				data-bs-target="#trackInfoModal"
+				title="What is track?">What is track?</a>
 		</div>
-		<a href="#pricing" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
+		<a title="Pricing" href="#pricing" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
