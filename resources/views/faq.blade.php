@@ -51,7 +51,7 @@
 
 				<div class="accordion-item each-model mb-2">
 					<h2 class="accordion-header">
-						<a href="#" class="accordion-button collapsed shadow-sm border-bottom fw-bold" data-bs-toggle="collapse"></a>
+						<a title="Tab" href="#" class="accordion-button collapsed shadow-sm border-bottom fw-bold" data-bs-toggle="collapse"></a>
 					</h2>
 					<div class="accordion-collapse collapse" data-bs-parent="#items">
 						<div class="accordion-body">

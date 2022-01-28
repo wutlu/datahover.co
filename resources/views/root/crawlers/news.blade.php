@@ -78,7 +78,8 @@
                         class="btn btn-outline-secondary btn-sm shadow-sm rounded-0"
                         data-name="status"
                         data-bs-toggle="modal"
-                        data-bs-target="#statusModal">
+                        data-bs-target="#statusModal"
+                        title="Settings">
                         <i class="material-icons icon-sm">settings</i>
                     </a>
                 </div>

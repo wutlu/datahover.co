@@ -176,7 +176,7 @@
 			<div class="form-check mb-4">
 				<input class="form-check-input rounded-0 shadow-sm" type="checkbox" value="on" name="terms" id="terms" />
 				<label class="form-check-label unselectable" for="terms">
-					I have read and accept the <a href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="fw-bold link-dark" target="_blank">Privacy Policy</a> and <a href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="fw-bold link-dark" target="_blank">Terms of Service</a>
+					I have read and accept the <a title="Privacy Policy" href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="fw-bold link-dark" target="_blank">Privacy Policy</a> and <a title="Terms of Service" href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="fw-bold link-dark" target="_blank">Terms of Service</a>
 				</label>
 				<small class="invalid-feedback"></small>
 			</div>
@@ -218,7 +218,8 @@
 								data-name="cancel-plan"
 								data-action="{{ route('subscription.cancel') }}"
 								data-blockui="#planCard"
-								data-confirmation="If you cancel the plan, the remaining time will be calculated and added to your balance. 1 day commission is charged for cancellation. Do you confirm?">Cancel Plan</a>
+								data-confirmation="If you cancel the plan, the remaining time will be calculated and added to your balance. 1 day commission is charged for cancellation. Do you confirm?"
+								title="Cancel Plan">Cancel Plan</a>
 						</div>
 						<div class="d-flex flex-column text-end">
 							<div class="input-group shadow-sm flex-nowrap">
@@ -230,7 +231,8 @@
 									class="btn btn-outline-success rounded-0 shadow-sm"
 									data-bs-toggle="modal"
 									data-bs-target="#recharge-modal"
-									data-name="recharge">
+									data-name="recharge"
+									title="Load Balance">
 									<i class="material-icons" data-bs-toggle="tooltip" data-bs-placement="left" title="Load Balance">add</i>
 								</a>
 							</div>
@@ -273,6 +275,7 @@
 						data-action="{{ route('subscription.start') }}"
 						data-include="plan"
 						data-confirmation="If your account has a package history, as many tracks as supported by your chosen subscription will be accepted. Any excess will be removed from your account. Do you want to start a subscription for your chosen plan?"
+						title="Select Plan"
 						class="stretched-link text-center">Select Plan</a>
 					<div class="d-none">
 						<input type="radio" name="plan" data-alias="id" data-col="id" />
@@ -283,6 +286,6 @@
 	</div>
 
 	<div class="text-center py-5">
-		<p class="text-muted mb-0">You can contact us via live support or <a class="link-primary" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> mail for special plans.</p>
+		<p class="text-muted mb-0">You can contact us via live support or <a title="Contact" class="link-primary" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> mail for special plans.</p>
 	</div>
 @endsection

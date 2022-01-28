@@ -191,7 +191,7 @@ class PaymentController extends Controller
         {
             $notes = implode('<br />', [
                 'To make payments or view your invoices, go to the payments page.',
-                '<a href="'.route('payments').'">'.route('payments').'</a>',
+                '<a title="Payments" href="'.route('payments').'">'.route('payments').'</a>',
             ]);
         }
 

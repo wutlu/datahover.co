@@ -127,7 +127,8 @@
                         data-action="{{ route('feed.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
-                        data-confirmation="Do you want to delete the selected records?">
+                        data-confirmation="Do you want to delete the selected records?"
+                        title="Delete">
                         <i class="material-icons icon-sm">delete</i>
                     </a>
                 </div>
@@ -161,8 +162,8 @@
                     <div class="d-flex align-items-start align-items-sm-center justify-content-between flex-column flex-sm-row flex-fill">
                         <span data-col="name"></span>
                         <div class="btn-group d-flex gap-2">
-                            <a href="#" class="link-success small" target="_blank" data-name="json">JSON</a>
-                            <a href="#" class="link-primary small" target="_blank" data-name="xml">XML</a>
+                            <a title="JSON" href="#" class="link-success small" target="_blank" data-name="json">JSON</a>
+                            <a title="XML" href="#" class="link-primary small" target="_blank" data-name="xml">XML</a>
                         </div>
                     </div>
                 </div>
@@ -174,7 +175,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>

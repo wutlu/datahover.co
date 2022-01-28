@@ -18,15 +18,15 @@
 			<h4 class="mb-2 fw-bold">Introduction</h4>
 
 			<p class="lead mb-4">Following are the Terms of Service for Datahover’s services (“Service,” “Datahover,” “we,” or “us”).  These terms and conditions govern your use of this website (“website”); by using this website, you accept these terms and conditions in full.   If you disagree with these terms and conditions or any part of these terms and conditions, you must not use this website.</p>
-			<p class="lead mb-4">This website uses cookies. By using this website and agreeing to these terms and conditions, you consent to our Datahover’s use of cookies in accordance with the terms of Datahover’s <a class="link-dark fw-bold" href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}">privacy policy</a>.</p>
+			<p class="lead mb-4">This website uses cookies. By using this website and agreeing to these terms and conditions, you consent to our Datahover’s use of cookies in accordance with the terms of Datahover’s <a title="Privacy Policy" class="link-dark fw-bold" href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}">privacy policy</a>.</p>
 
 			<h4 class="mb-2 fw-bold">License to use website</h4>
 			<p class="lead mb-4">Unless otherwise stated, Datahover and/or its licensors own the intellectual property rights in the website and material on the website.  Subject to the license below, all these intellectual property rights are reserved.</p>
 			<p class="lead mb-4">Datahover hereby grants you a non-exclusive, non-transferable subscription to use the Service during the Term, solely for your internal use in accordance with the use parameters described in the order form utilized to order such subscription and subject to these Terms of Service.</p>
-			<p class="lead mb-4">By using Datahover to collect data from and optimize your social media channels, you’re also agreeing to be bound by their Terms of Service. YouTube’s Terms of Service can be found <a class="link-dark fw-bold" target="_blank" href="https://www.youtube.com/t/terms">here</a>.</p>
+			<p class="lead mb-4">By using Datahover to collect data from and optimize your social media channels, you’re also agreeing to be bound by their Terms of Service. YouTube’s Terms of Service can be found <a title="Terms of Service" class="link-dark fw-bold" target="_blank" href="https://www.youtube.com/t/terms">here</a>.</p>
 
 			<h4 class="mb-2 fw-bold">Setting up Your Account</h4>
-			<p class="lead mb-4">You must have a <a class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a> account to sign up or login to Datahover. When Datahover is paired with <a class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a>, it only receives email, username, profile picture, and <a class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a> ID.</p>
+			<p class="lead mb-4">You must have a <a title="GitHub" class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a> account to sign up or login to Datahover. When Datahover is paired with <a title="GitHub" class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a>, it only receives email, username, profile picture, and <a title="GitHub" class="link-dark fw-bold" target="_blank" href="https://github.com/">GitHub</a> ID.</p>
 			<p class="lead mb-4">You must provide accurate and complete information, including your legal full name, a working email address, and any other information requested during the account signup process to obtain an account and use the Service, and update this information if it changes.</p>
 			<p class="lead mb-4">You must be a human being to set up an account and use the Service. Accounts may not be created by “bots” or other automated methods.</p>
 			<p class="lead mb-4">You are responsible for keeping your account and password secure, and are also responsible for all activities using your account or password. Datahover is not liable for any loss or damage that results from your failure to comply with this obligation or unauthorized use of your account.</p>
@@ -43,7 +43,7 @@
 
 			<h4 class="mb-2 fw-bold">Cancellation and Termination</h4>
 			<p class="lead mb-4">You are solely responsible for properly closing your account.</p>
-			<p class="lead mb-4">You can close your account at any time by emailing us at <a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a>.</p>
+			<p class="lead mb-4">You can close your account at any time by emailing us at <a title="Contact" class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a>.</p>
 			<p class="lead mb-4">Payments are made for the upcoming billing cycle. Datahover does not provide pro-rated refunds for accounts that are cancelled during their subscription term.</p>
 
 			<h4 class="mb-2 fw-bold">Acceptable use</h4>
@@ -106,7 +106,7 @@
 
 			<h4 class="mb-2 fw-bold">Datahover’s details</h4>
 			<p class="lead mb-4">Datahover is a service offered by <span class="fw-bold">ETSETRA LTD</span>.</p>
-			<p class="lead mb-4">You can contact Datahover by email at <a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a>.</p>
+			<p class="lead mb-4">You can contact Datahover by email at <a title="Contact" class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a>.</p>
 		</div>
 	</div>
 

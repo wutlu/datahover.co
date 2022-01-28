@@ -83,7 +83,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>

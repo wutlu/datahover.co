@@ -13,23 +13,28 @@
     <link rel="stylesheet" href="{{ asset('css/app.min.css') }}" />
 
     <link rel="canonical" href="{{ url()->current() }}" />
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
+
+    <meta name="robots" content="all" />
+    <meta name="author" content="{{ config('etsetra.company_name') }}" />
+    <meta name="publisher" content="{{ config('app.name').' - '.config('app.version') }}" /> 
 
     @isset($description)
         <meta name="description" content="{{ $description }}" />
     @endisset
 
-    @isset($keywords)
-        <meta name="keywords" content="{{ $keywords }}" />
-    @endisset
-
+    {{-- Open Graphs --}}
     <meta property="og:type" content="website" />
     <meta property="og:title" content="{{ $title }}"/>
-
-    @isset($description)
-        <meta property="og:description" content="{{ $description }}" />
-    @endisset
-
+    @isset($description)<meta property="og:description" content="{{ $description }}" />@endisset
     <meta property="og:image" content="{{ asset('images/home-preview.jpg') }}" />
+
+    {{-- Twitter Cards --}}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ '@'.config('etsetra.twitter.screen_name') }}" />
+    <meta name="twitter:title" content="{{ $title }}" />
+    @isset($description)<meta name="twitter:description" content="{{ $description }}" />@endisset
+    <meta name="twitter:image" content="{{ asset('images/home-preview.jpg') }}" />
 
     @stack('head')
 
@@ -49,10 +54,10 @@
                         <li>
                             @if (is_array($route))
                                 <span class="btn-group">
-                                    <a href="#" class="dropdown-toggle small link-dark fw-bold text-white" data-bs-toggle="dropdown">{{ $name }}</a>
+                                    <a title="{{ $name }}" href="#" class="dropdown-toggle small link-dark fw-bold text-white" data-bs-toggle="dropdown">{{ $name }}</a>
                                     <ul class="dropdown-menu shadow dropdown-menu-end border-0">
                                         @foreach ($route as $n => $r)
-                                            <li><a href="{{ $r }}" class="dropdown-item">{{ $n }}</a></li>
+                                            <li><a title="{{ $n }}" href="{{ $r }}" class="dropdown-item">{{ $n }}</a></li>
                                         @endforeach
                                     </ul>
                                 </span>
@@ -60,7 +65,7 @@
                                 @if ($route == '#')
                                     <span class="small link-dark fw-bold text-white">{{ $name }}</span>
                                 @else
-                                    <a class="small link-secondary" href="{{ $route }}">{{ $name }}</a>
+                                    <a title="{{ $name }}" class="small link-secondary" href="{{ $route }}">{{ $name }}</a>
                                 @endif
                             @endif
                         </li>

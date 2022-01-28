@@ -25,7 +25,7 @@
 				<div class="d-flex align-items-center gap-2">
 					<img alt="Avatar" src="{{ auth()->user()->avatar }}" class="w-48px h-48px rounded-circle" />
 					<div class="d-flex flex-column justify-content-center">
-						<a href="{{ 'https://github.com/'.auth()->user()->name }}" class="link-dark d-block h6 mb-0" target="_blank">{{ auth()->user()->name }}</a>
+						<a title="GitHub" href="{{ 'https://github.com/'.auth()->user()->name }}" class="link-dark d-block h6 mb-0" target="_blank">{{ auth()->user()->name }}</a>
 						<small class="text-muted">Github {{ __('validation.attributes.username') }}</small>
 					</div>
 				</div>

@@ -173,7 +173,8 @@
                         class="btn btn-outline-success btn-sm shadow-sm rounded-0"
                         data-name="create"
                         data-bs-toggle="modal"
-                        data-bs-target="#createModal">
+                        data-bs-target="#createModal"
+                        title="Create">
                         <i class="material-icons icon-sm">add</i>
                     </a>
                     <a
@@ -184,7 +185,8 @@
                         data-action="{{ route('crawlers.twitter.tokens.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
-                        data-confirmation="Do you want to delete the selected records?">
+                        data-confirmation="Do you want to delete the selected records?"
+                        title="Delete">
                         <i class="material-icons icon-sm">delete</i>
                     </a>
                     <a
@@ -192,7 +194,8 @@
                         class="btn btn-outline-secondary btn-sm shadow-sm rounded-0"
                         data-name="status"
                         data-bs-toggle="modal"
-                        data-bs-target="#statusModal">
+                        data-bs-target="#statusModal"
+                        title="Settings">
                         <i class="material-icons icon-sm">settings</i>
                     </a>
                 </div>
@@ -254,7 +257,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>

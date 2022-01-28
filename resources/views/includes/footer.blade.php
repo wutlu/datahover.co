@@ -22,14 +22,14 @@
 					</p>
 				</div>
 				<div class="d-flex flex-column align-items-center align-items-lg-start">
-					<a href="{{ route('page', [ 'base' => 'page', 'name' => 'about-us' ]) }}" class="link-light">About Us</a>
-					<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="link-light">Privacy Policy</a>
-					<a href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="link-light">Terms of Service</a>
-					<a href="{{ route('faq.index') }}" class="link-light">F.A.Q.</a>
+					<a title="About Us" href="{{ route('page', [ 'base' => 'page', 'name' => 'about-us' ]) }}" class="link-light">About Us</a>
+					<a title="Privacy Policy" href="{{ route('page', [ 'base' => 'legal', 'name' => 'privacy-policy' ]) }}" class="link-light">Privacy Policy</a>
+					<a title="Terms of Service" href="{{ route('page', [ 'base' => 'legal', 'name' => 'terms-of-service' ]) }}" class="link-light">Terms of Service</a>
+					<a title="Frequently Asked Questions" href="{{ route('faq.index') }}" class="link-light">F.A.Q.</a>
 				</div>
 				<div class="d-flex flex-column text-center text-lg-end">
 					<small class="mb-2 text-muted mw-300px">{!! config('etsetra.address') !!}</small>
-					<a href="mailto:{{ config('etsetra.email') }}" class="text-muted">{{ config('etsetra.email') }}</a>
+					<a title="Contact" href="mailto:{{ config('etsetra.email') }}" class="text-muted">{{ config('etsetra.email') }}</a>
 				</div>
 			</div>
 		</div>

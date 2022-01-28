@@ -123,10 +123,10 @@
                     <div class="d-flex flex-column gap-2">
                         <small class="text-muted" data-col="created_at"></small>
                         <div class="d-flex align-items-center justify-content-end gap-3">
-                            <a data-name="pay" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
+                            <a title="Pay" data-name="pay" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
                                 <i class="material-icons icon-sm">credit_card</i> Pay
                             </a>
-                            <a data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
+                            <a title="Invoice" data-name="invoice" href="#" class="small link-dark d-none align-items-center gap-2" target="_blank">
                                 <i class="material-icons icon-sm">receipt</i> Invoice
                             </a>
                             <a
@@ -134,7 +134,8 @@
                                 href="#"
                                 class="small link-dark d-flex align-items-center gap-2"
                                 data-bs-toggle="modal"
-                                data-bs-target="#payload-modal">
+                                data-bs-target="#payload-modal"
+                                title="Payload">
                                 <i class="material-icons icon-sm">text_snippet</i> Payload
                             </a>
                         </div>
@@ -148,10 +149,11 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>
 
-    <p class="text-muted my-5 text-center mx-auto mw-400px">Bank check may take 10-20 minutes. If you have paid and waited longer, please contact us at email <a class="link-dark" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
+    <p class="text-muted my-5 text-center mx-auto mw-400px">Bank check may take 10-20 minutes. If you have paid and waited longer, please contact us at email <a title="Contact" class="link-dark" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
 @endsection

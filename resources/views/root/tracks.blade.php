@@ -125,7 +125,8 @@
                         data-action="{{ route('root.tracks.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
-                        data-confirmation="Do you want to delete the selected records?">
+                        data-confirmation="Do you want to delete the selected records?"
+                        title="Delete">
                         <i class="material-icons icon-sm">delete</i>
                     </a>
                 </div>
@@ -172,7 +173,8 @@
                             data-name="edit"
                             data-blockui="#masterCard"
                             data-callback="edit"
-                            data-action="{{ route('root.tracks.read') }}">
+                            data-action="{{ route('root.tracks.read') }}"
+                            title="Reason">
                             <span data-col="error_hit"></span> <span>error</span>
                         </a>
                     </div>
@@ -186,7 +188,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>

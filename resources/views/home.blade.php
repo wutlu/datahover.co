@@ -3,7 +3,6 @@
 	[
 		'title' => 'Datahover - Provides data from Social Media and News Sites',
 		'description' => 'Provides data from Social Media and News Sites. It offers large volume and very easy API services for Twitter, YouTube, Instagram and News Sites.',
-		'keywords' => 'api social media, social media apis, social media api, api for social media, social media monitoring api, social media search api, social media data api, list of social media apis, social network api, social media scraping api, datahover, datahover.co, data hover',
 	]
 )
 
@@ -60,27 +59,27 @@
 	<header class="page-split master shadow-lg position-relative">
 		<div class="container-fluid">
 			<nav class="master d-flex justify-content-between align-items-center mb-10">
-				<a href="#" class="logo">
+				<a title="Home" href="#" class="logo">
 					<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" class="logo" />
 				</a>
 				@include('includes.user_menu')
 			</nav>
 
-			<h1 class="display-6 text-white fw-bold mb-1 animate__animated animate__fadeInDown animate__faster">Provides data from <u class="fw-bold">Social Media</u> and <u class="fw-bold">News Sites</u></h1>
+			<h1 class="display-6 text-white fw-bold mb-1 animate__animated animate__fadeInDown animate__faster">The easiest social media and news data provider</h1>
 			<p class="lead text-white mb-10">High volume database, very easy api services</p>
 
 			<div class="mb-5">
 				@auth
-					<a href="{{ route('dashboard') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Dashboard</a>
+					<a title="Dashboard" href="{{ route('dashboard') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Dashboard</a>
 				@else
 					<div class="d-flex flex-wrap gap-2">
-						<a href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start free trial</a>
-						<a href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Examples</a>
+						<a title="Start free trial" href="{{ route('user.gate') }}" class="btn btn-light shadow-sm px-4 rounded-pill">Start free trial</a>
+						<a title="Examples" href="#example" class="btn btn-outline-info shadow-sm px-4 rounded-pill">Examples</a>
 					</div>
 				@endif
 			</div>
 		</div>
-		<a href="#what-is" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
+		<a title="What is" href="#what-is" class="d-flex align-items-center justify-content-center w-32px h-64px link-light position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</header>
@@ -101,7 +100,7 @@
 			</div>
 			<small class="d-block text-muted">We are working on more platforms.<br />You will receive free upgrades for all new resources.</small>
 		</div>
-		<a href="#how-does-it-work" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
+		<a title="How does it work" href="#how-does-it-work" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
@@ -164,16 +163,16 @@
 				</div>
 			</div>
 		</div>
-		<a href="#example" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
+		<a title="Examples" href="#examples" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
 		</a>
 	</section>
 
-	<section class="page-split position-relative" id="example">
+	<section class="page-split position-relative" id="examples">
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-0">Examples</h2>
-			<h4 class="text-muted fw-bold mb-5">Keyword: "Biden"</h4>
-			<h5 class="text-muted fw-bold mb-1">API</h5>
+			<p class="lead text-muted fw-bold mb-5">Keyword: "Biden"</p>
+			<p class="lead text-muted fw-bold mb-1">API</p>
 
 	        <small class="text-muted">Response (only 100 data for testing)</small>
 			<pre
@@ -182,7 +181,7 @@
                 data-callback="__results"
                 data-name="json"
                 class="mb-0 bg-grey rounded border border-1 mb-5 p-2 shadow-sm h-400px overflow-auto load"></pre>
-			<h5 class="text-muted fw-bold mb-1">Feeds</h5>
+			<p class="lead text-muted fw-bold mb-1">Feeds</p>
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
 					<span class="d-flex align-items-center gap-3 me-auto text-muted">
@@ -350,9 +349,9 @@
 									@endif
 								</ul>
 								@if ($plan->price > 0)
-									<a href="{{ route('user.gate') }}" class="btn btn-link shadow-none">Choose Plan</a>
+									<a title="Choose Plan" href="{{ route('user.gate') }}" class="btn btn-link shadow-none">Choose Plan</a>
 								@else
-									<a href="mailto:{{ config('etsetra.email') }}" class="btn btn-link shadow-none">Contact Us</a>
+									<a title="Contact Us" href="mailto:{{ config('etsetra.email') }}" class="btn btn-link shadow-none">Contact Us</a>
 								@endif
 							</div>
 						</div>
@@ -365,10 +364,10 @@
 	<section class="page-split position-relative" id="need-more-information">
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-1">Need more information?</h2>
-			<p class="lead mb-10 mw-768px">If you would like to get more details or have additional questions, there's probably an answer already on our <a class="link-dark fw-bold text-decoration-underline" href="{{ route('faq.index') }}">Frequently Asked Questions</a> page.</p>
+			<p class="lead mb-10 mw-768px">If you would like to get more details or have additional questions, there's probably an answer already on our <a title="Frequently Asked Questions" class="link-dark fw-bold text-decoration-underline" href="{{ route('faq.index') }}">Frequently Asked Questions</a> page.</p>
 
 			<p class="lead mb-2">If you don't want to waste time</p>
-			<a href="{{ route(auth()->check() ? 'dashboard' : 'user.gate') }}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">Try it</a>
+			<a title="Try it" href="{{ route(auth()->check() ? 'dashboard' : 'user.gate') }}" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">Try it</a>
 		</div>
 	</section>
 

@@ -47,11 +47,11 @@
 						<li>We may also use this information to infer other data, such as the sentiment of the post.</li>
 					</ol>
 				</li>
-				<li>To collect & provide customers with data about their YouTube channels, Datahover uses <a class="link-dark fw-bold" target="_blank" href="https://developers.google.com/youtube/terms/developer-policies#definition-youtube-api-services">YouTube’s API Services</a>. Google’s Privacy Policy can be found <a class="link-dark fw-bold" target="_blank" href="http://www.google.com/policies/privacy/">here</a>.</li>
+				<li>To collect & provide customers with data about their YouTube channels, Datahover uses <a rel="dofollow" title="YouTube Api Services" class="link-dark fw-bold" target="_blank" href="https://developers.google.com/youtube/terms/developer-policies#definition-youtube-api-services">YouTube’s API Services</a>. Google’s Privacy Policy can be found <a rel="dofollow" title="Google Privacy" class="link-dark fw-bold" target="_blank" href="http://www.google.com/policies/privacy/">here</a>.</li>
 			</ul>
 
 			<h4 class="mb-2 fw-bold">Rights of Users and Social Media Authors</h4>
-			<p class="lead mb-4">At any time, you may contact <a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> and request that we:</p>
+			<p class="lead mb-4">At any time, you may contact <a title="Contact" class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> and request that we:</p>
 			<ul class="mb-4">
 				<li>Rectify personal data Datahover has collected</li>
 				<li>Provide you with a copy of your personal data</li>
@@ -64,7 +64,7 @@
 
 			<h4 class="mb-2 fw-bold">Web browser cookies</h4>
 			<p class="lead mb-4">Our Site may use “cookies” to enhance User experience. Users’ web browsers place cookies on their hard drive for record-keeping purposes and sometimes to track information about them. The User may choose to set their web browser to refuse cookies, or to alert you when cookies are being sent. If they do so, note that some parts of the Site may not function properly.</p>
-			<p class="lead mb-4">It is your right to contact <a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> and request that we delete any cookies that link back to you and your online activity.</p>
+			<p class="lead mb-4">It is your right to contact <a title="Contact" class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a> and request that we delete any cookies that link back to you and your online activity.</p>
 
 			<h4 class="mb-2 fw-bold">How we use collected information</h4>
 			<h6 class="mb-2 fw-bold">Users</h6>
@@ -111,7 +111,7 @@
 			<h4 class="mb-2 fw-bold">Contacting us</h4>
 			<p class="lead mb-2">If you have any questions about this Privacy Policy, the practices of this site, or your dealings with this site, please contact us at: <span class="fw-bold">ETSETRA LTD</span>.</p>
 			<p class="lead mb-2">{!! config('etsetra.address') !!}</p>
-			<p class="lead mb-4"><a class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
+			<p class="lead mb-4"><a title="Contact" class="link-dark fw-bold" href="mailto:{{ config('etsetra.email') }}">{{ config('etsetra.email') }}</a></p>
 			<small class="text-muted">This document was last updated on November 27th, 2021</small>
 		</div>
 	</div>

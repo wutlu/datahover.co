@@ -35,23 +35,23 @@ $subscription = auth()->user()->subscription();
 			@endif
 
 			<div class="d-flex flex-column gap-1 drawer-subscription">
-				<a href="{{ route('subscription.index') }}" class="btn btn-sm btn-outline-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
-				<a href="{{ route('payments') }}" class="mx-auto small text-muted payments" style="display: none;">Payments</a>
+				<a title="Manage Subscription" href="{{ route('subscription.index') }}" class="btn btn-sm btn-outline-primary d-block rounded-0 shadow-sm">Manage Subscription</a>
+				<a title="Payments" href="{{ route('payments') }}" class="mx-auto small text-muted payments" style="display: none;">Payments</a>
 			</div>
 		</div>
 		<div class="card-body">
 			<small class="card-title text-muted text-uppercase mb-0">Menu</small>
 		</div>
 		<div class="list-group list-group-flush rounded-0">
-			<a href="{{ route('track.dashboard') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+			<a title="Track API's" href="{{ route('track.dashboard') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">scatter_plot</i>
 				Track API's
 			</a>
-			<a href="{{ route('search') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+			<a title="Search API" href="{{ route('search') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">search</i>
 				Search API
 			</a>
-			<a href="{{ route('feed.index') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+			<a title="Feeds" href="{{ route('feed.index') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 				<i class="material-icons">rss_feed</i>
 				Feeds <mall class="badge bg-danger rounded-pill shadow-sm">New</mall>
 			</a>
@@ -61,27 +61,27 @@ $subscription = auth()->user()->subscription();
 				<small class="card-title text-muted text-uppercase mb-0">ROOT Menu</small>
 			</div>
 			<div class="list-group list-group-flush rounded-0">
-				<a href="{{ route('root.users') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="User Management" href="{{ route('root.users') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">people</i>
 					User Management
 				</a>
-				<a href="{{ route('root.plans') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="Plan Management" href="{{ route('root.plans') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">language</i>
 					Plan Management
 				</a>
-				<a href="{{ route('root.tracks') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="Track Management" href="{{ route('root.tracks') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">scatter_plot</i>
 					Track Management
 				</a>
-				<a href="{{ route('root.proxies') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="Proxy Management" href="{{ route('root.proxies') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">filter_4</i>
 					Proxy Management
 				</a>
-				<a href="{{ route('root.faq') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="FAQ Management" href="{{ route('root.faq') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">quiz</i>
 					FAQ Management
 				</a>
-				<a href="{{ route('root.elasticsearch') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+				<a title="Elasticsearch Monitor" href="{{ route('root.elasticsearch') }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 					<i class="material-icons">storage</i>
 					Elasticsearch Monitor
 				</a>
@@ -89,7 +89,7 @@ $subscription = auth()->user()->subscription();
 					<small class="card-title text-muted text-uppercase mb-0">Bot Menu</small>
 				</div>
 				@foreach (config('sources') as $key => $source)
-					<a href="{{ route(implode('.', [ 'crawlers', $key ])) }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
+					<a title="Settings" href="{{ route(implode('.', [ 'crawlers', $key ])) }}" class="list-group-item small list-group-item-action d-flex align-items-center gap-2 link-dark">
 						<i class="material-icons">android</i>
 						{{ $source['name'] }} Settings
 					</a>
@@ -98,7 +98,7 @@ $subscription = auth()->user()->subscription();
 		@endif
 		<div class="card-body">
 			<small class="text-muted">© {{ date('Y') }} {{ config('app.name') }}<br />All rights reserved.</small><br />
-			<a href="{{ route('faq.index') }}" class="link-dark">F.A.Q.</a>
+			<a title="Frequently Asked Questions" href="{{ route('faq.index') }}" class="link-dark">F.A.Q.</a>
 		</div>
 	</div>
 </aside>

@@ -109,7 +109,7 @@
         </div>
 
         <div class="d-flex align-items-center justify-content-end gap-3">
-            <a href="{{ route('feed.index') }}" class="d-flex align-items-center gap-2 link-warning">
+            <a title="Go Feeds" href="{{ route('feed.index') }}" class="d-flex align-items-center gap-2 link-warning">
                 <i class="material-icons">rss_feed</i>
                 Go Feeds
             </a>
@@ -147,7 +147,7 @@
             </div>
             <div class="d-flex justify-content-between py-1 mb-2">
                 <small class="text-muted">Results of last 24 hours</small>
-                <a href="#" class="small" data-bs-toggle="modal" data-bs-target="#save-modal">
+                <a title="Save as Feed" href="#" class="small" data-bs-toggle="modal" data-bs-target="#save-modal">
                     <span data-bs-toggle="tooltip" data-bs-placement="left" title="You can convert your search to Feed here">Save as Feed</span>
                 </a>
             </div>
@@ -171,7 +171,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
         <div class="accordion" id="apiAccordion">

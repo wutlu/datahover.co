@@ -3,7 +3,7 @@
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-header border-0 pb-0">
 				<h5 class="modal-title">What is track?</h5>
-				<a href="#" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></a>
+				<a title="Close" href="#" class="btn-close rounded-circle" data-bs-dismiss="modal" aria-label="Close"></a>
 			</div>
 			<div class="modal-body">
 				<div class="accordion" id="trackInfoAccordion">

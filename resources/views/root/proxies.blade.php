@@ -91,7 +91,7 @@
                                 <input type="text" class="form-control rounded-0 shadow-sm" name="api_key" value="{{ $options['proxy.api_key'] }}" />
                                 <label for="api_key">Api Key</label>
                             </div>
-                            <span class="form-text text-muted">Get an Api Key from <a target="_blank" href="https://proxy6.net">Proxy6.net</a> site.</span>
+                            <span class="form-text text-muted">Get an Api Key from <a title="Proxy6.net" target="_blank" href="https://proxy6.net">Proxy6.net</a> site.</span>
                         </div>
                         <div class="row mb-2">
                             <div class="col-12 col-sm-6">
@@ -118,7 +118,7 @@
                                             value="{{ $options['proxy.min_balance_for_alert'] }}"
                                             min="0" />
                                     </div>
-                                    <span class="form-text text-muted">Min <a href="https://proxy6.net">Proxy6.net</a> balance for alert. (Current balance ${{ $options['proxy.current_balance'] }})</span>
+                                    <span class="form-text text-muted">Min <a title="Proxy6.net" href="https://proxy6.net">Proxy6.net</a> balance for alert. (Current balance ${{ $options['proxy.current_balance'] }})</span>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
@@ -185,7 +185,8 @@
                         href="#"
                         class="btn btn-outline-secondary btn-sm shadow-sm rounded-0"
                         data-bs-toggle="modal"
-                        data-bs-target="#settingsModal">
+                        data-bs-target="#settingsModal"
+                        title="Settings">
                         <i class="material-icons icon-sm">settings</i>
                     </a>
                 </div>
@@ -228,7 +229,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
     </div>

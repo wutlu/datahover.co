@@ -217,7 +217,8 @@
                         class="btn btn-outline-success btn-sm shadow-sm rounded-0 d-none"
                         data-name="create"
                         data-bs-toggle="modal"
-                        data-bs-target="#createModal">
+                        data-bs-target="#createModal"
+                        title="Create">
                         <i class="material-icons icon-sm">add</i>
                     </a>
                     <a
@@ -228,7 +229,8 @@
                         data-action="{{ route('api.track.delete') }}"
                         data-blockui="#masterCard"
                         data-callback="__delete"
-                        data-confirmation="Do you want to delete the selected records?">
+                        data-confirmation="Do you want to delete the selected records?"
+                        title="Delete">
                         <i class="material-icons icon-sm">delete</i>
                     </a>
                 </div>
@@ -306,7 +308,8 @@
             class="d-none py-1"
             data-blockui="#masterCard"
             data-action="true"
-            data-action-target="#items">
+            data-action-target="#items"
+            title="More">
             <i class="material-icons d-table mx-auto text-muted">more_horiz</i>
         </a>
         @component('includes.api')
