@@ -14,7 +14,7 @@
 		<div class="py-5">
 			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between gap-4">
 				<div class="d-flex flex-column text-center text-lg-start">
-					<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" width="164" height="auto" class="mx-auto mx-lg-0 mb-2" />
+					<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" width="164" class="h-auto mx-auto mx-lg-0 mb-2" />
 					<small class="mb-4 text-muted mw-300px">{{ config('etsetra.info') }}</small>
 					<p class="mb-0 text-muted d-flex flex-column">
 						<span class="fw-bold">© {{ date('Y') }} {{ config('app.name') }}</span>

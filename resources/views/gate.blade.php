@@ -67,7 +67,7 @@
 		</div>
 		<div class="w-100 mw-300px d-flex align-items-start justify-content-between">
 			<small class="text-muted mb-0">© {{ date('Y') }}</small>
-			<img alt="{{ config('app.name') }}" src="{{ asset('images/logo-grey.svg') }}" width="96" height="auto" />
+			<img alt="{{ config('app.name') }}" src="{{ asset('images/logo-grey.svg') }}" width="96" class="h-auto" />
 		</div>
 	</div>
 @endsection

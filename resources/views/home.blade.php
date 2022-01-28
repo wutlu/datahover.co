@@ -185,7 +185,7 @@
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
 					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="Twitter" src="{{ asset('images/icons/twitter.png') }}" class="w-32px h-32px" />
+						<img alt="Twitter" src="{{ asset('images/icons/twitter.png') }}" class="w-24px h-24px" />
 						Twitter
 					</span>
 					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json" class="d-flex flex-column align-items-center text-center link-dark">
@@ -199,7 +199,7 @@
 				</li>
 				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
 					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="YouTube" src="{{ asset('images/icons/youtube.png') }}" class="w-32px h-32px" />
+						<img alt="YouTube" src="{{ asset('images/icons/youtube.png') }}" class="w-24px h-24px" />
 						YouTube
 					</span>
 					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json" class="d-flex flex-column align-items-center text-center link-dark">
@@ -213,7 +213,7 @@
 				</li>
 				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
 					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="Instagram" src="{{ asset('images/icons/instagram.png') }}" class="w-32px h-32px" />
+						<img alt="Instagram" src="{{ asset('images/icons/instagram.png') }}" class="w-24px h-24px" />
 						Instagram
 					</span>
 					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json" class="d-flex flex-column align-items-center text-center link-dark">
@@ -227,7 +227,7 @@
 				</li>
 				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-5 px-0">
 					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="News" src="{{ asset('images/icons/news.png') }}" class="w-32px h-32px" />
+						<img alt="News" src="{{ asset('images/icons/news.png') }}" class="w-24px h-24px" />
 						News
 					</span>
 					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json" class="d-flex flex-column align-items-center text-center link-dark">
