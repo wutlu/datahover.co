@@ -1,4 +1,4 @@
-<div id="{{ "$name-modal" }}" class="modal" aria-hidden="true" aria-labelledby="{{ "$name-modal" }}" tabindex="-1">
+<div id="{{ "$name-modal" }}" class="modal" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-header border-0 mb-0">

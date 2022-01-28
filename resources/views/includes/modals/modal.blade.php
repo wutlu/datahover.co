@@ -2,7 +2,6 @@
 	id="{{ "$name-modal" }}"
 	class="modal"
 	aria-hidden="true"
-	aria-labelledby="{{ "$name-modal" }}"
 	tabindex="-1"
 	data-bs-backdrop="{{ @$backdrop ?? 'true' }}"
 	data-bs-keyboard="{{ @$keyboard ?? 'true' }}">

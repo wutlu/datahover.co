@@ -32,7 +32,7 @@
 	<div class="container">
 		<div class="d-flex align-items-center mb-5">
 			<a title="Home" href="{{ route('index') }}" class="logo">
-				<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" width="100%" height="auto" />
+				<img alt="Logo" src="{{ asset('images/logo-white.svg') }}" width="100%" class="h-auto" />
 			</a>
 			@include('includes.user_menu')
 		</div>

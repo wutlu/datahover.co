@@ -1,4 +1,4 @@
-<div id="cookieModal" class="modal fade" aria-hidden="true" aria-labelledby="cookieModalLabel" tabindex="-1">
+<div id="cookieModal" class="modal fade" aria-hidden="true" tabindex="-1">
 	<div class="modal-dialog modal-sm modal-dialog-centered align-items-end">
 		<div class="modal-content shadow border-0 rounded-0">
 			<div class="modal-body">

@@ -2,7 +2,6 @@
 	id="errorModal"
 	class="modal fade"
 	aria-hidden="true"
-	aria-labelledby="errorModalLabel"
 	tabindex="-1">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content shadow border-0 rounded-0">

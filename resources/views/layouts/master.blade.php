@@ -136,7 +136,7 @@
     @endif
 
     @if ($project_key = config('services.smartlook.project_key'))
-        <script type='text/javascript'>
+        <script>
             window.smartlook||(function(d) {
                 var o = smartlook = function() {
                     o.api.push(arguments)},
