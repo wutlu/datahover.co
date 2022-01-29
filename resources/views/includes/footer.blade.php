@@ -42,7 +42,7 @@
 							@foreach (config('etsetra.social') as $key => $social)
 								@if ($social['profile_url'])
 									<a class="social-icon rounded shadow-sm p-1" target="_blank" title="{{ $social['name'] }}" rel="dofollow" href="{{ $social['profile_url'] }}">
-										<img alt="{{ $social['name'] }}" src="{{ asset('images/icons/'.$social['name'].'.png') }}" class="w-24px h-24px" alt="{{ $social['name'] }}" />
+										<img alt="{{ $social['name'] }}" src="{{ asset('images/icons/'.$key.'.png') }}" class="w-24px h-24px" />
 									</a>
 								@endif
 							@endforeach
