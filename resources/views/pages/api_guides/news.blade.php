@@ -25,7 +25,7 @@
 			</div>
 		</div>
 
-		<div class="row mx-auto my-5 py-5">
+		<div class="row mx-auto mb-5 pb-5">
 			<div class="col-12 col-md-4">
 				<small class="text-dark text-uppercase fw-bold">Where can I use the News API?</small>
 			</div>
@@ -37,7 +37,7 @@
 
 		<div class="row mx-auto my-5 py-5">
 			<div class="col-12 col-md-8 offset-md-2">
-				<small class="text-dark text-uppercase fw-bold text-center d-block mb-5">How can I track a keyword?</small>
+				<small class="text-dark text-uppercase fw-bold text-center d-block mb-4">How can I track a keyword?</small>
 				<ul class="nav nav-tabs flex-nowrap" role="tablist">
 					<li class="nav-item" role="presentation">
 						<a href="#" class="small nav-link active" data-bs-toggle="tab" data-bs-target="#tracks" role="tab">Tracks</a>
@@ -69,7 +69,7 @@
 
 				<div class="my-5 py-5 d-flex flex-column flex-lg-row gap-5 p-5 align-items-center justify-content-between bg-grey rounded shadow-sm">
 					<span class="d-flex flex-column">
-						<small class="text-dark text-uppercase fw-bold">Live News Feed Examples</small>
+						<small class="text-dark text-uppercase fw-bold d-block mb-4">Live News Feed Examples</small>
 						<small class="text-muted">Unlike the standard API, with an update interval of 15 minutes.</small>
 					</span>
 					<div class="d-flex align-items-center justify-content-center gap-4">
@@ -88,7 +88,7 @@
 
 		<div class="row mx-auto my-5 py-5">
 			<div class="col-12 col-md-4">
-				<small class="text-dark text-uppercase fw-bold">Why {{ config('app.name') }} News API?</small>
+				<small class="text-dark text-uppercase fw-bold d-block mb-4">Why {{ config('app.name') }} News API?</small>
 			</div>
 			<div class="col-12 col-md-8">
 				<ol class="list-group list-group-numbered shadow-sm">

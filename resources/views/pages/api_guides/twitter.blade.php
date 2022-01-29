@@ -25,9 +25,9 @@
 			</div>
 		</div>
 
-		<div class="row mx-auto my-5 py-5">
+		<div class="row mx-auto mb-5 pb-5">
 			<div class="col-12 col-md-4">
-				<small class="text-dark text-uppercase fw-bold">Where can I use the Twitter API?</small>
+				<small class="text-dark text-uppercase fw-bold d-block mb-4">Where can I use the Twitter API?</small>
 			</div>
 			<div class="col-12 col-md-8">
 				<p class="lead mb-3">Audience detection for brands, reputation tracking for companies and institutions, social media listening, etc. It is very useful for various environments.</p>
@@ -37,7 +37,7 @@
 
 		<div class="row mx-auto my-5 py-5">
 			<div class="col-12 col-md-8 offset-md-2">
-				<small class="text-dark text-uppercase fw-bold text-center d-block mb-5">How can I track a keyword?</small>
+				<small class="text-dark text-uppercase fw-bold text-center d-block mb-4">How can I track a keyword?</small>
 				<ul class="nav nav-tabs flex-nowrap" role="tablist">
 					<li class="nav-item" role="presentation">
 						<a href="#" class="small nav-link active" data-bs-toggle="tab" data-bs-target="#tracks" role="tab">Tracks</a>
@@ -88,7 +88,7 @@
 
 		<div class="row mx-auto my-5 py-5">
 			<div class="col-12 col-md-4">
-				<small class="text-dark text-uppercase fw-bold">Why {{ config('app.name') }} Twitter API?</small>
+				<small class="text-dark text-uppercase fw-bold d-block mb-4">Why {{ config('app.name') }} Twitter API?</small>
 			</div>
 			<div class="col-12 col-md-8">
 				<ol class="list-group list-group-numbered shadow-sm">
