@@ -92,6 +92,16 @@ class HomeController extends Controller
 
                 return abort(404);
             break;
+            case 'api-guide':
+                if (@config('sources')[$name])
+                    return view("pages.api_guides.$name", [
+                        'rate_minutes' => (new TrackController)->rate_minutes,
+                        'rate_limit' => (new TrackController)->rate_limit,
+                        'apis' => array_merge((new TrackController)->apis, (new SearchController)->apis),
+                    ]);
+                else
+                    return abort(404);
+            break;
         }
     }
 }

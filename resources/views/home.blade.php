@@ -172,74 +172,47 @@
 		<div class="container-fluid">
 			<h2 class="display-5 text-dark fw-bold mb-0">Examples</h2>
 			<p class="lead text-muted fw-bold mb-5">Keyword: "Biden"</p>
-			<p class="lead text-muted fw-bold mb-1">API</p>
 
-	        <small class="text-muted">Response (only 100 data for testing)</small>
-			<pre
-                data-reset="true"
-                data-action="{{ route('index.search') }}"
-                data-callback="__results"
-                data-name="json"
-                class="mb-0 bg-grey rounded border border-1 mb-5 p-2 shadow-sm h-400px overflow-auto load"></pre>
-			<p class="lead text-muted fw-bold mb-1">Feeds</p>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-4 px-0">
-					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="Twitter" src="{{ asset('images/icons/twitter.png') }}" class="w-24px h-24px" />
-						Twitter
-					</span>
-					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>JSON Example</small>
-					</a>
-					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>XML Example</small>
-					</a>
+			<ul class="nav nav-tabs flex-nowrap" role="tablist">
+				<li class="nav-item" role="presentation">
+					<a href="#" class="nav-link py-2 px-3 active" data-bs-toggle="tab" data-bs-target="#searchApi" role="tab">Search API</a>
 				</li>
-				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-4 px-0">
-					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="YouTube" src="{{ asset('images/icons/youtube.png') }}" class="w-24px h-24px" />
-						YouTube
-					</span>
-					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>JSON Example</small>
-					</a>
-					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>XML Example</small>
-					</a>
-				</li>
-				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-4 px-0">
-					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="Instagram" src="{{ asset('images/icons/instagram.png') }}" class="w-24px h-24px" />
-						Instagram
-					</span>
-					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>JSON Example</small>
-					</a>
-					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>XML Example</small>
-					</a>
-				</li>
-				<li class="list-group-item bg-transparent d-flex align-items-center justify-content-end gap-4 px-0">
-					<span class="d-flex align-items-center gap-3 me-auto text-muted">
-						<img alt="News" src="{{ asset('images/icons/news.png') }}" class="w-24px h-24px" />
-						News
-					</span>
-					<a title="JSON Example" target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>JSON Example</small>
-					</a>
-					<a title="XML Example" target="_blank" href="https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml" class="d-flex flex-column align-items-center text-center link-dark">
-						<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
-						<small>XML Example</small>
-					</a>
+				<li class="nav-item" role="presentation">
+					<a href="#" class="nav-link py-2 px-3" data-bs-toggle="tab" data-bs-target="#feeds" role="tab">Feeds</a>
 				</li>
 			</ul>
+			<div class="tab-content border border-top-0 rounded-0 rounded-bottom shadow-sm">
+				<div class="tab-pane bg-white show active" id="searchApi" role="tabpanel">
+					<pre
+		                data-reset="true"
+		                data-action="{{ route('index.search') }}"
+		                data-callback="__results"
+		                data-name="json"
+		                class="mb-0 rounded mb-0 p-2 h-400px overflow-auto load json-hl"></pre>
+				</div>
+				<div class="tab-pane bg-white" id="feeds" role="tabpanel">
+		            <ul class="list-group list-group-flush"> 
+						@foreach (config('services.datahover.feeds') as $key => $item)
+							<li class="list-group-item bg-transparent d-flex flex-column flex-lg-row gap-2 py-3 align-items-center justify-content-between">
+								<a title="{{ $key }}" href="{{ route('page', [ 'base' => 'api-guide', 'name' => $key ]) }}" class="link-dark d-flex flex-column">
+									<span class="fw-bold">{{ Str::title($key) }}</span>
+									<small class="text-muted">View guide</small>
+								</a>
+								<div class="d-flex align-items-center justify-content-center gap-4">
+									<a title="JSON Example" target="_blank" href="{{ $item['json'] }}" class="d-flex flex-column align-items-center text-center link-dark">
+										<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+										<small>JSON Example</small>
+									</a>
+									<a title="XML Example" target="_blank" href="{{ $item['xml'] }}" class="d-flex flex-column align-items-center text-center link-dark">
+										<img alt="Folder" src="{{ asset('images/folder.svg') }}" class="w-32px h-32px" />
+										<small>XML Example</small>
+									</a>
+								</div>
+							</li>
+						@endforeach
+					</ul>
+				</div>
+			</div>
 		</div>
 		<a title="Down" href="#apis" class="d-flex align-items-center justify-content-center w-32px h-64px link-dark position-absolute bottom-0">
 			<i class="material-icons animate__animated animate__bounce animate__slow animate__infinite">arrow_downward</i>
@@ -379,15 +352,7 @@
 	function __results(__, obj)
 	{
 		$('[data-name=total]').html(obj.stats.total)
-		$('[data-name=json]').html(JSON.stringify(obj, null, 2))
-	}
-
-	function __items(__, o)
-	{
-		__.find('[data-name=text]').html(app.nl2br(o.text))
-		__.find('[data-name=link]').attr('href', '//' + o.link)
-		__.find('[data-bs-toggle=collapse]').attr('href', '#collapse-' + o.id)
-		__.find('.collapse').attr('id', 'collapse-' + o.id)
+		$('[data-name=json]').html(app.jsonHL(JSON.stringify(obj, null, 2)))
 	}
 
 	$(document).on('change', 'input[name=domain]', function() {

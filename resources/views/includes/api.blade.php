@@ -23,11 +23,11 @@
                     <li class="list-group-item fw-bold border-0 text-uppercase">Headers</li>
                     <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
                         <small class="text-muted">X-Api-Key</small>
-                        <label>{{ auth()->user()->api_key }}</label>
+                        <label>{{ auth()->user()->api_key ?? 'user_key' }}</label>
                     </li>
                     <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
                         <small class="text-muted">X-Api-Secret</small>
-                        <label>{{ auth()->user()->api_secret }}</label>
+                        <label>{{ auth()->user()->api_secret ?? 'user_key' }}</label>
                     </li>
                     <li class="list-group-item ps-4 d-flex flex-column border-0 py-1">
                         <small class="text-muted">Accept</small>

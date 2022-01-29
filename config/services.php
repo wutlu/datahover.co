@@ -78,7 +78,36 @@ return [
     'datahover' => [
         'api_key' => env('DATAHOVER_API_KEY'),
         'api_secret' => env('DATAHOVER_API_SECRET'),
-        'base_uri' => env('DATAHOVER_BASE_URI', 'https://datahover.co/api/v1')
+        'base_uri' => env('DATAHOVER_BASE_URI', 'https://datahover.co/api/v1'),
+
+        'feeds' => [
+            'twitter' => [
+                'json' => 'https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.json',
+                'xml' => 'https://datahover.co/storage/feeds/Vw4030655818220127104209SF/file.xml',
+            ],
+            'youtube' => [
+                'json' => 'https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json',
+                'xml' => 'https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml',
+            ],
+            'instagram' => [
+                'json' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json',
+                'xml' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml',
+            ],
+            'news' => [
+                'json' => 'https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json',
+                'xml' => 'https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml',
+            ]
+        ],
+    ],
+
+    'vimeo' => [
+        'tutorials' => [
+            'instagram_hashtag_tracking' => 'https://player.vimeo.com/video/671343835?h=16f764d237&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+            'twitter_keyword_tracking' => 'https://player.vimeo.com/video/671343798?h=ff0205a42d&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+            'youtube_keyword_tracking' => 'https://player.vimeo.com/video/671343862?h=b0d3633366&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+            'news_domain_tracking' => 'https://player.vimeo.com/video/671343852?h=ff753ae1c4&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+            'search_api' => 'https://player.vimeo.com/video/671343809?h=22280187c6&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479',
+        ]
     ],
 
     'smartlook' => [

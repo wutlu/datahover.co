@@ -31,7 +31,7 @@
 
     {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="{{ '@'.config('etsetra.twitter.screen_name') }}" />
+    <meta name="twitter:site" content="{{ '@'.config('etsetra.social.twitter.screen_name') }}" />
     <meta name="twitter:title" content="{{ $title }}" />
     @isset($description)<meta name="twitter:description" content="{{ $description }}" />@endisset
     <meta name="twitter:image" content="{{ asset('images/home-preview.jpg') }}" />

@@ -18,6 +18,7 @@ class SearchController extends Controller
     public $search_rules;
     public $rate_minutes = 1;
     public $rate_limit = 960;
+    public $apis;
 
     public function __construct()
     {
@@ -27,6 +28,14 @@ class SearchController extends Controller
             'search' => 'required|string|max:1000',
             'skip' => 'nullable|integer|max:1000000',
             'take' => 'nullable|integer|max:1000'
+        ];
+        $this->apis = [
+            'searchApi' => [
+                'name' => 'Search APi',
+                'method' => 'POST',
+                'route' => route('api.search'),
+                'params' => $this->search_rules,
+            ]
         ];
     }
 
@@ -70,21 +79,10 @@ class SearchController extends Controller
      */
     public function view()
     {
-        $sc = new SearchController;
-
-        $apis = [
-            'searchApi' => [
-                'name' => 'Search APi',
-                'method' => 'POST',
-                'route' => route('api.search'),
-                'params' => $sc->search_rules,
-            ],
-        ];
-
         return view('search', [
-            'rate_minutes' => $sc->rate_minutes,
-            'rate_limit' => $sc->rate_limit,
-            'apis' => $apis,
+            'rate_minutes' => $this->rate_minutes,
+            'rate_limit' => $this->rate_limit,
+            'apis' => $this->apis,
         ]);
     }
 

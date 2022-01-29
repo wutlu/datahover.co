@@ -17,6 +17,7 @@ class TrackController extends Controller
     public $delete_rules;
     public $rate_minutes = 10;
     public $rate_limit = 100;
+    public $apis;
 
     public function __construct()
     {
@@ -40,11 +41,7 @@ class TrackController extends Controller
             'id' => 'required|array',
             'id.*' => 'required_with:id|integer',
         ];
-    }
-
-    public function dashboard()
-    {
-        $apis = [
+        $this->apis = [
             'trackList' => [
                 'name' => 'Track List APi',
                 'method' => 'POST',
@@ -64,11 +61,14 @@ class TrackController extends Controller
                 'params' => $this->delete_rules,
             ],
         ];
+    }
 
+    public function dashboard()
+    {
         return view('tracks', [
             'rate_minutes' => $this->rate_minutes,
             'rate_limit' => $this->rate_limit,
-            'apis' => $apis,
+            'apis' => $this->apis,
         ]);
     }
 

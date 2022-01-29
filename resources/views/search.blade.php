@@ -18,7 +18,7 @@
 
 	function __items(__, o)
 	{
-		__.html(JSON.stringify(o, null, 2))
+		__.html(app.jsonHL(JSON.stringify(o, null, 2)))
 	}
 
     const driver = new app.Driver();
@@ -163,7 +163,7 @@
             data-headers='{"X-Api-Key": "{{ auth()->user()->api_key }}", "X-Api-Secret": "{{ auth()->user()->api_secret }}"}'
             data-more="#itemsMore"
             data-each="#items">
-            <pre class="list-group-item list-group-item-action border-0 each-model mb-0"></pre>
+            <pre class="list-group-item json-hl border-0 each-model mb-0"></pre>
         </div>
         <a
             href="#"
