@@ -126,7 +126,6 @@
                                     <select class="form-select rounded-0 shadow-sm" name="proxy_country">
                                         <option value="ru" {{ $options['proxy.proxy_country'] == 'ru' ? 'selected' : '' }}>Russia</option>
                                         <option value="us" {{ $options['proxy.proxy_country'] == 'us' ? 'selected' : '' }}>United States</option>
-                                        <option value="uk" {{ $options['proxy.proxy_country'] == 'uk' ? 'selected' : '' }}>United Kingdom</option>
                                         <option value="ca" {{ $options['proxy.proxy_country'] == 'ca' ? 'selected' : '' }}>Canada</option>
                                         <option value="de" {{ $options['proxy.proxy_country'] == 'de' ? 'selected' : '' }}>Germany</option>
                                     </select>
