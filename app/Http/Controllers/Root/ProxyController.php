@@ -46,7 +46,7 @@ class ProxyController extends Controller
             'api_key' => 'required|string|max:255',
             'max_buy_piece' => 'required|integer|between:0,40',
             'min_balance_for_alert' => 'required|integer|between:10,100',
-            'proxy_country' => 'required|string|in:ru,us,ca,de',
+            'proxy_country' => 'required|string|in:ru,us,ca,de,uk',
             'proxy_version' => 'required|integer|in:4,3,6',
             'buy_period' => 'required|integer|in:3,7,14,30,60',
         ];
