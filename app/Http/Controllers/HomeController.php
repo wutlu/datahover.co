@@ -54,7 +54,7 @@ class HomeController extends Controller
             ]
         )
         ->post(config('services.datahover.base_uri').'/search', [
-            'search' => 'status:ok',
+            'search' => 'biden',
             'take' => 100
         ]);
 
