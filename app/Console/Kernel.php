@@ -125,7 +125,7 @@ class Kernel extends ConsoleKernel
 
 
         # Instagram Trigger
-        $schedule->command('instagram:taker')
+        $schedule->command('instagram:taker2')
                  ->everyFiveMinutes()
                  ->withoutOverlapping()
                  ->runInBackground()

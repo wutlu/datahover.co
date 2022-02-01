@@ -126,10 +126,7 @@
   "lang": "ru",
   "device": "Mobile",
   "user": {
-    "id": 8517522081,
-    "name": "galka_fstarget",
-    "title": "ГАЛИНА | ТАРГЕТ | ПРОДВИЖЕНИЕ",
-    "image": "https://scontent-bos3-1.cdninstagram.com/v/t51.2885-19/s150x150/272049207_393150355896697_6138911651165700916_n.jpg?_nc_ht=scontent-bos3-1.cdninstagram.com&_nc_cat=101&_nc_ohc=Vt5mAnlF3XYAX-rZLX1&edm=ABZsPhsBAAAA&ccb=7-4&oh=00_AT86blr_jtq1Fl40DBEV4evaubBJR4NBJ7VNxNNWiAkXww&oe=61FB4A3E&_nc_sid=4efc9f"
+    "id": 8517522081
   },
   "created_at": "2022-01-26T20:49:55+00:00",
   "called_at": "2022-01-26T21:59:05+00:00"
