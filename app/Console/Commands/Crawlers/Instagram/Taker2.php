@@ -207,6 +207,8 @@ class Taker2 extends Command
 				{
 					$track->error_hit = $track->error_hit + 1;
 					$track->error_reason = 'Could not retrieve data from this hashtag. #2';
+
+					$this->error($track->error_reason);
 				}
 			}
 			else
@@ -219,6 +221,7 @@ class Taker2 extends Command
 				}
 
 				$message = 'We got a '.$http->code().' error code from a request on the Instagram side. (hashtag: '.$track->value.')';
+
 				$this->error($message);
 			}
 
