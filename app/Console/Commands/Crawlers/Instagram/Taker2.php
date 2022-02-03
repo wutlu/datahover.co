@@ -101,7 +101,7 @@ class Taker2 extends Command
 			$track->request_at = (new DT)->nowAt();
 			$track->request_hit = $track->request_hit + 1;
 
-			$proxysl = "$p->username:$p->password@$p->ip:$p->port";
+			$proxysl = "$proxy->username:$proxy->password@$proxy->ip:$proxy->port";
 			$options['proxy'] = $proxysl;
 
 			$this->info("Use proxy: $proxysl");
