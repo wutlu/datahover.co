@@ -5,7 +5,7 @@ return [
 	'address' => '27 Old Gloucester Street<br />London<br />United Kingdom<br />WC1N 3AX',
 	'email' => 'support@datahover.co',
 	'phone' => '+44 0 (772) 385 58 15',
-	'company_name' => 'Etsetra LTD.',
+	'company_name' => 'Etsetra Ltd.',
 	'company_number' => '13767242',
 
 	'social' => [
@@ -24,11 +24,11 @@ return [
 			'screen_name' => 'helloetsetra',
 			'profile_url' => 'https://www.facebook.com/helloetsetra'
 		],
-		'instagram' => [
-			'name' => 'Instagram',
-			'screen_name' => 'helloetsetra',
-			'profile_url' => 'https://www.instagram.com/helloetsetra/'
-		],
+		// 'instagram' => [
+		// 	'name' => 'Instagram',
+		// 	'screen_name' => 'helloetsetra',
+		// 	'profile_url' => 'https://www.instagram.com/helloetsetra/'
+		// ],
 		'github' => [
 			'name' => 'GitHub',
 			'screen_name' => 'etsetra',
