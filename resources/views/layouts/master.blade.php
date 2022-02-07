@@ -16,7 +16,9 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
     <meta name="robots" content="all" />
+@section('hide')
     <meta name="author" content="{{ config('etsetra.company_name') }}" />
+@endsection
     <meta name="publisher" content="{{ config('app.name').' - '.config('app.version') }}" /> 
 
     @isset($description)
@@ -29,12 +31,14 @@
     @isset($description)<meta property="og:description" content="{{ $description }}" />@endisset
     <meta property="og:image" content="{{ asset('images/home-preview.jpg') }}" />
 
+@section('hide')
     {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="{{ '@'.config('etsetra.social.twitter.screen_name') }}" />
     <meta name="twitter:title" content="{{ $title }}" />
     @isset($description)<meta name="twitter:description" content="{{ $description }}" />@endisset
     <meta name="twitter:image" content="{{ asset('images/home-preview.jpg') }}" />
+@endsection
 
     @stack('head')
 
