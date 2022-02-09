@@ -89,10 +89,10 @@ return [
                 'json' => 'https://datahover.co/storage/feeds/om40306558gB220126110450of/file.json',
                 'xml' => 'https://datahover.co/storage/feeds/om40306558gB220126110450of/file.xml',
             ],
-            'instagram' => [
-                'json' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json',
-                'xml' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml',
-            ],
+            // 'instagram' => [
+            //     'json' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.json',
+            //     'xml' => 'https://datahover.co/storage/feeds/Bw40306558HD220126110428yw/file.xml',
+            // ],
             'news' => [
                 'json' => 'https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.json',
                 'xml' => 'https://datahover.co/storage/feeds/tz40306558hU220126110416Mg/file.xml',
